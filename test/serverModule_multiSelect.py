@@ -15,14 +15,6 @@ SERVER_PORT = 6000
 # GLOBAL VALUE
 _client_list = []
 
-def workThread():
-    while True:
-        readable , writable , exceptional = select.select(_client_list, [], [], 2)
-        for s in readable:
-            data = s.recv(1024)
-            print(data)
-    return
-
 
 def mainServer():
     
@@ -36,12 +28,10 @@ def mainServer():
             logging.warning('new client %s', addr)
     except Exception as e:
         logging.warning(e)
+        
+    
     return
 
 if __name__=='__main__':
     print(__file__, 'test')
-    
-    new_t = threading.Thread(target=workThread)
-    new_t.start()
-    
     mainServer()
