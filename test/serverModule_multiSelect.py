@@ -6,7 +6,7 @@
 
 import socket
 import threading
-import select
+#import select
 import logging
 
 #CONSTANT VALUE
@@ -15,6 +15,21 @@ SERVER_PORT = 6000
 # GLOBAL VALUE
 _client_list = []
 
+def handleConnect(sock):
+    data = None
+    try:
+        data = sock.recv(1024)
+        if data == b'':
+            logging.warning('client closed')
+            _client_list.remove(sock)
+            sock.close()
+            return
+        rdata = data + b'server return!'
+        sock.send(rdata)
+    except Exception as e:
+        logging.error(e)
+        _client_list.remove(sock)
+        sock.close()
 
 def mainServer():
     
@@ -26,8 +41,11 @@ def mainServer():
             conn, addr = serverSock.accept()
             _client_list.append(conn)
             logging.warning('new client %s', addr)
+            t = threading.Thread(target=handleConnect, args=(conn, ))
+            t.start()
+            logging.warning('client num %d', len(_client_list))
     except Exception as e:
-        logging.warning(e)
+        logging.error(e)
         
     
     return
