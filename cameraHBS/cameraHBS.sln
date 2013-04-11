@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cameraHBS", "cameraHBS\cameraHBS.vcxproj", "{36165DDF-1AC7-45E7-8C10-108FF5E5CB67}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "iocp_test", "..\..\..\iocp_test\iocp_test\iocp_test.vcxproj", "{44242557-6ADB-4837-8F0B-A72727729798}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "iocp_client", "..\..\..\iocp_test\iocp_client\iocp_client.vcxproj", "{144E9357-DDBE-4E9E-BBC8-3635E712200F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "my_iocp_server", "..\..\..\iocp_test\my_iocp_server\my_iocp_server.vcxproj", "{0A383323-B817-412F-8C1E-3BBBAC83EBAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -13,6 +19,18 @@ Global
 		{36165DDF-1AC7-45E7-8C10-108FF5E5CB67}.Debug|Win32.Build.0 = Debug|Win32
 		{36165DDF-1AC7-45E7-8C10-108FF5E5CB67}.Release|Win32.ActiveCfg = Release|Win32
 		{36165DDF-1AC7-45E7-8C10-108FF5E5CB67}.Release|Win32.Build.0 = Release|Win32
+		{44242557-6ADB-4837-8F0B-A72727729798}.Debug|Win32.ActiveCfg = Debug|Win32
+		{44242557-6ADB-4837-8F0B-A72727729798}.Debug|Win32.Build.0 = Debug|Win32
+		{44242557-6ADB-4837-8F0B-A72727729798}.Release|Win32.ActiveCfg = Release|Win32
+		{44242557-6ADB-4837-8F0B-A72727729798}.Release|Win32.Build.0 = Release|Win32
+		{144E9357-DDBE-4E9E-BBC8-3635E712200F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{144E9357-DDBE-4E9E-BBC8-3635E712200F}.Debug|Win32.Build.0 = Debug|Win32
+		{144E9357-DDBE-4E9E-BBC8-3635E712200F}.Release|Win32.ActiveCfg = Release|Win32
+		{144E9357-DDBE-4E9E-BBC8-3635E712200F}.Release|Win32.Build.0 = Release|Win32
+		{0A383323-B817-412F-8C1E-3BBBAC83EBAE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0A383323-B817-412F-8C1E-3BBBAC83EBAE}.Debug|Win32.Build.0 = Debug|Win32
+		{0A383323-B817-412F-8C1E-3BBBAC83EBAE}.Release|Win32.ActiveCfg = Release|Win32
+		{0A383323-B817-412F-8C1E-3BBBAC83EBAE}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

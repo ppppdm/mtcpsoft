@@ -36,5 +36,6 @@ nosetests.xml
 
 
 # vc++ workplace middle files and floder
-*/ipch/*
+ipch
 *.sdf
+Debug
