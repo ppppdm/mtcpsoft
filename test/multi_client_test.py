@@ -39,9 +39,11 @@ def cameraClient():
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect(('localhost', DEFAULT_PORT))
         for i in range(m_threadLoopCount):
-            #msg = 'this is camera client '+str(threading.currentThread().ident)+' count '+str(i)+'\n'
-            sock.send(bytearray(SUPER_LONG_MSG, 'utf8'))
-            #sock.send(bytearray(msg,'utf8')
+            msg = 'this is camera client '+str(threading.currentThread().ident)+' count '+str(i)+'\n'
+            #sock.send(bytearray(SUPER_LONG_MSG, 'utf8'))
+            sock.send(bytearray(msg,'utf8'))
+            data=sock.recv(2048)
+            print(data)
             time.sleep(m_sleepTime)
         
         sock.close()

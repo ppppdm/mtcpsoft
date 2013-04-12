@@ -11,18 +11,16 @@ import socket
 logging.basicConfig(level=logging.DEBUG, format="%(created)-15s %(msecs)d %(levelname)8s %(thread)d %(name)s %(message)s")
 log                     = logging.getLogger(__name__)
 
-
-class cameraClient():
+def cameraClient(address):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect(address)
     
-    address_family              = socket.AF_INET
-    socket_type                 = socket.SOCK_STREAM
+    sock.send(b'12345')
+    data = sock.recv(1024)
     
-    
-    def __init__(self, address, timesleep = 5, loopCount = 100):
-        self.address = address
-        client_socket= socket.socket(self.address_family, self.socket_type)
-        client_socket.connect(address)
-        
+    print(len(data))
+    sock.close()
+    pass
 
 if __name__=='__main__':
     print(__file__, 'test')

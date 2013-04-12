@@ -6,5 +6,7 @@
 
 int main(int argc, char *argv)
 {
+	startNetWork();
+
 	return 0;
 }
