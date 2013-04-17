@@ -5,6 +5,7 @@
 import socket
 import time
 import sys
+import getopt
 
 # Global Variables
 SERVER_ADDR = 'localhost'
@@ -54,14 +55,29 @@ def client():
         sock.close()
     return
 
+def usage():
+    print()
+
 if __name__=='__main__':
     print(__file__, 'test')
     
     # test client
     print(sys.argv)
-    TOTAL_COUNT = int(sys.argv[1])
-    SLEEP_TIME  = int(sys.argv[2])
-    SERVER_ADDR = sys.argv[3]
+    
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], 'c:t:a:')
+    except getopt.GetoptError as err:
+        # print usage
+        print(err)
+        usage()
+        exit(-1)
+    for o, a in opts:
+        if o == '-c':
+            TOTAL_COUNT = int(a)
+        elif o == '-t':
+            SLEEP_TIME = int(a)
+        elif o == '-a':
+            SERVER_ADDR = a
     
     client()
     
