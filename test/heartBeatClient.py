@@ -8,7 +8,7 @@ import sys
 import getopt
 
 # Global Variables
-SERVER_ADDR = 'localhost'
+SERVER_ADDR = socket.gethostbyname(socket.gethostname())
 SERVER_PORT = 44444
 
 TOTAL_COUNT = 1

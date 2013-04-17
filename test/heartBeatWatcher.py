@@ -8,6 +8,7 @@ import threading
 #import traceback
 
 # Global Variables
+HOST = socket.gethostbyname(socket.gethostname())
 SERVER_PORT = 44444
 REMOTE_CONTROL_PORT = 6320
 
@@ -88,7 +89,7 @@ def handleConnect(sock):
 def mainServer():
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.bind(('localhost', SERVER_PORT))
+        sock.bind((HOST, SERVER_PORT))
         sock.listen(5)
         print('main server ready to accept...')
         while True:
