@@ -4,9 +4,10 @@
 
 import socket
 import time
+import sys
 
 # Global Variables
-SERVER_ADDR = ''
+SERVER_ADDR = 'localhost'
 SERVER_PORT = 44444
 
 TOTAL_COUNT = 1
@@ -24,10 +25,10 @@ HEART_BEAT_PACKAGE_ITEM_LEN =[2 , 12, 1, 8, 6,
                          4, 2, 2
                          ] 
 
-HEART_BEAT_PACKAGE_ITEM_CONTENT = [b'\x55\xee', b'E2C34D5E992F', b'A', b'20120414', b'102113'
-                                   b'5678.12345', b'12345.67891', b'25.233', b'EN', b'1', 
+HEART_BEAT_PACKAGE_ITEM_CONTENT = [b'\xaa\x55', b'E2C34D5E992F', b'A', b'20120414', b'102113'
+                                   b'5678.12345', b'12345.67891', b'25.23', b'EN', b'1', 
                                    b'192.168.001.010', b'192.168.001.100', b'05', b'4', b'4', 
-                                   b'0050', b'12', b'\x55\xee'
+                                   b'0050', b'12', b'\xaa\x55'
                                    ]
 
 def encode_data():
@@ -40,11 +41,11 @@ def client():
     i = 0
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.connect(('SERVER_ADDR', SERVER_PORT))
+        sock.connect((SERVER_ADDR, SERVER_PORT))
         while i < TOTAL_COUNT:
             b_data = encode_data()
             sock.send(b_data)
-            print(sock.recv())
+            print(sock.recv(16))
             time.sleep(SLEEP_TIME)
             i+=1
         sock.close()
@@ -57,5 +58,10 @@ if __name__=='__main__':
     print(__file__, 'test')
     
     # test client
+    print(sys.argv)
+    TOTAL_COUNT = int(sys.argv[1])
+    SLEEP_TIME  = int(sys.argv[2])
+    SERVER_ADDR = sys.argv[3]
+    
     client()
     

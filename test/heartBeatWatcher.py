@@ -5,6 +5,7 @@
 import logging
 import socket
 import threading
+#import traceback
 
 # Global Variables
 SERVER_PORT = 44444
@@ -50,9 +51,12 @@ def get_next_item(b_data, i, t):
 def process_data(b_data):
     s = ''
     t = 0
-    for i in HEART_BEAT_PACKAGE_ITEM_LEN:
+    
+    # skip head and end
+    t += 2
+    for i in HEART_BEAT_PACKAGE_ITEM_LEN[1:-1]:
         item = get_next_item(b_data, i, t)
-        s += str(item, 'utf8')
+        s += str(item, 'gbk')+'\t'
         t += i
     log.debug(s)
     print(s)
@@ -62,6 +66,11 @@ def handleConnect(sock):
     try:
         while True:
             b_data = sock.recv(1024)
+            if b_data == b'':
+                print('reomte closed!')
+                sock.close()
+                break
+            
             print(len(b_data), b_data)
             log.debug(b_data)
             ##process data
@@ -100,7 +109,6 @@ def remoteControlServer():
         while True:
             conn, addr = sock.accept()
             print('connected by ', addr)
-            conn.settimeout(1)
             remote_control_client_list.append(conn)
     except Exception as e:
         print(e)
