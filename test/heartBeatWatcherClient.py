@@ -4,7 +4,7 @@
 import logging
 import socket
 import sys
-import os
+import getopt
 
 SERVER_ADDR = ''
 REMOTE_CONTROL_PORT = 6320
@@ -60,9 +60,18 @@ def client():
 if __name__=='__main__':
     print(__file__, 'test run')
     print(sys.argv)
-    if len(sys.argv) > 1:
-        SERVER_ADDR = sys.argv[1]
+    
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], 'a:')
+    except getopt.GetoptError as err:
+        # print usage
+        print(err)
+        exit(-1)
+    
+    for o, a in opts:
+        if o == '-a':
+            SERVER_ADDR = a
+    
     client()
-    os.system('pause')
 
 

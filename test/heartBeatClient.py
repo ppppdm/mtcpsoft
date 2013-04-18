@@ -29,7 +29,7 @@ HEART_BEAT_PACKAGE_ITEM_LEN =[2 , 12, 1, 8, 6,
 HEART_BEAT_PACKAGE_ITEM_CONTENT = [b'\xaa\x55', b'E2C34D5E992F', b'A', b'20120414', b'102113'
                                    b'5678.12345', b'12345.67891', b'25.23', b'EN', b'1', 
                                    b'192.168.001.010', b'192.168.001.100', b'05', b'4', b'4', 
-                                   b'0050', b'12', b'\xaa\x55'
+                                   b'0050', b'12', b'\xee\x55'
                                    ]
 
 def encode_data():
@@ -46,7 +46,7 @@ def client():
         while i < TOTAL_COUNT:
             b_data = encode_data()
             sock.send(b_data)
-            print(sock.recv(16))
+            print(sock.recv(156))
             time.sleep(SLEEP_TIME)
             i+=1
         sock.close()

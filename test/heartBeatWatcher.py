@@ -25,8 +25,8 @@ SIMPLE_RETURN_FRAME = b'\xaa\x55\x00'
 
 HEART_BEAT_PACKAGE_ITEM = ['HEAD', 'MAC', 'GPS STATUS', 'GPS DATE', 'GPS TIME', 
                            'X', 'Y', 'GPS SPEED', 'GPS DIRCT', 'WORK MODE', 
-                           'SERVER IP', 'IP', 'interval time', 'upload pics','follow pics', 
-                           'car dist', 'yasuoyinzi', 'END' 
+                           'SERVER IP', 'DEVICE IP', 'HB INTERVAL', 'UPLOAD NUM','TRACK NUM', 
+                           'CAR DEFAULT RANGE', 'COMPRESSION FACTOR', 'END' 
                            ]
 
 HEART_BEAT_PACKAGE_ITEM_LEN =[2 , 12, 1, 8, 6, 
@@ -34,6 +34,20 @@ HEART_BEAT_PACKAGE_ITEM_LEN =[2 , 12, 1, 8, 6,
                          15, 15, 2, 1, 1, 
                          4, 2, 2
                          ] 
+                         
+RETURN_PACKAGE_ITEM = ['HEAD', 'CMD', 'WORK MODE', 'SERVER IP', 'DEVICE IP', 
+                       'HB INTERVAL', 'UPLOAD NUM', 'TRACK NUM', 'CAR DEFAULT RANGE', 'COMPRESSION FACTOR', 
+                       'IS IN LANES', 'IS IN VALID PERIOD', 'END'
+                       ]
+
+RETURN_PACKAGE_ITEM_LEN = [2, 1, 1, 15, 15, 
+                           2, 1, 1, 4, 2, 
+                           1, 1, 2
+                           ]   
+
+DEFALUT_PACKAGE_CONTENT = {'HEAD':b'\xaa\x55', 'CMD':b'0', 'WORK MODE':b'0', 'SERVER IP':b'000.000.000.000', 'DEVICE IP':b'000.000.000.000',
+                           'HB INTERVAL':b'05', 'UPLOAD NUM':b'4', 'TRACK NUM':b'4', 'CAR DEFAULT RANGE':b'0815', 'COMPRESSION FACTOR':b'70', 
+                           'IS IN LANES':b'0', 'IS IN VALID PERIOD':b'0', 'END':b'\xee\x55'}
 
 remote_control_client_list = []
 
@@ -63,6 +77,34 @@ def process_data(b_data):
     print(s)
     return
 
+def is_in_lanes(location):
+    return True
+
+def is_valid_period():
+    return True
+
+def encode_return_data(b_data):
+    r_data = bytearray()
+    modify_items = {}
+    
+    # judge wether in the lanes
+    location = (b_data[29:39], b_data[39:50])
+    if is_in_lanes(location):
+        modify_items['IS IN LANES']=b'1'
+    
+    # judeg wether in valid period
+    if is_valid_period():
+        modify_items['IS IN VALID PERIOD']=b'1'
+    
+    for i in RETURN_PACKAGE_ITEM:
+        if i not in modify_items:
+            r_data += DEFALUT_PACKAGE_CONTENT[i]
+        else:
+            r_data += modify_items[i]
+    
+    print(r_data)
+    return r_data
+
 def handleConnect(sock):
     try:
         while True:
@@ -74,12 +116,15 @@ def handleConnect(sock):
             
             print(len(b_data), b_data)
             log.debug(b_data)
-            ##process data
+            #¡¡process data
             process_data(b_data)
-            ##send to remote control client
+            
+            #¡¡send to remote control client
             send_to_remote(b_data)
             
-            sock.send(SIMPLE_RETURN_FRAME)
+            #¡¡encode return data
+            r_data = encode_return_data(b_data)
+            sock.send(r_data)
     except Exception as e:
         log.debug(e)
         print(e)
