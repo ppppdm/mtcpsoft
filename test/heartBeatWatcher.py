@@ -5,12 +5,17 @@
 import logging
 import socket
 import threading
-#import traceback
+import datetime
+import traceback
 
 # Global Variables
-HOST = socket.gethostbyname(socket.gethostname())
+INADDR_ANY = '0.0.0.0'
+HOST = INADDR_ANY
 SERVER_PORT = 44444
 REMOTE_CONTROL_PORT = 6320
+
+TIME_UPPER_LIMIT = 18
+TIME_LOWER_LIMIT = 6
 
 LOG_FILE   = 'log.txt'
 LOG_LEVEL  = logging.DEBUG
@@ -51,13 +56,23 @@ DEFALUT_PACKAGE_CONTENT = {'HEAD':b'\xaa\x55', 'CMD':b'0', 'WORK MODE':b'0', 'SE
 
 remote_control_client_list = []
 
+import pyodbc
+
+HOST = '10.20.1.200' # '210.73.152.201'
+USER = 'sa'
+PWD = 'sa'
+DATABASE = 'CDMTCP'
+
+conn = pyodbc.connect('DRIVER={SQL Server}', host = HOST, user = USER, password = PWD, database = DATABASE)
+
 def send_to_remote(b_data):
     for conn in remote_control_client_list:
         try:
             conn.send(b_data)
-        except socket.timeout as e:
-            print(e)
-            log.debug(e)
+        except:
+            print(traceback.format_exc())
+            log.debug(traceback.format_exc())
+            remote_control_client_list.remove(conn)
             conn.close()
 
 def get_next_item(b_data, i, t):
@@ -71,17 +86,28 @@ def process_data(b_data):
     t += 2
     for i in HEART_BEAT_PACKAGE_ITEM_LEN[1:-1]:
         item = get_next_item(b_data, i, t)
-        s += str(item, 'gbk')+'\t'
-        t += i
+        try:
+            s += str(item, 'gbk')+'\t'
+        except:
+            print(traceback.format_exc())
+            log.debug(traceback.format_exc())
+        t += i    
     log.debug(s)
     print(s)
-    return
+    return s
 
 def is_in_lanes(location):
     return True
 
 def is_valid_period():
-    return True
+    # valid period is 6:00 to 18:00
+    tn = datetime.datetime.now().time()
+    tu = datetime.time(TIME_UPPER_LIMIT)
+    tl = datetime.time(TIME_LOWER_LIMIT)
+    
+    if tn <= tu and tn >= tl:
+       return True 
+    return False
 
 def encode_return_data(b_data):
     r_data = bytearray()
@@ -105,6 +131,24 @@ def encode_return_data(b_data):
     print(r_data)
     return r_data
 
+def store_to_db(s):
+    arr = s.split('\t')
+    
+    
+    if conn:
+        cur = conn.cursor()
+    
+        camera_id = arr[0]
+        x = arr[4]
+        y = arr[5]
+        gpstime = datetime.datetime.now()
+        road = ''
+        mph = 25
+        cur.execute("INSERT INTO tbl_heartbeatinfo( ID, camera_id, gpx, gpy, gpstime, roadname, mph) VALUES (newid(), ?, ?, ?, ?, ?, ?)", 
+                (camera_id, x, y, gpstime, road, mph))
+        conn.commit()
+    return
+
 def handleConnect(sock):
     try:
         while True:
@@ -117,7 +161,10 @@ def handleConnect(sock):
             print(len(b_data), b_data)
             log.debug(b_data)
             #¡¡process data
-            process_data(b_data)
+            s  = process_data(b_data)
+            
+            # store data
+            store_to_db(s)
             
             #¡¡send to remote control client
             send_to_remote(b_data)
@@ -125,9 +172,9 @@ def handleConnect(sock):
             #¡¡encode return data
             r_data = encode_return_data(b_data)
             sock.send(r_data)
-    except Exception as e:
-        log.debug(e)
-        print(e)
+    except:
+        print(traceback.format_exc())
+        log.debug(traceback.format_exc())
         sock.close()
     return
 
@@ -142,23 +189,23 @@ def mainServer():
             print('connected by ', addr)
             t = threading.Thread(target=handleConnect, args=(conn, ))
             t.start()
-    except Exception as e:
-        print(e)
-        log.debug(e)
+    except:
+        print(traceback.format_exc())
+        log.debug(traceback.format_exc())
 
 def remoteControlServer():
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.bind(('localhost', REMOTE_CONTROL_PORT))
+        sock.bind((HOST, REMOTE_CONTROL_PORT))
         sock.listen(5)
         print('remote control ready to accept...')
         while True:
             conn, addr = sock.accept()
             print('connected by ', addr)
             remote_control_client_list.append(conn)
-    except Exception as e:
-        print(e)
-        log.debug(e)
+    except:
+        print(traceback.format_exc())
+        log.debug(traceback.format_exc())
 
 if __name__=='__main__':
     import os

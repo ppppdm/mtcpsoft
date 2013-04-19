@@ -16,8 +16,8 @@ SLEEP_TIME = 5
 
 HEART_BEAT_PACKAGE_ITEM = ['HEAD', 'MAC', 'GPS STATUS', 'GPS DATE', 'GPS TIME', 
                            'X', 'Y', 'GPS SPEED', 'GPS DIRCT', 'WORK MODE', 
-                           'SERVER IP', 'IP', 'interval time', 'upload pics','follow pics', 
-                           'car dist', 'yasuoyinzi', 'END' 
+                           'SERVER IP', 'DEVICE IP', 'HB INTERVAL', 'UPLOAD NUM','TRACK NUM', 
+                           'CAR DEFAULT RANGE', 'COMPRESSION FACTOR', 'END' 
                            ]
 
 HEART_BEAT_PACKAGE_ITEM_LEN =[2 , 12, 1, 8, 6, 
