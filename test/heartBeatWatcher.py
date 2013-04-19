@@ -142,7 +142,10 @@ def store_to_db(s):
         y = arr[5]
         gpstime = datetime.datetime.strptime(arr[2]+arr[3], '%Y%m%d%H%M%S')
         road = ''
-        mph = float(arr[6])
+        try:
+            mph = float(arr[6])
+        except:
+            mph = 0
         createtime = datetime.datetime.now()
         cur.execute("INSERT INTO tbl_heartbeatinfo( ID, camera_id, gpx, gpy, gpstime, roadname, mph, createtime) VALUES (newid(), ?, ?, ?, ?, ?, ?, ?)", 
                 (camera_id, x, y, gpstime, road, mph, createtime))
