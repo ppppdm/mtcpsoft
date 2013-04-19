@@ -9,8 +9,7 @@ import datetime
 import traceback
 
 # Global Variables
-INADDR_ANY = '0.0.0.0'
-HOST = INADDR_ANY
+HOST = socket.gethostbyname(socket.gethostname()) #socket.INADDR_ANY
 SERVER_PORT = 44444
 REMOTE_CONTROL_PORT = 6320
 
@@ -58,12 +57,12 @@ remote_control_client_list = []
 
 import pyodbc
 
-HOST = '10.20.1.200' # '210.73.152.201'
+DB_HOST = '10.20.1.200' # '210.73.152.201'
 USER = 'sa'
 PWD = 'sa'
 DATABASE = 'CDMTCP'
 
-conn = pyodbc.connect('DRIVER={SQL Server}', host = HOST, user = USER, password = PWD, database = DATABASE)
+conn = pyodbc.connect('DRIVER={SQL Server}', host = DB_HOST, user = USER, password = PWD, database = DATABASE)
 
 def send_to_remote(b_data):
     for conn in remote_control_client_list:
@@ -141,11 +140,12 @@ def store_to_db(s):
         camera_id = arr[0]
         x = arr[4]
         y = arr[5]
-        gpstime = datetime.datetime.now()
+        gpstime = datetime.datetime.strptime(arr[2]+arr[3], '%Y%m%d%H%M%S')
         road = ''
-        mph = 25
-        cur.execute("INSERT INTO tbl_heartbeatinfo( ID, camera_id, gpx, gpy, gpstime, roadname, mph) VALUES (newid(), ?, ?, ?, ?, ?, ?)", 
-                (camera_id, x, y, gpstime, road, mph))
+        mph = float(arr[6])
+        createtime = datetime.datetime.now()
+        cur.execute("INSERT INTO tbl_heartbeatinfo( ID, camera_id, gpx, gpy, gpstime, roadname, mph, createtime) VALUES (newid(), ?, ?, ?, ?, ?, ?, ?)", 
+                (camera_id, x, y, gpstime, road, mph, createtime))
         conn.commit()
     return
 
@@ -181,6 +181,7 @@ def handleConnect(sock):
 def mainServer():
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        print(HOST)
         sock.bind((HOST, SERVER_PORT))
         sock.listen(5)
         print('main server ready to accept...')
@@ -196,6 +197,7 @@ def mainServer():
 def remoteControlServer():
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        print(HOST)
         sock.bind((HOST, REMOTE_CONTROL_PORT))
         sock.listen(5)
         print('remote control ready to accept...')
@@ -214,5 +216,5 @@ if __name__=='__main__':
     t.start()
     
     mainServer()
-    os.system('pasue')
+    os.system('pause')
     
