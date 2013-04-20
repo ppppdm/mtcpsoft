@@ -56,6 +56,12 @@ def client():
     return
 
 def usage():
+    print(' usage: python heartBeatClient.py [options]\n'
+          ' options:\n'
+          '     -c Count    count of gps information sending to server, default is 1\n'
+          '     -t Time     second of sleep time between two sending, default is 5\n'
+          '     -a Address  server address, default is local IP\n'
+          '     -h, --help  print this help\n')
     print()
 
 if __name__=='__main__':
@@ -65,7 +71,7 @@ if __name__=='__main__':
     print(sys.argv)
     
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'c:t:a:')
+        opts, args = getopt.getopt(sys.argv[1:], 'c:t:a:h', ['help'])
     except getopt.GetoptError as err:
         # print usage
         print(err)
@@ -75,9 +81,12 @@ if __name__=='__main__':
         if o == '-c':
             TOTAL_COUNT = int(a)
         elif o == '-t':
-            SLEEP_TIME = int(a)
+            SLEEP_TIME = float(a)
         elif o == '-a':
             SERVER_ADDR = a
+        elif o == '-h' or o == '--help':
+            usage()
+            exit()
     
     client()
     

@@ -18,7 +18,7 @@ TIME_LOWER_LIMIT = 6
 
 LOG_FILE   = 'log.txt'
 LOG_LEVEL  = logging.DEBUG
-LOG_FORMAT = "%(asctime)s %(levelname)8s %(thread)d %(name)s %(message)s"
+LOG_FORMAT = "%(asctime)s %(levelname)8s %(thread)d %(message)s"
 logging.basicConfig(filename = LOG_FILE, 
                     level    = LOG_LEVEL, 
                     format   = LOG_FORMAT)
@@ -63,6 +63,7 @@ try:
     DATABASE = 'CDMTCP'
 
     conn = pyodbc.connect('DRIVER={SQL Server}', host = DB_HOST, user = USER, password = PWD, database = DATABASE)
+    print(conn)
 except:
     log.debug(traceback.foormat_exc())
     conn = None
@@ -150,12 +151,19 @@ def store_to_db(s):
         except:
             mph = 0
         createtime = datetime.datetime.now()
-        cur.execute("INSERT INTO tbl_heartbeatinfo( ID, camera_id, gpx, gpy, gpstime, roadname, mph, createtime) VALUES (newid(), ?, ?, ?, ?, ?, ?, ?)", 
+        try:
+            cur.execute("INSERT INTO tbl_heartbeatinfo( ID, camera_id, gpx, gpy, gpstime, roadname, mph, createtime) VALUES (newid(), ?, ?, ?, ?, ?, ?, ?)", 
                 (camera_id, x, y, gpstime, road, mph, createtime))
-        conn.commit()
+            conn.commit()
+        except Exception as e:
+            log.debug('db excute error!\n')
+            log.debug(e)
+            print('db excute error!\n')
+            print(e)
+            
     return
 
-def handleConnect(sock):
+def handleConnect(sock, addr):
     try:
         while True:
             b_data = sock.recv(1024)
@@ -165,7 +173,7 @@ def handleConnect(sock):
                 break
             
             print(len(b_data), b_data)
-            log.debug(b_data)
+            log.debug('%s %s %s',addr[0], addr[1], str(b_data))
             #¡¡process data
             s  = process_data(b_data)
             
@@ -194,7 +202,7 @@ def mainServer():
         while True:
             conn, addr = sock.accept()
             print('connected by ', addr)
-            t = threading.Thread(target=handleConnect, args=(conn, ))
+            t = threading.Thread(target=handleConnect, args=(conn, addr))
             t.start()
     except:
         print(traceback.format_exc())
