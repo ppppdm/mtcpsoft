@@ -18,7 +18,7 @@ TIME_LOWER_LIMIT = 6
 
 LOG_FILE   = 'log.txt'
 LOG_LEVEL  = logging.DEBUG
-LOG_FORMAT = "%(asctime)s %(levelname)8s %(thread)d %(message)s"
+LOG_FORMAT = "%(asctime)s %(levelname)s %(thread)d %(message)s"
 logging.basicConfig(filename = LOG_FILE, 
                     level    = LOG_LEVEL, 
                     format   = LOG_FORMAT)
@@ -155,9 +155,10 @@ def store_to_db(s):
             cur.execute("INSERT INTO tbl_heartbeatinfo( ID, camera_id, gpx, gpy, gpstime, roadname, mph, createtime) VALUES (newid(), ?, ?, ?, ?, ?, ?, ?)", 
                 (camera_id, x, y, gpstime, road, mph, createtime))
             conn.commit()
+            cur.close()
         except Exception as e:
             log.debug('db excute error!\n')
-            log.debug(e)
+            log.debug(traceback.format_exc())
             print('db excute error!\n')
             print(e)
             
@@ -173,7 +174,7 @@ def handleConnect(sock, addr):
                 break
             
             print(len(b_data), b_data)
-            log.debug('%s %s %s',addr[0], addr[1], str(b_data))
+            log.debug('recv %s %s %s',addr[0], addr[1], str(b_data))
             #¡¡process data
             s  = process_data(b_data)
             
@@ -190,6 +191,7 @@ def handleConnect(sock, addr):
         print(traceback.format_exc())
         log.debug(traceback.format_exc())
         sock.close()
+        log.debug('except close socket')
     return
 
 def mainServer():

@@ -4,35 +4,23 @@
 
 import threading
 import time
-import socket
+import getopt
+#import socket
+
+# using heartBeatClient.py for simu a camera client
+import heartBeatClient
 
 # constant value
-DEFAULT_PORT = 6000
+# DEFAULT_PORT = 6000
 
 # global value
-m_sleepTime = 5
-m_threadLoopCount = 100
+CREATE_THREAD_SLEEP_TIME = 1         # sleep time between two create thread   
+TOTAL_THREAD = 1                 # total number of thread to create
+
+TARGET = heartBeatClient.client   # using heartBeatClient.client for simu a camera client
 
 
-
-SUPER_LONG_MSG=('644gafaasffsahfjhmasf;a;sljfdffspfaisfamj;a;fasfjlsjfas;fljasof.'
-                'pfaisfamj;a;fasfjlsjfas;fljasof.paosfjafaskfjjas;fja;jfsf;lajf;a'
-                'paosfjafaskfjjas;fja;jfsf;lajf;aasfasfsasfllopopquonpoaijfa;lsfj'
-                'jf;ajfaasfdklsadnfa,l;jkf;askfmlaaaaa;lfffffffffffffffffffffff;a'
-                'aaaaaaaaaaasfwefwqfqptoiui[qogghhhhhhqpgq,pgiqoppqi4992rpojqwjtt'
-                'dnfa,l;jkf;askfmlaaaaa;lfffffffasfd;aklfd;dddasf2r11334t1nmzxvva'
-                'ipituwwwtrhhhhhhhhhhhhhh232ogghhhhhhqpgq,pgiqoppqi4992rpoaaf34t3'
-                'jgggggggggggggggggggggggggoeiq[iiiq][wpeggggggggggertggxxxxxasff'
-                '644gafaasffsahfjhmasf;a;sljfdffspfaisfamj;a;fasfjlsjfas;fljasof.'
-                'pfaisfamj;a;fasfjlsjfas;fljasof.paosfjafaskfjjas;fja;jfsf;lajf;a'
-                'paosfjafaskfjjas;fja;jfsf;lajf;aasfasfsasfllopopquonpoaijfa;lsfj'
-                'jf;ajfaasfdklsadnfa,l;jkf;askfmlaaaaa;lfffffffffffffffffffffff;a'
-                'aaaaaaaaaaasfwefwqfqptoiui[qogghhhhhhqpgq,pgiqoppqi4992rpojqwjtt'
-                'dnfa,l;jkf;askfmlaaaaa;lfffffffasfd;aklfd;dddasf2r11334t1nmzxvva'
-                'ipituwwwtrhhhhhhhhhhhhhh232ogghhhhhhqpgq,pgiqoppqi4992rpoaaf34t3'
-                'jgggggggggggggggggggggggggoeiq[iiiq]?wpeggggggggggertggggqerhhhh'
-                )
-
+'''
 # 一个模拟的摄像头客户端
 def cameraClient():
     try:
@@ -52,34 +40,52 @@ def cameraClient():
     
     print(threading.currentThread().getName())
     return
+'''
+
 
 # 控制运行摄像头线程
-def runCameraSimu(total_threads):
-    for i in range(total_threads):
-        new_t = threading.Thread(None, cameraClient, 'thread'+str(i), (), None)
+def runCameraSimu():
+    for i in range(TOTAL_THREAD):
+        new_t = threading.Thread(target=TARGET)
         new_t.start()
-        time.sleep(1)
+        time.sleep(CREATE_THREAD_SLEEP_TIME)
     return
 
+def usage():
+    print(' usage: python multi_client_test.py [options]\n'
+          ' options:\n'
+          '     -c count    count of gps information sending to server, default is 1\n'
+          '     -t time     seconds of sleep time between two sending, default is 5\n'
+          '     -C Count    total thread, one thread respent one client, default is 1\n'
+          '     -T Time     seconds between create two threads, default is 1\n'
+          '     -a Address  server address, default is local IP\n'
+          '     -h, --help  print this help\n')
+    return
 
 if __name__=='__main__':
     import sys
     print(__file__, 'test')
     print(sys.argv)
     
-    threads_total = 0
-    sleep_time = 5
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], 'c:t:a:C:T:h', ['help'])
+    except getopt.GetoptError as err:
+        # print usage
+        print(err)
+        usage()
+        exit(-1)
+    for o, a in opts:
+        if o == '-c':
+            heartBeatClient.TOTAL_COUNT = int(a)
+        elif o == '-t':
+            heartBeatClient.SLEEP_TIME = float(a)
+        elif o == '-a':
+            heartBeatClient.SERVER_ADDR = a
+        elif o == '-T':
+            CREATE_THREAD_SLEEP_TIME = float(a)
+        elif o == '-C':
+            TOTAL_THREAD = int(a)
     
-    if len(sys.argv) > 3:
-        threads_total_number = int(sys.argv[1])
-        sleep_time = int(sys.argv[2])
-        thread_loop_count = int(sys.argv[3])
-        m_sleepTime = sleep_time
-        m_threadLoopCount = thread_loop_count
-    else:
-        print('App arguments error!')
-        exit()
-    
-    runCameraSimu(threads_total_number)
+    runCameraSimu()
     
 
