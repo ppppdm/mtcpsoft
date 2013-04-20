@@ -55,6 +55,9 @@ DEFALUT_PACKAGE_CONTENT = {'HEAD':b'\xaa\x55', 'CMD':b'0', 'WORK MODE':b'0', 'SE
 
 remote_control_client_list = []
 
+
+g_db_conn_lock = threading.Lock()
+
 try:
     import pyodbc
     DB_HOST = '10.20.1.200' # '210.73.152.201'
@@ -134,13 +137,12 @@ def encode_return_data(b_data):
     print(r_data)
     return r_data
 
-def store_to_db(s):
+def store_to_db(s, conn, cur):
     arr = s.split('\t')
     
     
     if conn:
-        cur = conn.cursor()
-    
+        
         camera_id = arr[0]
         x = arr[4]
         y = arr[5]
@@ -154,8 +156,11 @@ def store_to_db(s):
         try:
             cur.execute("INSERT INTO tbl_heartbeatinfo( ID, camera_id, gpx, gpy, gpstime, roadname, mph, createtime) VALUES (newid(), ?, ?, ?, ?, ?, ?, ?)", 
                 (camera_id, x, y, gpstime, road, mph, createtime))
+            
+            g_db_conn_lock.acquire()  
             conn.commit()
-            cur.close()
+            g_db_conn_lock.release()
+            
         except Exception as e:
             log.debug('db excute error!\n')
             log.debug(traceback.format_exc())
@@ -165,6 +170,11 @@ def store_to_db(s):
     return
 
 def handleConnect(sock, addr):
+    global conn
+    if conn:
+        g_db_conn_lock.acquire() 
+        cur = conn.cursor()
+        g_db_conn_lock.release()
     try:
         while True:
             b_data = sock.recv(1024)
@@ -179,7 +189,7 @@ def handleConnect(sock, addr):
             s  = process_data(b_data)
             
             # store data
-            store_to_db(s)
+            store_to_db(s, conn, cur)
             
             #¡¡send to remote control client
             send_to_remote(b_data)
@@ -192,6 +202,10 @@ def handleConnect(sock, addr):
         log.debug(traceback.format_exc())
         sock.close()
         log.debug('except close socket')
+    if conn:
+        g_db_conn_lock.acquire()
+        cur.close()
+        g_db_conn_lock.release()
     return
 
 def mainServer():
