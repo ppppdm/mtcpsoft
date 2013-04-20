@@ -65,11 +65,11 @@ try:
     PWD = 'sa'
     DATABASE = 'CDMTCP'
 
-    conn = pyodbc.connect('DRIVER={SQL Server}', host = DB_HOST, user = USER, password = PWD, database = DATABASE)
-    print(conn)
+    #conn = pyodbc.connect('DRIVER={SQL Server}', host = DB_HOST, user = USER, password = PWD, database = DATABASE)
+    #print(conn)
 except:
     log.debug(traceback.foormat_exc())
-    conn = None
+    #conn = None
 
 def send_to_remote(b_data):
     for conn in remote_control_client_list:
@@ -137,11 +137,23 @@ def encode_return_data(b_data):
     print(r_data)
     return r_data
 
+def get_db_conn():
+    try:
+        conn = pyodbc.connect('DRIVER={SQL Server}', host = DB_HOST, user = USER, password = PWD, database = DATABASE)
+    except:
+        conn = None
+    return conn
+    
+def close_db_conn(conn):
+    if conn:
+        conn.close()
+    return
+
 def store_to_db(s, conn, cur):
     arr = s.split('\t')
     
     
-    if conn:
+    if conn and cur:
         
         camera_id = arr[0]
         x = arr[4]
@@ -157,26 +169,26 @@ def store_to_db(s, conn, cur):
             cur.execute("INSERT INTO tbl_heartbeatinfo( ID, camera_id, gpx, gpy, gpstime, roadname, mph, createtime) VALUES (newid(), ?, ?, ?, ?, ?, ?, ?)", 
                 (camera_id, x, y, gpstime, road, mph, createtime))
             
-            g_db_conn_lock.acquire()  
-            conn.commit()
-            g_db_conn_lock.release()
-            
-        except Exception as e:
+        except:
             log.debug('db excute error!\n')
-            log.debug(traceback.format_exc())
             print('db excute error!\n')
-            print(e)
+        
+        try:
+            conn.commit()
+        except:
+            log.debug('commit error!')
+            print('commit erorr!')
             
     return
 
 def handleConnect(sock, addr):
-    global conn
-    if conn:
-        g_db_conn_lock.acquire() 
-        cur = conn.cursor()
-        g_db_conn_lock.release()
-    try:
-        while True:
+    dbconn = get_db_conn()
+    cur = None
+    if dbconn:
+        cur = dbconn.cursor()
+    
+    while True:
+        try:
             b_data = sock.recv(1024)
             if b_data == b'':
                 print('reomte closed!')
@@ -189,7 +201,7 @@ def handleConnect(sock, addr):
             s  = process_data(b_data)
             
             # store data
-            store_to_db(s, conn, cur)
+            store_to_db(s, dbconn, cur)
             
             #¡¡send to remote control client
             send_to_remote(b_data)
@@ -197,15 +209,15 @@ def handleConnect(sock, addr):
             #¡¡encode return data
             r_data = encode_return_data(b_data)
             sock.send(r_data)
-    except:
-        print(traceback.format_exc())
-        log.debug(traceback.format_exc())
-        sock.close()
-        log.debug('except close socket')
-    if conn:
-        g_db_conn_lock.acquire()
+        except:
+            print(traceback.format_exc())
+            log.debug(traceback.format_exc())
+            break
+    
+    sock.close()
+    if dbconn:
         cur.close()
-        g_db_conn_lock.release()
+    close_db_conn(dbconn)
     return
 
 def mainServer():
