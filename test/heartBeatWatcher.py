@@ -55,6 +55,55 @@ DEFALUT_PACKAGE_CONTENT = {'HEAD':b'\xaa\x55', 'CMD':b'0', 'WORK MODE':b'0', 'SE
 
 remote_control_client_list = []
 
+MAX_DB_CONNECT = 1000
+DB_CONNECT_NOT_USE_LIST = list()
+DB_CONNECT_USED_LIST = list()
+
+def init_db_connect_list():
+    for i in range(MAX_DB_CONNECT):
+        try:
+            db_conn = pyodbc.connect('DRIVER={SQL Server}', host = DB_HOST, user = USER, password = PWD, database = DATABASE)
+            DB_CONNECT_NOT_USE_LIST.append(db_conn)
+        except: # not print db execption yet
+            #log.debug(e)
+            #print(e)
+            break
+    print('init db conn done!')
+    return
+
+def get_one_db_connect():
+    db_conn = None
+    try:
+        db_conn = DB_CONNECT_NOT_USE_LIST.pop()
+        DB_CONNECT_USED_LIST.append(db_conn)
+    except ValueError:
+        print('not enough db_conn!')
+        log.debug('not enough db_conn!')
+    except Exception as e:
+        print(e)
+        log.debug(e)
+    return db_conn
+
+def close_one_db_connect(conn):
+    if conn:
+        # if the conn is usable
+        try:
+            conn.commit()
+        except : # db except not print yet
+            log.debug('connect can not used')
+            print('connect can not used')
+            DB_CONNECT_USED_LIST.remove(conn)
+            return
+        
+        try:
+            DB_CONNECT_USED_LIST.remove(conn)
+            DB_CONNECT_NOT_USE_LIST.append(conn)
+        except Exception as e:
+            log.debug(e)
+            print(e)
+    return
+
+
 
 g_db_conn_lock = threading.Lock()
 
@@ -182,7 +231,7 @@ def store_to_db(s, conn, cur):
     return
 
 def handleConnect(sock, addr):
-    dbconn = get_db_conn()
+    dbconn = get_one_db_connect()
     cur = None
     if dbconn:
         cur = dbconn.cursor()
@@ -217,7 +266,7 @@ def handleConnect(sock, addr):
     sock.close()
     if dbconn:
         cur.close()
-    close_db_conn(dbconn)
+    close_one_db_connect(dbconn)
     return
 
 def mainServer():
@@ -256,7 +305,7 @@ if __name__=='__main__':
     print(__file__, 'test')
     t = threading.Thread(target=remoteControlServer)
     t.start()
-    
+    init_db_connect_list()
     mainServer()
     os.system('pause')
     
