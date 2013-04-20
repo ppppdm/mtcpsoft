@@ -55,14 +55,17 @@ DEFALUT_PACKAGE_CONTENT = {'HEAD':b'\xaa\x55', 'CMD':b'0', 'WORK MODE':b'0', 'SE
 
 remote_control_client_list = []
 
-import pyodbc
+try:
+    import pyodbc
+    DB_HOST = '10.20.1.200' # '210.73.152.201'
+    USER = 'sa'
+    PWD = 'sa'
+    DATABASE = 'CDMTCP'
 
-DB_HOST = '10.20.1.200' # '210.73.152.201'
-USER = 'sa'
-PWD = 'sa'
-DATABASE = 'CDMTCP'
-
-conn = pyodbc.connect('DRIVER={SQL Server}', host = DB_HOST, user = USER, password = PWD, database = DATABASE)
+    conn = pyodbc.connect('DRIVER={SQL Server}', host = DB_HOST, user = USER, password = PWD, database = DATABASE)
+except:
+    log.debug(traceback.foormat_exc())
+    conn = None
 
 def send_to_remote(b_data):
     for conn in remote_control_client_list:
