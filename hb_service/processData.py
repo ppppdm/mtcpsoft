@@ -39,7 +39,11 @@ DEFALUT_PACKAGE_CONTENT = {'HEAD':b'\xaa\x55', 'CMD':b'0', 'WORK MODE':b'0', 'SE
                            'IS IN LANES':b'0', 'IS IN VALID PERIOD':b'0', 'END':b'\xee\x55'
                            }
 
+LIANES_POINTS = list()
 
+COFFEE = 0.01
+
+###################################################################################3
 def get_next_item(b_data, i, t):
     return b_data[t:t+i]
 
@@ -56,12 +60,22 @@ def decode_data(b_data):
         except:
             print(traceback.format_exc())
             myLog.mylogger.debug(traceback.format_exc())
-        t += i    
+        t += i
     myLog.mylogger.debug(s)
     #print(s)
     return s
 
+###################################################################################3
+
 def is_in_lanes(location):
+    
+    x = float(location[0])
+    y = float(location[1])
+    
+    for p in LIANES_POINTS:
+        if p[0] - COFFEE < x and x < p[0] + COFFEE and p[1] - COFFEE < y and y < p[1] + COFFEE:
+            return True
+    
     return True
 
 def is_valid_period():
@@ -96,6 +110,7 @@ def encode_return_data(b_data):
     #print(r_data)
     return r_data
 
+###################################################################################3
 
 def store_to_db(s, conn, cur):
     arr = s.split('\t')
