@@ -102,8 +102,12 @@ def Server():
         while True:
             conn, addr = sock.accept()
             print('connected by ', addr)
-            t = threading.Thread(target=handleConnect, args=(conn, addr))
-            t.start()
+            try:
+                t = threading.Thread(target=handleConnect, args=(conn, addr))
+                t.start()
+            except RuntimeError as e:
+                print(e)
+                myLog.mylogger.debug(e)
     except:
         print(traceback.format_exc())
         myLog.mylogger.debug(traceback.format_exc())
