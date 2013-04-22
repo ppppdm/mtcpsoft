@@ -2,7 +2,10 @@
 # auther : pdm
 # email : ppppdm@gmail.com
 
-import pyodbc
+try:
+    import pyodbc
+except:
+    print('no module pyodbc, should init first!')
 import threading
 
 # self module
