@@ -12,7 +12,8 @@ import dbManager
 import myLog
 
 # Global Variables
-HOST = socket.gethostbyname(socket.gethostname()) #socket.INADDR_ANY
+INADDR_ANY = '0.0.0.0' # OR INADDR_ANY = ''
+HOST = INADDR_ANY # socket.gethostbyname(socket.gethostname()) #socket.INADDR_ANY
 SERVER_PORT = 44444
 
 client_list = list()
