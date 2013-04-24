@@ -59,13 +59,17 @@ def get_infos(f):
 
 def file_process(file):
     
-    f = open(file, 'rb')
+    try:
+        print('process file')
+        f = open(file, 'rb')
     
-    infos = get_infos(f)
+        infos = get_infos(f)
     
-    store_infos(infos)
+        store_infos(infos)
     
-    f.close()
+        f.close()
+    except:
+        print('file ', f, 'open error!')
     
     return
 
