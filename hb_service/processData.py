@@ -88,7 +88,7 @@ def is_valid_period():
        return True 
     return False
 
-def encode_return_data(b_data):
+def encode_return_data(b_data, changed_args=dict()):
     r_data = bytearray()
     modify_items = {}
     
@@ -100,6 +100,46 @@ def encode_return_data(b_data):
     # judeg wether in valid period
     if is_valid_period():
         modify_items['IS IN VALID PERIOD']=b'1'
+    
+    # CMD
+    if len(changed_args) != 0:
+         modify_items['CMD'] = b'1'
+    
+    # Server IP
+    if 'SERVER IP' in changed_args:
+        modify_items['SERVER IP'] = changed_args['SERVER IP']
+    else:
+        modify_items['SERVER IP'] = b_data[58:73]
+    
+    # HB INTERVAL
+    if 'HB INTERVAL' in changed_args:
+        modify_items['HB INTERVAL'] = changed_args['HB INTERVAL']
+    else:
+        modify_items['HB INTERVAL'] = b_data[88:90]
+    
+    # UPLOAD NUM
+    if 'UPLOAD NUM' in changed_args:
+        modify_items['UPLOAD NUM'] = changed_args['UPLOAD NUM']
+    else:
+        modify_items['UPLOAD NUM'] = b_data[90:91]
+    
+    # TRACK NUM
+    if 'TRACK NUM' in changed_args:
+        modify_items['TRACK NUM'] = changed_args['TRACK NUM']
+    else:
+        modify_items['TRACK NUM'] = b_data[91:92]
+    
+    # CAR DEFAULT RANGE
+    if 'CAR DEFAULT RANGE' in changed_args:
+        modify_items['CAR DEFAULT RANGE'] = changed_args['CAR DEFAULT RANGE']
+    else:
+        modify_items['CAR DEFAULT RANGE'] = b_data[92:96]
+    
+    # COMPRESSION FACTOR
+    if 'COMPRESSION FACTOR' in changed_args:
+        modify_items['COMPRESSION FACTOR'] = changed_args['COMPRESSION FACTOR']
+    else:
+        modify_items['COMPRESSION FACTOR'] = b_data[96:98]
     
     for i in RETURN_PACKAGE_ITEM:
         if i not in modify_items:

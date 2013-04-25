@@ -33,8 +33,8 @@ def init_db_connect_list():
             # release lock
             DB_CONNECT_LOCK.release()
         except: # not print db execption yet
-            #log.debug(e)
-            #print(e)
+            myLog.mylogger.debug('init db got an error!')
+            print('init db got an error!')
             break
     print('init db conn done!')
     myLog.mylogger.debug('init db conn done!')
