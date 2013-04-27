@@ -11,6 +11,7 @@ logging.config.fileConfig("logging.conf")
 logger = logging.getLogger("example")
 
 # self module
+import dbManager
 
 BEFORE_INFO_LEN = 6
 INFO_LEN        = 89
@@ -30,7 +31,32 @@ INFO_ITEM_LEN = [12, 17, 10, 11, 5,
 # before the info we want there is 6 bytes file head
 # after that is the info we want, the item of info see
 # the INFO_ITMES, each item's len see the INFO_ITEM_LEN
+
+
 def store_infos(infos):
+    
+    # store to logfile
+    logger.debug(infos)
+    
+    # store to db
+    db_conn = dbManager.get_db_connect()
+    if db_conn:
+        try:
+            cur = db_conn.cursor()
+            cur.execute('SELECT count(*) from LS_pictures')
+            #cur.execute("INSERT INTO tbl_heartbeatinfo( ID, camera_id, gpx, gpy, gpstime, roadname, mph, createtime) VALUES (newid(), ?, ?, ?, ?, ?, ?, ?)", 
+            #    (camera_id, x, y, gpstime, road, mph, createtime))
+        except:
+            print('db execute error!')
+            logger.debug('db execute error!')
+        
+        try:
+            db_conn.commit()
+        except:
+            print('db commit error!')
+            logger.debug('db commit error!')
+        
+    dbManager.close_db_connect(db_conn)
     
     return
 
