@@ -3,6 +3,8 @@
 # email : ppppdm@gmail.com
 import logging
 import logging.config
+import traceback
+import time
 
 logging.config.fileConfig("logging.conf")
 
@@ -68,6 +70,7 @@ def get_infos(f):
 def file_process(file):
     
     try:
+        time.sleep(1)
         print('process file')
         f = open(file, 'rb')
     
@@ -77,8 +80,10 @@ def file_process(file):
     
         f.close()
     except Exception as e:
-        print('file ', f, 'open error!', e)
+        print('file ', file, 'open error!', e)
         logger.debug(e)
+        
+        print(traceback.format_exc())
     
     return
 

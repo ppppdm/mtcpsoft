@@ -8,15 +8,19 @@ import time
 
 # using Polling , can work across platform
 def watchFileChange_cross(path_to_watch, func_handle_change = None):
-
-    path_to_watch = "."
     before = dict ([(f, None) for f in os.listdir (path_to_watch)])
     while 1:
         time.sleep (5)
         after = dict ([(f, None) for f in os.listdir (path_to_watch)])
         added = [f for f in after if not f in before]
         removed = [f for f in before if not f in after]
-        if added: print ("Added: ", ", ".join (added))
+        if added: 
+            changes = []
+            for i in added:
+                changes.append((3, os.path.join(path_to_watch, i)))
+                print ("Added: ", ", ".join (added))
+            t = threading.Thread(target=func_handle_change, args = (changes, ))
+            t.start()
         if removed: print( "Removed: ", ", ".join (removed))
         before = after
 
@@ -169,4 +173,4 @@ if __name__=='__main__':
         DIRECTORY_PATH = sys.argv[1]
     else:
         DIRECTORY_PATH = '.'
-    watchFileChange_2(DIRECTORY_PATH, handle_change)
+    watchFileChange_cross(DIRECTORY_PATH, handle_change)
