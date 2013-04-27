@@ -4,7 +4,6 @@
 import logging
 import logging.config
 import traceback
-import time
 
 logging.config.fileConfig("logging.conf")
 
@@ -70,7 +69,6 @@ def get_infos(f):
 def file_process(file):
     
     try:
-        time.sleep(1)
         print('process file')
         f = open(file, 'rb')
     

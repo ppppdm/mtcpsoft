@@ -165,12 +165,17 @@ if __name__=='__main__':
         print(changes)
         for action, file in changes:
             print(action, file)
-            if action == 3 and 'jpg' in file:
+            # when created , we will proccess the file
+            # as the file not complete as soon as it created, we will wait 5s
+            # otherwise will got an error of permission denied
+            # the time that sleep depend on how big the file and how soon it will complete
+            if action == 1 and 'jpg' in file:
                 print(file)
+                time.sleep(5)
                 InfoProcess.file_process(file)
     
     if sys.argv[1]:
         DIRECTORY_PATH = sys.argv[1]
     else:
         DIRECTORY_PATH = '.'
-    watchFileChange_cross(DIRECTORY_PATH, handle_change)
+    watchFileChange(DIRECTORY_PATH, handle_change)
