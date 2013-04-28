@@ -5,7 +5,7 @@ import logging
 import logging.config
 import traceback
 import datetime
-
+import os
 
 logging.config.fileConfig("logging.conf")
 
@@ -43,35 +43,42 @@ def store_infos(infos, file):
     # store to db
     db_conn = dbManager.get_db_connect()
     if db_conn:
-        '''
+        
         try:
             cur                = db_conn.cursor()
             
             camera_id          = infos.get('MAC', '')
-            picture_name       = file
-            x                  = infos.get('X', '')
-            y                  = infos.get('Y', '')
-            collect_date1      = infos.get('RTC', '')
+            picture_name       = os.path.basename(file)
+            gps_x              = infos.get('X', '')
+            gps_y              = infos.get('Y', '')
             direction          = infos.get('DIRECT', '')
+            collect_date1      = infos.get('RTC', '')
             car_id             = infos.get('CAR LICENSE', '')
             license_color      = infos.get('LICENSE COLOR', '')
             captrue_serial_num = infos.get('SERIAL NUMBER', '')
             minor_captrue_num  = infos.get('NO.', '')
             flag1              = infos.get('CAPTURE FALG', '')
             
-            print(camera_id)
-            
-            if collect_date1 != '':
+            try:
                 collect_date1 = datetime.datetime.strptime(collect_date1, '%Y%m%d%H%M%S%f')
-            else:
-                collect_date1 = None
-            
-            #
-            cur.execute("""INSERT INTO LS_pictures( camera_id, picture_name) VALUES (?, ?)""", 
+            except:
+                collect_date1 = datetime.datetime.now()
+
+            cur.execute("INSERT INTO LS_pictures(camera_id, picture_name, gps_x, gps_y, direction, collect_date1, car_id, license_color, captrue_serial_num, minor_captrue_num, flag1) VALUES (?,?,?,?,?,?,?,?,?,?,?)", 
                 (
                 camera_id, 
-                picture_name
+                picture_name,
+                gps_x,
+                gps_y, 
+                direction, 
+                collect_date1, 
+                car_id, 
+                license_color, 
+                captrue_serial_num, 
+                minor_captrue_num, 
+                flag1
                 ))
+            
         except Exception as e:
             print('db execute error!', e)
             logger.debug('db execute error!')
@@ -79,43 +86,14 @@ def store_infos(infos, file):
         try:
             db_conn.commit()
             
-            
-            print(cur.execute('select * from LS_pictures where camera_id=08002812d137').fetchall())
         except Exception as e:
             print('db commit error!', e)
             logger.debug('db commit error!')
-        '''
+        
     dbManager.close_db_connect(db_conn)
     
     return
 
-'''
-, 
-                picture_name, 
-                gps_x, 
-                gps_y, 
-                collect_date1, 
-                direction, 
-                car_id, 
-                license_color, 
-                captrue_serial_num, 
-                minor_captrue_num, 
-                flag1)
-                
-                , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
-                
-                , 
-                picture_name, 
-                x, 
-                y, 
-                collect_date1, 
-                direction,
-                car_id, 
-                license_color, 
-                captrue_serial_num, 
-                minor_captrue_num, 
-                flag1
-'''
 def get_infos(f):
     infos = {}
     
@@ -180,6 +158,9 @@ if __name__=='__main__':
         file_process(i)
     '''
     # test insert to db
-    infos = {'MAC': '08002812d137', 'CAR DISTENCE': '40', 'RTC': '20130417105109823', 'SERIAL NUMBER': '001\x02', 'Y': '1848.3899,', 'X': '157.7773,', 'CAR LICENSE': 'ÕA0D928\x00'}
+    infos = {'MAC': '08002812d137', 'CAR DISTENCE': '40', 'RTC': '20130417105109823', 'SERIAL NUMBER': '001\x02', 'Y': '1848.3899,', 'X': '157.7773,', 'CAR LICENSE': 'ÕA0D928\x00', 'LICENSE COLOR':'À¶'}
+    store_infos(infos, '../res/2013041710510982-d137-0001-3.jpg')
+    
+    infos = {'MAC': '08002812d137', 'CAR DISTENCE': '40', 'RTC': '20134417105109823', 'SERIAL NUMBER': '001\x02', 'Y': '1848.3899,', 'X': '157.7773,', 'CAR LICENSE': 'ÕA0D928\x00', 'LICENSE COLOR':'À¶'}
     store_infos(infos, '../res/2013041710510982-d137-0001-3.jpg')
     

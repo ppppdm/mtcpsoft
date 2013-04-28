@@ -20,11 +20,12 @@ PWD = 'sa'
 DATABASE = 'CDMTCP'
 
 def get_db_connect():
+    db_conn = None
     try:
         db_conn = pyodbc.connect('DRIVER={SQL Server}', host = DB_HOST, user = USER, password = PWD, database = DATABASE)
-    except: # not print db execption yet
+    except Exception as e: # not print db execption yet
         logger.debug('init db got an error!')
-        print('init db got an error!')
+        print('init db got an error!', e)
     return db_conn
 
 def close_db_connect(db_conn):
