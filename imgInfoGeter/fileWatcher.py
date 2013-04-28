@@ -171,7 +171,7 @@ if __name__=='__main__':
             # the time that sleep depend on how big the file and how soon it will complete
             if action == 1 and 'jpg' in file:
                 print(file)
-                time.sleep(5)
+                time.sleep(60)
                 InfoProcess.file_process(file)
     
     if sys.argv[1]:

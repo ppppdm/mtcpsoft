@@ -64,7 +64,9 @@ def store_infos(infos, file):
             except:
                 collect_date1 = datetime.datetime.now()
 
-            cur.execute("INSERT INTO LS_pictures(camera_id, picture_name, gps_x, gps_y, direction, collect_date1, car_id, license_color, captrue_serial_num, minor_captrue_num, flag1) VALUES (?,?,?,?,?,?,?,?,?,?,?)", 
+            recieve_time = collect_date1 = datetime.datetime.now()
+
+            cur.execute("INSERT INTO LS_pictures(camera_id, picture_name, gps_x, gps_y, direction, collect_date1, car_id, license_color, captrue_serial_num, minor_captrue_num, flag1, recieve_time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", 
                 (
                 camera_id, 
                 picture_name,
@@ -76,7 +78,8 @@ def store_infos(infos, file):
                 license_color, 
                 captrue_serial_num, 
                 minor_captrue_num, 
-                flag1
+                flag1,
+                recieve_time
                 ))
             
         except Exception as e:
