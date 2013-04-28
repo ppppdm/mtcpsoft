@@ -18,11 +18,16 @@ HEART_BEAT_PACKAGE_ITEM = ['HEAD', 'MAC', 'GPS STATUS', 'GPS DATE', 'GPS TIME',
                            'CAR DEFAULT RANGE', 'COMPRESSION FACTOR', 'END' 
                            ]
 
-HEART_BEAT_PACKAGE_ITEM_LEN =[2 , 12, 1, 8, 6, 
+HEART_BEAT_PACKAGE_ITEM_LEN_old =[2 , 12, 1, 8, 6, 
                          10, 11, 5, 2, 1, 
                          15, 15, 2, 1, 1, 
                          4, 2, 2
                          ] 
+
+HEART_BEAT_PACKAGE_ITEM_LEN = {'HEAD':2, 'MAC':12, 'GPS STATUS':1, 'GPS DATE':8, 'GPS TIME':6, 
+                           'X':10, 'Y':11, 'GPS SPEED':5, 'GPS DIRCT':2, 'WORK MODE':1, 
+                           'SERVER IP':15, 'DEVICE IP':15, 'HB INTERVAL':2, 'UPLOAD NUM':1,'TRACK NUM':1, 
+                           'CAR DEFAULT RANGE':4, 'COMPRESSION FACTOR':2, 'END':2 }
                          
 RETURN_PACKAGE_ITEM = ['HEAD', 'CMD', 'WORK MODE', 'SERVER IP', 'DEVICE IP', 
                        'HB INTERVAL', 'UPLOAD NUM', 'TRACK NUM', 'CAR DEFAULT RANGE', 'COMPRESSION FACTOR', 
@@ -49,28 +54,24 @@ def get_next_item(b_data, i, t):
 
 def decode_data(b_data):
     s = ''
-    t = 0
     infos = {}
-    j = 1
+    t = 2 # skip head and end
     
-    # skip head and end
-    t += 2
-    for i in HEART_BEAT_PACKAGE_ITEM_LEN[1:-1]:
-        item = get_next_item(b_data, i, t)
+    for i in HEART_BEAT_PACKAGE_ITEM[1:-1]:
+        item_len = HEART_BEAT_PACKAGE_ITEM_LEN[i]
+        b_item = get_next_item(b_data, item_len, t)
         try:
-            s += str(item, 'gbk')+'\t'
-            Item = HEART_BEAT_PACKAGE_ITEM[j]
-            infos[Item] = str(item, 'gbk')
+            item = str(b_item, 'gbk')
+            s += item + '\t'
+            infos[i] = item
         except:
             print(traceback.format_exc())
             myLog.mylogger.debug(traceback.format_exc())
-        t += i
-        j += 1
+        t+=item_len
+    
     myLog.mylogger.debug(s)
     myLog.mylogger.debug(infos)
-    print(s[0:12], s[31:41], s[41:52])
-    
-    return s, infos
+    return infos
 
 ###################################################################################3
 
@@ -78,8 +79,6 @@ def is_in_lanes(location):
     
     x = float(location[0][:-1])
     y = float(location[1][:-1])
-    myLog.mylogger.debug(x)
-    myLog.mylogger.debug(y)
     
     for p in LIANES_POINTS:
         if p[0] - COFFEE < x and x < p[0] + COFFEE and p[1] - COFFEE < y and y < p[1] + COFFEE:
@@ -184,6 +183,7 @@ def store_to_db(infos, conn, cur):
         createtime = datetime.datetime.now()
         
         print(gpstime, camera_id, x, y, road, mph)
+        myLog.mylogger.debug('%s %s %s %s %s %s', gpstime, camera_id, x, y, road, mph)
         
         try:
             cur.execute("INSERT INTO tbl_heartbeatinfo( ID, camera_id, gpx, gpy, gpstime, roadname, mph, createtime) VALUES (newid(), ?, ?, ?, ?, ?, ?, ?)", 
@@ -207,7 +207,7 @@ def store_to_db(infos, conn, cur):
 def process_data(b_data, dbconn, cur):
     
     # decode 
-    s, infos = decode_data(b_data)
+    infos = decode_data(b_data)
     
     
     # store to db
