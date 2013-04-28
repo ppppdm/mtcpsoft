@@ -163,22 +163,28 @@ def encode_return_data(infos, changed_args=dict()):
 
 ###################################################################################3
 
-def store_to_db(s, conn, cur):
-    arr = s.split('\t')
-    
+def store_to_db(infos, conn, cur):
     
     if conn and cur:
-        
-        camera_id = arr[0]
-        x = arr[4]
-        y = arr[5]
-        gpstime = datetime.datetime.strptime(arr[2]+arr[3], '%Y%m%d%H%M%S')
-        road = ''
+
         try:
-            mph = float(arr[6])
+            gpstime = datetime.datetime.strptime(infos['GPS DATE']+infos['GPS TIME'], '%Y%m%d%H%M%S')
+        except:
+            gpstime = datetime.datetime.now()
+        
+        try:
+            mph = float(infos.get('GPS SPEED', '0'))
         except:
             mph = 0
+        
+        camera_id  = infos.get('MAC', 'ID error')
+        x          = infos.get('X', 'X error')
+        y          = infos.get('Y', 'Y error')
+        road       = ''
         createtime = datetime.datetime.now()
+        
+        print(gpstime, camera_id, x, y, road, mph)
+        
         try:
             cur.execute("INSERT INTO tbl_heartbeatinfo( ID, camera_id, gpx, gpy, gpstime, roadname, mph, createtime) VALUES (newid(), ?, ?, ?, ?, ?, ?, ?)", 
                 (camera_id, x, y, gpstime, road, mph, createtime))
@@ -189,6 +195,7 @@ def store_to_db(s, conn, cur):
         
         try:
             conn.commit()
+            myLog.mylogger.debug('store to db success!')
         except:
             myLog.mylogger.debug('commit error!')
             print('commit erorr!')
@@ -204,7 +211,7 @@ def process_data(b_data, dbconn, cur):
     
     
     # store to db
-    store_to_db(s, dbconn, cur)
+    store_to_db(infos, dbconn, cur)
     
     # encode 
     r_data = encode_return_data(infos)
