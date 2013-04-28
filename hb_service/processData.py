@@ -62,15 +62,16 @@ def decode_data(b_data):
             myLog.mylogger.debug(traceback.format_exc())
         t += i
     myLog.mylogger.debug(s)
-    #print(s)
+    print(s[0:12], s[31:41], s[41:52])
+    
     return s
 
 ###################################################################################3
 
 def is_in_lanes(location):
     
-    x = float(location[0])
-    y = float(location[1])
+    x = float(location[0][:-1])
+    y = float(location[1][:-1])
     
     for p in LIANES_POINTS:
         if p[0] - COFFEE < x and x < p[0] + COFFEE and p[1] - COFFEE < y and y < p[1] + COFFEE:
