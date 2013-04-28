@@ -78,6 +78,8 @@ def is_in_lanes(location):
     
     x = float(location[0][:-1])
     y = float(location[1][:-1])
+    myLog.mylogger.debug(x)
+    myLog.mylogger.debug(y)
     
     for p in LIANES_POINTS:
         if p[0] - COFFEE < x and x < p[0] + COFFEE and p[1] - COFFEE < y and y < p[1] + COFFEE:
@@ -95,12 +97,12 @@ def is_valid_period():
        return True 
     return False
 
-def encode_return_data(b_data, changed_args=dict()):
+def encode_return_data(infos, changed_args=dict()):
     r_data = bytearray()
     modify_items = {}
     
     # judge wether in the lanes
-    location = (b_data[29:39], b_data[39:50])
+    location = (infos['X'], infos['Y'])
     if is_in_lanes(location):
         modify_items['IS IN LANES']=b'1'
     
@@ -116,37 +118,38 @@ def encode_return_data(b_data, changed_args=dict()):
     if 'SERVER IP' in changed_args:
         modify_items['SERVER IP'] = changed_args['SERVER IP']
     else:
-        modify_items['SERVER IP'] = b_data[58:73]
+        modify_items['SERVER IP'] = bytes(infos['SERVER IP'], 'gbk')
     
     # HB INTERVAL
     if 'HB INTERVAL' in changed_args:
         modify_items['HB INTERVAL'] = changed_args['HB INTERVAL']
     else:
-        modify_items['HB INTERVAL'] = b_data[88:90]
+        modify_items['HB INTERVAL'] = bytes(infos['HB INTERVAL'], 'gbk')
     
     # UPLOAD NUM
     if 'UPLOAD NUM' in changed_args:
         modify_items['UPLOAD NUM'] = changed_args['UPLOAD NUM']
     else:
-        modify_items['UPLOAD NUM'] = b_data[90:91]
+        modify_items['UPLOAD NUM'] = bytes(infos['UPLOAD NUM'], 'gbk')
     
     # TRACK NUM
     if 'TRACK NUM' in changed_args:
         modify_items['TRACK NUM'] = changed_args['TRACK NUM']
     else:
-        modify_items['TRACK NUM'] = b_data[91:92]
+        modify_items['TRACK NUM'] = bytes(infos['TRACK NUM'], 'gbk')
     
     # CAR DEFAULT RANGE
     if 'CAR DEFAULT RANGE' in changed_args:
         modify_items['CAR DEFAULT RANGE'] = changed_args['CAR DEFAULT RANGE']
     else:
-        modify_items['CAR DEFAULT RANGE'] = b_data[92:96]
+
+        modify_items['CAR DEFAULT RANGE'] = bytes(infos['CAR DEFAULT RANGE'], 'gbk')
     
     # COMPRESSION FACTOR
     if 'COMPRESSION FACTOR' in changed_args:
         modify_items['COMPRESSION FACTOR'] = changed_args['COMPRESSION FACTOR']
     else:
-        modify_items['COMPRESSION FACTOR'] = b_data[96:98]
+        modify_items['COMPRESSION FACTOR'] = bytes(infos['COMPRESSION FACTOR'], 'gbk')
     
     for i in RETURN_PACKAGE_ITEM:
         if i not in modify_items:
@@ -155,6 +158,7 @@ def encode_return_data(b_data, changed_args=dict()):
             r_data += modify_items[i]
     
     #print(r_data)
+    myLog.mylogger.debug(r_data)
     return r_data
 
 ###################################################################################3
@@ -203,7 +207,7 @@ def process_data(b_data, dbconn, cur):
     store_to_db(s, dbconn, cur)
     
     # encode 
-    r_data = encode_return_data(b_data)
+    r_data = encode_return_data(infos)
     
     return r_data
 # 
