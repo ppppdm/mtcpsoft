@@ -61,6 +61,8 @@ def decode_data(b_data):
         item_len = HEART_BEAT_PACKAGE_ITEM_LEN[i]
         b_item = get_next_item(b_data, item_len, t)
         try:
+            if i == 'X' or i == 'Y':
+                b_item = b_item[:-1]
             item = str(b_item, 'gbk')
             s += item + '\t'
             infos[i] = item
