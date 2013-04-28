@@ -50,6 +50,8 @@ def get_next_item(b_data, i, t):
 def decode_data(b_data):
     s = ''
     t = 0
+    infos = {}
+    j = 1
     
     # skip head and end
     t += 2
@@ -57,14 +59,18 @@ def decode_data(b_data):
         item = get_next_item(b_data, i, t)
         try:
             s += str(item, 'gbk')+'\t'
+            Item = HEART_BEAT_PACKAGE_ITEM[j]
+            infos[Item] = str(item, 'gbk')
         except:
             print(traceback.format_exc())
             myLog.mylogger.debug(traceback.format_exc())
         t += i
+        j += 1
     myLog.mylogger.debug(s)
+    myLog.mylogger.debug(infos)
     print(s[0:12], s[31:41], s[41:52])
     
-    return s
+    return s, infos
 
 ###################################################################################3
 
@@ -190,7 +196,7 @@ def store_to_db(s, conn, cur):
 def process_data(b_data, dbconn, cur):
     
     # decode 
-    s = decode_data(b_data)
+    s, infos = decode_data(b_data)
     
     
     # store to db
