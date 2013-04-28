@@ -52,6 +52,11 @@ COFFEE = 0.01
 def get_next_item(b_data, i, t):
     return b_data[t:t+i]
 
+def changeToFormate(data):
+    '12-34-56-78-90-ab'
+    data = data[0:2] + '-' + data[2:4] + '-' + data[4:6] + '-' + data[6:8] + '-' + data[8:10] + '-' + data[10:12]
+    return data
+
 def decode_data(b_data):
     s = ''
     infos = {}
@@ -63,7 +68,14 @@ def decode_data(b_data):
         try:
             if i == 'X' or i == 'Y':
                 b_item = b_item[:-1]
+            
+            # convert to str
             item = str(b_item, 'gbk')
+            
+            if i == 'MAC':
+                item = changeToFormate(item)
+            
+            
             s += item + '\t'
             infos[i] = item
         except:
