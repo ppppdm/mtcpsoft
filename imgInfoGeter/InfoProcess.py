@@ -3,7 +3,6 @@
 # email : ppppdm@gmail.com
 import logging
 import logging.config
-import traceback
 import datetime
 import os
 import time
@@ -31,6 +30,7 @@ INFO_ITEM_LEN = [12, 17, 10, 11, 5,
                  ]
 
 MAX_WAIT_OPEN_TIME = 600 # second
+EACH_WAIT_OPEN_TIME = 20
 
 # read file and get info in the image
 # before the info we want there is 6 bytes file head
@@ -85,15 +85,15 @@ def store_infos(infos, file):
                 recieve_time
                 ))
             
-        except Exception as e:
-            print('db execute error!', e)
+        except: # just not print db error
+            print('db execute error!')
             logger.debug('db execute error!')
         
         try:
             db_conn.commit()
             
-        except Exception as e:
-            print('db commit error!', e)
+        except: # just not print db error
+            print('db commit error!')
             logger.debug('db commit error!')
         
     dbManager.close_db_connect(db_conn)
@@ -134,28 +134,31 @@ def get_infos(f):
 
 def file_process(file):
     
-    try:
-        print('process file')
-        total = 0
-        while MAX_WAIT_OPEN_TIME > total:
-            if os.access(file, os.R_OK) and os.access(file, os.W_OK):
-                print('access file ok')
-                f = open(file, 'rb')
-                infos = get_infos(f)
-                print(infos)
-                store_infos(infos, file)
-                f.close()
-                break
-            else :
-                print('access file false')
-                time.sleep(60)
-                total+=60
-    except Exception as e:
-        print('file ', file, 'open error!', e)
-        logger.debug(e)
-        
-        print(traceback.format_exc())
     
+    print('process file')
+    total = 0
+    while MAX_WAIT_OPEN_TIME > total:
+        # try open file, if ok then process data
+        # else sleep for next open
+        try:
+            f = open(file, 'rb')
+            print('open file ok')
+            
+            infos = get_infos(f)
+            print(infos)
+            # get info done ,file could close
+            f.close()
+            
+            store_infos(infos, file)
+            
+            break
+        except:
+            time.sleep(EACH_WAIT_OPEN_TIME)
+            total+=EACH_WAIT_OPEN_TIME
+    
+    if MAX_WAIT_OPEN_TIME > total:
+        print('open file false, permission denied.')
+        logger.debug('open file false, permission denied.')
     return
 
 if __name__=='__main__':
