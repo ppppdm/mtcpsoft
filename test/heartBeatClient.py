@@ -6,6 +6,7 @@ import socket
 import time
 import sys
 import getopt
+import datetime
 
 # Global Variables
 SERVER_ADDR = socket.gethostbyname(socket.gethostname())
@@ -26,7 +27,7 @@ HEART_BEAT_PACKAGE_ITEM_LEN =[2 , 12, 1, 8, 6,
                          4, 2, 2
                          ] 
 
-HEART_BEAT_PACKAGE_ITEM_CONTENT = [b'\xaa\x55', b'E2C34D5E992F', b'A', b'20120414', b'102113'
+HEART_BEAT_PACKAGE_ITEM_CONTENT = [b'\xaa\x55', b'08002812d137', b'A', b'20120414', b'102113', 
                                    b'5678.12345', b'12345.67891', b'25.23', b'EN', b'1', 
                                    b'192.168.001.010', b'192.168.001.100', b'05', b'4', b'4', 
                                    b'0050', b'12', b'\xee\x55'
@@ -35,6 +36,10 @@ HEART_BEAT_PACKAGE_ITEM_CONTENT = [b'\xaa\x55', b'E2C34D5E992F', b'A', b'2012041
 def encode_data():
     data = bytearray()
     for i in HEART_BEAT_PACKAGE_ITEM_CONTENT:
+        if i == b'20120414':
+            i = bytes(datetime.datetime.today().date().strftime('%Y%m%d'), 'gbk')
+        if i == b'102113':
+            i = bytes(datetime.datetime.today().time().strftime('%H%M%S'), 'gbk')
         data += i
     return data
 
