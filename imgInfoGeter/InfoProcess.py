@@ -156,7 +156,7 @@ def file_process(file):
             time.sleep(EACH_WAIT_OPEN_TIME)
             total+=EACH_WAIT_OPEN_TIME
     
-    if MAX_WAIT_OPEN_TIME > total:
+    if MAX_WAIT_OPEN_TIME <= total:
         print('open file false, permission denied.')
         logger.debug('open file false, permission denied.')
     return
