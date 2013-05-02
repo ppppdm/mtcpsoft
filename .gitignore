@@ -41,7 +41,7 @@ ipch
 Debug
 
 # log file
-*log*
+*log*txt
 
 # tmp file
 *tmp*
