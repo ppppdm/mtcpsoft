@@ -6,6 +6,7 @@ import logging.config
 import traceback
 import datetime
 import os
+import time
 
 logging.config.fileConfig("logging.conf")
 
@@ -28,6 +29,8 @@ INFO_ITEM_LEN = [12, 17, 10, 11, 5,
                  2, 16, 8, 2, 4, 
                  1, 1
                  ]
+
+MAX_WAIT_OPEN_TIME = 600 # second
 
 # read file and get info in the image
 # before the info we want there is 6 bytes file head
@@ -133,13 +136,20 @@ def file_process(file):
     
     try:
         print('process file')
-        f = open(file, 'rb')
-    
-        infos = get_infos(f)
-    
-        store_infos(infos, file)
-    
-        f.close()
+        total = 0
+        while MAX_WAIT_OPEN_TIME > total:
+            if os.access(file, os.R_OK) and os.access(file, os.W_OK):
+                print('access file ok')
+                f = open(file, 'rb')
+                infos = get_infos(f)
+                print(infos)
+                store_infos(infos, file)
+                f.close()
+                break
+            else :
+                print('access file false')
+                time.sleep(60)
+                total+=60
     except Exception as e:
         print('file ', file, 'open error!', e)
         logger.debug(e)
