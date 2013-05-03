@@ -90,9 +90,11 @@ def decode_data(b_data):
 ###################################################################################3
 
 def is_in_lanes(location):
-    
-    x = float(location[0][:-1])
-    y = float(location[1][:-1])
+    try:
+        x = float(location[0][:-1])
+        y = float(location[1][:-1])
+    except:
+        x, y = 0, 0
     
     for p in LIANES_POINTS:
         if p[0] - COFFEE < x and x < p[0] + COFFEE and p[1] - COFFEE < y and y < p[1] + COFFEE:
@@ -108,7 +110,7 @@ def is_valid_period():
     
     if tn <= tu and tn >= tl:
        return True 
-    return False
+    return True
 
 def encode_return_data(infos, changed_args=dict()):
     r_data = bytearray()
