@@ -4,6 +4,7 @@
 
 
 import logging
+import logging.handlers
 
 # set up logging to file - see previous section for more details
 logging.basicConfig(level=logging.DEBUG,
@@ -36,10 +37,17 @@ logger2.warning('Jail zesty vixen who grabbed pay from quack.')
 logger2.error('The five boxing wizards jump quickly.')
 
 import logging.config
+
 logging.config.fileConfig("logging.conf")
 
 logger_e = logging.getLogger('example')
 
 logger_e.debug('hello 1')
 logger_e.error('hello 1')
+
+import time
+while True:
+    logger_e.error('hello 1')
+    time.sleep(5)
+    
 
