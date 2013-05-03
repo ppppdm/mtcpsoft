@@ -88,6 +88,7 @@ def store_infos(infos, file):
         except: # just not print db error
             print('db execute error!')
             logger.debug('db execute error!')
+            logger.error('Error file:%s', file)
         
         try:
             db_conn.commit()
@@ -95,6 +96,12 @@ def store_infos(infos, file):
         except: # just not print db error
             print('db commit error!')
             logger.debug('db commit error!')
+            logger.error('Error file:%s', file)
+    else:
+        # get db connect none
+        print('get db connect error!')
+        logger.debug('get db connect error!')
+        logger.error('Error file:%s', file)
         
     dbManager.close_db_connect(db_conn)
     
@@ -128,7 +135,7 @@ def get_infos(f):
             print('decode item %s error!'%(i), e)
             logger.debug(e)
         
-    print(infos)
+    #print(infos)
     
     return infos
 
@@ -159,6 +166,7 @@ def file_process(file):
     if MAX_WAIT_OPEN_TIME <= total:
         print('open file false, permission denied.')
         logger.debug('open file false, permission denied.')
+        logger.error('Error file:%s', file)
     return
 
 if __name__=='__main__':
