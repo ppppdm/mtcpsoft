@@ -17,4 +17,4 @@ if __name__=='__main__':
     t = threading.Thread(target=remoteControlServer.Server)
     t.start()
     
-    dbManager.init_db_connect_list()
+    dbManager.init_db()

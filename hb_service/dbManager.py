@@ -7,6 +7,7 @@ try:
 except:
     print('no module pyodbc, should init first!')
 import threading
+import time
 
 # self module
 import myLog
@@ -23,8 +24,8 @@ DB_CONNECT_NOT_USE_LIST = list()
 DB_CONNECT_USED_LIST = list()
 
 
-def init_db_connect_list():
-    for i in range(MAX_DB_CONNECT):
+def init_db_connect_list(conn_num = MAX_DB_CONNECT):
+    for i in range(conn_num):
         try:
             db_conn = pyodbc.connect('DRIVER={SQL Server}', host = DB_HOST, user = USER, password = PWD, database = DATABASE)
             # lock
@@ -82,4 +83,37 @@ def close_one_db_connect(conn):
         except Exception as e:
             print(e)
             myLog.mylogger.debug(e)
+    return
+
+
+
+DB_REPAIR_TIME = 3600 # sec
+
+
+def db_connect_server():
+    # check the useable db connect number in the db connect list every one hour
+    while True:
+        time.sleep(DB_REPAIR_TIME)
+        # lock
+        DB_CONNECT_LOCK.acquire()
+        total_conn = len(DB_CONNECT_NOT_USE_LIST) + len(DB_CONNECT_USED_LIST)
+        # release lock
+        DB_CONNECT_LOCK.release()
+        
+        print('total connect :', total_conn)
+        if total_conn < (MAX_DB_CONNECT >> 1):
+            init_db_connect_list(MAX_DB_CONNECT - total_conn)
+    
+    return
+
+def init_db():
+    # do two things
+    # one to init db connect list(db connect pool)
+    t1 = threading.Thread(target=init_db_connect_list)
+    t1.start()
+    
+    # two to start db connect repair service
+    t2 = threading.Thread(target=db_connect_server)
+    t2.start()
+    
     return
