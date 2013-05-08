@@ -7,6 +7,7 @@ import datetime
 
 # self module
 import myLog
+import readRoadGPS
 
 
 TIME_UPPER_LIMIT = 18
@@ -44,7 +45,6 @@ DEFALUT_PACKAGE_CONTENT = {'HEAD':b'\xaa\x55', 'CMD':b'0', 'WORK MODE':b'0', 'SE
                            'IS IN LANES':b'0', 'IS IN VALID PERIOD':b'0', 'END':b'\xee\x55'
                            }
 
-LIANES_POINTS = list()
 
 COFFEE = 0.01
 
@@ -96,7 +96,7 @@ def is_in_lanes(location):
     except:
         x, y = 0, 0
     
-    for p in LIANES_POINTS:
+    for p in readRoadGPS.ROAD_GPS_POINT_LIST:
         if p[0] - COFFEE < x and x < p[0] + COFFEE and p[1] - COFFEE < y and y < p[1] + COFFEE:
             return True
     

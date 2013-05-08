@@ -8,9 +8,13 @@ import threading
 import heartBeatServer
 import remoteControlServer
 import dbManager
+import readRoadGPS
 
 
 if __name__=='__main__':
+    # init road data
+    readRoadGPS.initRoadGPS(readRoadGPS.ROAD_GPS_FILE)
+    
     t = threading.Thread(target=heartBeatServer.Server)
     t.start()
     
