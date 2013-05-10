@@ -1,0 +1,522 @@
+[1] Fri 03May13 15:04:45 - Starting FTP Server...
+[1] Fri 03May13 15:04:46 - FTP Server listening on port number 21, IP 10.20.1.129, 192.168.179.1, 192.168.6.1, 127.0.0.1
+[5] Fri 03May13 15:38:39 - (000002) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 15:38:43 - (000002) User SSS logged in
+[4] Fri 03May13 15:38:55 - (000002) Receiving file d:\ftp\tmp1\20161119231403-db98-0001-1.jpg
+[4] Fri 03May13 15:39:38 - (000002) Received file d:\ftp\tmp1\20161119231403-db98-0001-1.jpg successfully (11.2 kB/sec - 495598 Bytes)
+[4] Fri 03May13 15:39:40 - (000002) Receiving file d:\ftp\tmp1\20161119231404-db98-0001-2.jpg
+[4] Fri 03May13 15:40:15 - (000002) Received file d:\ftp\tmp1\20161119231404-db98-0001-2.jpg successfully (13.7 kB/sec - 494482 Bytes)
+[4] Fri 03May13 15:40:16 - (000002) Receiving file d:\ftp\tmp1\20161119231405-db98-0001-3.jpg
+[4] Fri 03May13 15:40:44 - (000002) Received file d:\ftp\tmp1\20161119231405-db98-0001-3.jpg successfully (16.9 kB/sec - 492876 Bytes)
+[5] Fri 03May13 15:43:18 - (000003) Connected to 192.168.14.2 (Local address 127.0.0.1)
+[5] Fri 03May13 15:43:18 - (000003) Closing connection
+[5] Fri 03May13 15:45:46 - (000004) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 15:45:48 - (000004) User SSS logged in
+[4] Fri 03May13 15:45:56 - (000004) Receiving file d:\ftp\tmp1\20161119232104-db98-0001-1.jpg
+[4] Fri 03May13 15:49:12 - (000004) Error receiving file d:\ftp\tmp1\20161119232104-db98-0001-1.jpg, aborting (1.80 kB/sec - 360448 Bytes, packet timed out)
+[5] Fri 03May13 15:49:59 - (000005) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 15:50:00 - (000005) User SSS logged in
+[5] Fri 03May13 15:50:44 - (000002) Connection timed out
+[5] Fri 03May13 15:50:46 - (000002) Closing connection for user SSS (00:12:07 connected)
+[5] Fri 03May13 15:51:42 - (000004) Closing connection for user SSS (00:05:56 connected)
+[5] Fri 03May13 15:55:13 - (000006) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 15:55:13 - (000006) Closing connection
+[5] Fri 03May13 15:58:21 - (000007) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 15:58:21 - (000007) User SSS logged in
+[5] Fri 03May13 16:00:01 - (000005) Connection timed out
+[5] Fri 03May13 16:00:03 - (000005) Closing connection for user SSS (00:10:04 connected)
+[5] Fri 03May13 16:04:07 - (000008) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:04:09 - (000008) User SSS logged in
+[4] Fri 03May13 16:04:55 - (000008) Receiving file d:\ftp\tmp1\20161119233936-db98-0001-1.jpg
+[5] Fri 03May13 16:07:29 - (000009) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:07:30 - (000009) User SSS logged in
+[5] Fri 03May13 16:07:34 - (000009) Closing connection for user SSS (00:00:05 connected)
+[5] Fri 03May13 16:07:35 - (000010) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:07:36 - (000010) User SSS logged in
+[5] Fri 03May13 16:07:40 - (000010) Closing connection for user SSS (00:00:05 connected)
+[5] Fri 03May13 16:07:41 - (000011) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:07:42 - (000011) User SSS logged in
+[5] Fri 03May13 16:07:46 - (000011) Closing connection for user SSS (00:00:05 connected)
+[5] Fri 03May13 16:07:47 - (000012) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:07:48 - (000012) User SSS logged in
+[5] Fri 03May13 16:07:51 - (000012) Closing connection for user SSS (00:00:04 connected)
+[5] Fri 03May13 16:07:52 - (000013) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:07:54 - (000013) User SSS logged in
+[5] Fri 03May13 16:07:57 - (000013) Closing connection for user SSS (00:00:05 connected)
+[5] Fri 03May13 16:07:58 - (000014) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:07:59 - (000014) User SSS logged in
+[5] Fri 03May13 16:08:03 - (000014) Closing connection for user SSS (00:00:05 connected)
+[5] Fri 03May13 16:08:04 - (000015) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:08:05 - (000015) User SSS logged in
+[5] Fri 03May13 16:08:09 - (000015) Closing connection for user SSS (00:00:05 connected)
+[5] Fri 03May13 16:08:33 - (000016) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:08:35 - (000016) User SSS logged in
+[5] Fri 03May13 16:08:39 - (000016) Closing connection for user SSS (00:00:06 connected)
+[5] Fri 03May13 16:08:40 - (000017) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:08:41 - (000017) User SSS logged in
+[5] Fri 03May13 16:08:46 - (000017) Closing connection for user SSS (00:00:06 connected)
+[5] Fri 03May13 16:08:47 - (000018) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:08:48 - (000018) User SSS logged in
+[5] Fri 03May13 16:08:53 - (000018) Closing connection for user SSS (00:00:06 connected)
+[5] Fri 03May13 16:08:55 - (000019) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:08:56 - (000019) User SSS logged in
+[4] Fri 03May13 16:09:18 - (000008) Error receiving file d:\ftp\tmp1\20161119233936-db98-0001-1.jpg, aborting (373 Bytes/sec - 98304 Bytes, packet timed out)
+[5] Fri 03May13 16:09:22 - (000007) Connection timed out
+[5] Fri 03May13 16:09:22 - (000007) Closing connection for user SSS (00:11:01 connected)
+[5] Fri 03May13 16:10:04 - (000020) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:10:04 - (000020) User SSS logged in
+[5] Fri 03May13 16:11:05 - (000019) Closing connection for user SSS (00:02:10 connected)
+[5] Fri 03May13 16:11:11 - (000008) Closing connection for user SSS (00:07:04 connected)
+[4] Fri 03May13 16:13:25 - (000020) Receiving file d:\ftp\tmp1\20161119233936-db98-0001-1.jpg
+[5] Fri 03May13 16:15:40 - (000021) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:15:41 - (000021) User SSS logged in
+[5] Fri 03May13 16:15:45 - (000021) Closing connection for user SSS (00:00:05 connected)
+[5] Fri 03May13 16:15:46 - (000022) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:15:47 - (000022) User SSS logged in
+[5] Fri 03May13 16:15:50 - (000022) Closing connection for user SSS (00:00:04 connected)
+[5] Fri 03May13 16:15:51 - (000023) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:15:52 - (000023) User SSS logged in
+[5] Fri 03May13 16:15:56 - (000023) Closing connection for user SSS (00:00:05 connected)
+[5] Fri 03May13 16:15:57 - (000024) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:15:58 - (000024) User SSS logged in
+[5] Fri 03May13 16:16:01 - (000024) Closing connection for user SSS (00:00:04 connected)
+[5] Fri 03May13 16:16:02 - (000025) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:16:03 - (000025) User SSS logged in
+[5] Fri 03May13 16:16:06 - (000025) Closing connection for user SSS (00:00:04 connected)
+[5] Fri 03May13 16:16:07 - (000026) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:16:08 - (000026) User SSS logged in
+[5] Fri 03May13 16:16:12 - (000026) Closing connection for user SSS (00:00:05 connected)
+[5] Fri 03May13 16:16:13 - (000027) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:16:14 - (000027) User SSS logged in
+[5] Fri 03May13 16:16:18 - (000027) Closing connection for user SSS (00:00:05 connected)
+[5] Fri 03May13 16:16:19 - (000028) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:16:20 - (000028) User SSS logged in
+[5] Fri 03May13 16:16:23 - (000028) Closing connection for user SSS (00:00:04 connected)
+[5] Fri 03May13 16:16:24 - (000029) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:16:26 - (000029) User SSS logged in
+[5] Fri 03May13 16:16:29 - (000029) Closing connection for user SSS (00:00:05 connected)
+[5] Fri 03May13 16:16:30 - (000030) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:16:31 - (000030) User SSS logged in
+[5] Fri 03May13 16:16:34 - (000030) Closing connection for user SSS (00:00:04 connected)
+[5] Fri 03May13 16:16:35 - (000031) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:16:36 - (000031) User SSS logged in
+[5] Fri 03May13 16:16:39 - (000031) Closing connection for user SSS (00:00:04 connected)
+[5] Fri 03May13 16:16:40 - (000032) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:16:41 - (000032) User SSS logged in
+[5] Fri 03May13 16:16:44 - (000032) Closing connection for user SSS (00:00:04 connected)
+[5] Fri 03May13 16:16:45 - (000033) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:16:46 - (000033) User SSS logged in
+[5] Fri 03May13 16:16:49 - (000033) Closing connection for user SSS (00:00:04 connected)
+[5] Fri 03May13 16:16:50 - (000034) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:16:51 - (000034) User SSS logged in
+[5] Fri 03May13 16:16:54 - (000034) Closing connection for user SSS (00:00:04 connected)
+[5] Fri 03May13 16:16:55 - (000035) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:16:56 - (000035) User SSS logged in
+[5] Fri 03May13 16:16:59 - (000035) Closing connection for user SSS (00:00:04 connected)
+[5] Fri 03May13 16:17:00 - (000036) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:17:01 - (000036) User SSS logged in
+[5] Fri 03May13 16:17:05 - (000036) Closing connection for user SSS (00:00:05 connected)
+[5] Fri 03May13 16:17:06 - (000037) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:17:07 - (000037) User SSS logged in
+[5] Fri 03May13 16:17:10 - (000037) Closing connection for user SSS (00:00:04 connected)
+[5] Fri 03May13 16:17:11 - (000038) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:17:12 - (000038) User SSS logged in
+[5] Fri 03May13 16:17:15 - (000038) Closing connection for user SSS (00:00:04 connected)
+[5] Fri 03May13 16:17:18 - (000039) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:17:19 - (000039) User SSS logged in
+[5] Fri 03May13 16:17:23 - (000039) Closing connection for user SSS (00:00:05 connected)
+[5] Fri 03May13 16:17:24 - (000040) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:17:25 - (000040) User SSS logged in
+[5] Fri 03May13 16:17:28 - (000040) Closing connection for user SSS (00:00:04 connected)
+[5] Fri 03May13 16:17:29 - (000041) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:17:30 - (000041) User SSS logged in
+[5] Fri 03May13 16:17:33 - (000041) Closing connection for user SSS (00:00:04 connected)
+[5] Fri 03May13 16:17:34 - (000042) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:17:35 - (000042) User SSS logged in
+[5] Fri 03May13 16:17:38 - (000042) Closing connection for user SSS (00:00:04 connected)
+[5] Fri 03May13 16:17:39 - (000043) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:17:40 - (000043) User SSS logged in
+[5] Fri 03May13 16:17:43 - (000043) Closing connection for user SSS (00:00:04 connected)
+[5] Fri 03May13 16:17:44 - (000044) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:17:46 - (000044) User SSS logged in
+[5] Fri 03May13 16:17:49 - (000044) Closing connection for user SSS (00:00:05 connected)
+[5] Fri 03May13 16:17:50 - (000045) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:17:51 - (000045) User SSS logged in
+[5] Fri 03May13 16:17:53 - (000045) Closing connection for user SSS (00:00:03 connected)
+[5] Fri 03May13 16:17:54 - (000046) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:17:55 - (000046) User SSS logged in
+[5] Fri 03May13 16:17:58 - (000046) Closing connection for user SSS (00:00:04 connected)
+[5] Fri 03May13 16:18:00 - (000047) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:18:01 - (000047) User SSS logged in
+[4] Fri 03May13 16:18:03 - (000020) Error receiving file d:\ftp\tmp1\20161119233936-db98-0001-1.jpg, aborting (118 Bytes/sec - 32768 Bytes, packet timed out)
+[5] Fri 03May13 16:18:04 - (000047) Closing connection for user SSS (00:00:04 connected)
+[5] Fri 03May13 16:20:03 - (000020) Closing connection for user SSS (00:09:59 connected)
+[5] Fri 03May13 16:22:24 - (000048) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 16:22:25 - (000048) User SSS logged in
+[4] Fri 03May13 16:22:27 - (000048) Receiving file d:\ftp\tmp1\20161119233936-db98-0001-1.jpg
+[4] Fri 03May13 16:23:20 - (000048) Received file d:\ftp\tmp1\20161119233936-db98-0001-1.jpg successfully (8.20 kB/sec - 451178 Bytes)
+[4] Fri 03May13 16:23:23 - (000048) Receiving file d:\ftp\tmp1\20161119233937-db98-0001-2.jpg
+[4] Fri 03May13 16:28:13 - (000048) Error receiving file d:\ftp\tmp1\20161119233937-db98-0001-2.jpg, aborting (0 Bytes/sec - 0 Bytes, packet timed out)
+[5] Fri 03May13 16:30:04 - (000048) Closing connection for user SSS (00:07:40 connected)
+[5] Fri 03May13 17:04:07 - (000049) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 17:04:08 - (000049) User SSS logged in
+[4] Fri 03May13 17:04:10 - (000049) Receiving file d:\ftp\tmp1\20161119233937-db98-0001-2.jpg
+[4] Fri 03May13 17:04:48 - (000049) Received file d:\ftp\tmp1\20161119233937-db98-0001-2.jpg successfully (11.4 kB/sec - 444734 Bytes)
+[4] Fri 03May13 17:04:50 - (000049) Receiving file d:\ftp\tmp1\20161119233938-db98-0001-3.jpg
+[4] Fri 03May13 17:05:44 - (000049) Received file d:\ftp\tmp1\20161119233938-db98-0001-3.jpg successfully (8.03 kB/sec - 443122 Bytes)
+[4] Fri 03May13 17:05:45 - (000049) Receiving file d:\ftp\tmp1\20130503170514-db98-0002-1.jpg
+[4] Fri 03May13 17:06:10 - (000049) Received file d:\ftp\tmp1\20130503170514-db98-0002-1.jpg successfully (10.8 kB/sec - 279019 Bytes)
+[4] Fri 03May13 17:06:13 - (000049) Receiving file d:\ftp\tmp1\20130503170514-db98-0002-2.jpg
+[4] Fri 03May13 17:06:34 - (000049) Received file d:\ftp\tmp1\20130503170514-db98-0002-2.jpg successfully (14.4 kB/sec - 298473 Bytes)
+[4] Fri 03May13 17:06:36 - (000049) Receiving file d:\ftp\tmp1\20130503170515-db98-0002-3.jpg
+[4] Fri 03May13 17:07:12 - (000049) Received file d:\ftp\tmp1\20130503170515-db98-0002-3.jpg successfully (7.73 kB/sec - 284473 Bytes)
+[4] Fri 03May13 17:07:33 - (000049) Receiving file d:\ftp\tmp1\20130503170516-db98-0003-1.jpg
+[4] Fri 03May13 17:07:56 - (000049) Received file d:\ftp\tmp1\20130503170516-db98-0003-1.jpg successfully (11.7 kB/sec - 284720 Bytes)
+[4] Fri 03May13 17:07:57 - (000049) Receiving file d:\ftp\tmp1\20130503170516-db98-0003-2.jpg
+[4] Fri 03May13 17:08:25 - (000049) Received file d:\ftp\tmp1\20130503170516-db98-0003-2.jpg successfully (11.2 kB/sec - 324525 Bytes)
+[4] Fri 03May13 17:08:26 - (000049) Receiving file d:\ftp\tmp1\20130503170517-db98-0003-3.jpg
+[4] Fri 03May13 17:08:57 - (000049) Received file d:\ftp\tmp1\20130503170517-db98-0003-3.jpg successfully (9.05 kB/sec - 284485 Bytes)
+[4] Fri 03May13 17:08:59 - (000049) Receiving file d:\ftp\tmp1\20130503170803-db98-0004-1.jpg
+[4] Fri 03May13 17:09:36 - (000049) Received file d:\ftp\tmp1\20130503170803-db98-0004-1.jpg successfully (9.58 kB/sec - 370232 Bytes)
+[4] Fri 03May13 17:09:38 - (000049) Receiving file d:\ftp\tmp1\20130503170803-db98-0004-2.jpg
+[4] Fri 03May13 17:10:08 - (000049) Received file d:\ftp\tmp1\20130503170803-db98-0004-2.jpg successfully (11.8 kB/sec - 366024 Bytes)
+[4] Fri 03May13 17:10:09 - (000049) Receiving file d:\ftp\tmp1\20130503170804-db98-0004-3.jpg
+[4] Fri 03May13 17:10:36 - (000049) Received file d:\ftp\tmp1\20130503170804-db98-0004-3.jpg successfully (13.9 kB/sec - 374466 Bytes)
+[4] Fri 03May13 17:10:37 - (000049) Receiving file d:\ftp\tmp1\20130503170816-db98-0005-1.jpg
+[4] Fri 03May13 17:11:26 - (000049) Received file d:\ftp\tmp1\20130503170816-db98-0005-1.jpg successfully (7.39 kB/sec - 372093 Bytes)
+[4] Fri 03May13 17:11:27 - (000049) Receiving file d:\ftp\tmp1\20130503170817-db98-0005-2.jpg
+[4] Fri 03May13 17:11:58 - (000049) Received file d:\ftp\tmp1\20130503170817-db98-0005-2.jpg successfully (11.9 kB/sec - 370708 Bytes)
+[4] Fri 03May13 17:11:59 - (000049) Receiving file d:\ftp\tmp1\20130503170817-db98-0005-3.jpg
+[4] Fri 03May13 17:12:30 - (000049) Received file d:\ftp\tmp1\20130503170817-db98-0005-3.jpg successfully (11.9 kB/sec - 374935 Bytes)
+[4] Fri 03May13 17:12:32 - (000049) Receiving file d:\ftp\tmp1\20130503171020-db98-0006-1.jpg
+[4] Fri 03May13 17:13:01 - (000049) Received file d:\ftp\tmp1\20130503171020-db98-0006-1.jpg successfully (11.5 kB/sec - 342875 Bytes)
+[4] Fri 03May13 17:13:02 - (000049) Receiving file d:\ftp\tmp1\20130503171020-db98-0006-2.jpg
+[4] Fri 03May13 17:13:36 - (000049) Received file d:\ftp\tmp1\20130503171020-db98-0006-2.jpg successfully (9.49 kB/sec - 334314 Bytes)
+[4] Fri 03May13 17:13:39 - (000049) Receiving file d:\ftp\tmp1\20130503171021-db98-0006-3.jpg
+[4] Fri 03May13 17:14:01 - (000049) Received file d:\ftp\tmp1\20130503171021-db98-0006-3.jpg successfully (13.1 kB/sec - 295959 Bytes)
+[4] Fri 03May13 17:14:03 - (000049) Receiving file d:\ftp\tmp1\20130503171401-db98-0007-1.jpg
+[4] Fri 03May13 17:14:37 - (000049) Received file d:\ftp\tmp1\20130503171401-db98-0007-1.jpg successfully (10.2 kB/sec - 354980 Bytes)
+[4] Fri 03May13 17:14:38 - (000049) Receiving file d:\ftp\tmp1\20130503171402-db98-0007-2.jpg
+[4] Fri 03May13 17:14:55 - (000049) Received file d:\ftp\tmp1\20130503171402-db98-0007-2.jpg successfully (20.5 kB/sec - 355686 Bytes)
+[4] Fri 03May13 17:14:58 - (000049) Receiving file d:\ftp\tmp1\20130503171402-db98-0007-3.jpg
+[4] Fri 03May13 17:15:40 - (000049) Received file d:\ftp\tmp1\20130503171402-db98-0007-3.jpg successfully (8.50 kB/sec - 367130 Bytes)
+[4] Fri 03May13 17:15:42 - (000049) Receiving file d:\ftp\tmp1\20130503171433-db98-0008-1.jpg
+[4] Fri 03May13 17:16:32 - (000049) Received file d:\ftp\tmp1\20130503171433-db98-0008-1.jpg successfully (7.95 kB/sec - 406549 Bytes)
+[4] Fri 03May13 17:16:33 - (000049) Receiving file d:\ftp\tmp1\20130503171434-db98-0008-2.jpg
+[4] Fri 03May13 17:17:01 - (000049) Received file d:\ftp\tmp1\20130503171434-db98-0008-2.jpg successfully (13.6 kB/sec - 390970 Bytes)
+[4] Fri 03May13 17:17:03 - (000049) Receiving file d:\ftp\tmp1\20130503171435-db98-0008-3.jpg
+[4] Fri 03May13 17:17:35 - (000049) Received file d:\ftp\tmp1\20130503171435-db98-0008-3.jpg successfully (12.1 kB/sec - 399961 Bytes)
+[4] Fri 03May13 17:17:36 - (000049) Receiving file d:\ftp\tmp1\20130503171439-db98-0009-1.jpg
+[4] Fri 03May13 17:18:06 - (000049) Received file d:\ftp\tmp1\20130503171439-db98-0009-1.jpg successfully (12.2 kB/sec - 371468 Bytes)
+[4] Fri 03May13 17:18:06 - (000049) Receiving file d:\ftp\tmp1\20130503171440-db98-0009-2.jpg
+[4] Fri 03May13 17:18:28 - (000049) Received file d:\ftp\tmp1\20130503171440-db98-0009-2.jpg successfully (16.0 kB/sec - 361393 Bytes)
+[4] Fri 03May13 17:18:30 - (000049) Receiving file d:\ftp\tmp1\20130503171441-db98-0009-3.jpg
+[4] Fri 03May13 17:18:50 - (000049) Received file d:\ftp\tmp1\20130503171441-db98-0009-3.jpg successfully (17.4 kB/sec - 353606 Bytes)
+[4] Fri 03May13 17:18:52 - (000049) Receiving file d:\ftp\tmp1\20130503171649-db98-0010-1.jpg
+[4] Fri 03May13 17:19:14 - (000049) Received file d:\ftp\tmp1\20130503171649-db98-0010-1.jpg successfully (13.9 kB/sec - 320387 Bytes)
+[4] Fri 03May13 17:19:17 - (000049) Receiving file d:\ftp\tmp1\20130503171650-db98-0010-2.jpg
+[4] Fri 03May13 17:19:36 - (000049) Received file d:\ftp\tmp1\20130503171650-db98-0010-2.jpg successfully (15.8 kB/sec - 315964 Bytes)
+[4] Fri 03May13 17:19:37 - (000049) Receiving file d:\ftp\tmp1\20130503171651-db98-0010-3.jpg
+[4] Fri 03May13 17:20:01 - (000049) Received file d:\ftp\tmp1\20130503171651-db98-0010-3.jpg successfully (13.8 kB/sec - 327203 Bytes)
+[4] Fri 03May13 17:20:02 - (000049) Receiving file d:\ftp\tmp1\20130503171803-db98-0011-1.jpg
+[4] Fri 03May13 17:20:36 - (000049) Received file d:\ftp\tmp1\20130503171803-db98-0011-1.jpg successfully (9.9 kB/sec - 344493 Bytes)
+[4] Fri 03May13 17:20:38 - (000049) Receiving file d:\ftp\tmp1\20130503171804-db98-0011-2.jpg
+[4] Fri 03May13 17:21:10 - (000049) Received file d:\ftp\tmp1\20130503171804-db98-0011-2.jpg successfully (10.9 kB/sec - 357346 Bytes)
+[4] Fri 03May13 17:21:11 - (000049) Receiving file d:\ftp\tmp1\20130503171805-db98-0011-3.jpg
+[4] Fri 03May13 17:21:36 - (000049) Received file d:\ftp\tmp1\20130503171805-db98-0011-3.jpg successfully (14.4 kB/sec - 361677 Bytes)
+[4] Fri 03May13 17:21:37 - (000049) Receiving file d:\ftp\tmp1\20130503171838-db98-0012-1.jpg
+[4] Fri 03May13 17:22:10 - (000049) Received file d:\ftp\tmp1\20130503171838-db98-0012-1.jpg successfully (9.9 kB/sec - 335949 Bytes)
+[4] Fri 03May13 17:22:11 - (000049) Receiving file d:\ftp\tmp1\20130503171838-db98-0012-2.jpg
+[4] Fri 03May13 17:22:49 - (000049) Received file d:\ftp\tmp1\20130503171838-db98-0012-2.jpg successfully (8.68 kB/sec - 340308 Bytes)
+[4] Fri 03May13 17:22:56 - (000049) Receiving file d:\ftp\tmp1\20130503171839-db98-0012-3.jpg
+[4] Fri 03May13 17:23:25 - (000049) Received file d:\ftp\tmp1\20130503171839-db98-0012-3.jpg successfully (12.0 kB/sec - 354694 Bytes)
+[4] Fri 03May13 17:23:26 - (000049) Receiving file d:\ftp\tmp1\20130503171926-db98-0013-1.jpg
+[4] Fri 03May13 17:25:55 - (000049) Error receiving file d:\ftp\tmp1\20130503171926-db98-0013-1.jpg, aborting (880 Bytes/sec - 131072 Bytes, command connection closed)
+[5] Fri 03May13 17:25:55 - (000049) Closing connection for user SSS (00:21:48 connected)
+[5] Fri 03May13 17:26:10 - (000050) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 17:26:11 - (000050) User SSS logged in
+[4] Fri 03May13 17:26:14 - (000050) Receiving file d:\ftp\tmp1\20130503171926-db98-0013-1.jpg
+[4] Fri 03May13 17:27:02 - (000050) Received file d:\ftp\tmp1\20130503171926-db98-0013-1.jpg successfully (7.04 kB/sec - 348829 Bytes)
+[4] Fri 03May13 17:27:03 - (000050) Receiving file d:\ftp\tmp1\20130503171927-db98-0013-2.jpg
+[4] Fri 03May13 17:27:32 - (000050) Received file d:\ftp\tmp1\20130503171927-db98-0013-2.jpg successfully (12.0 kB/sec - 357287 Bytes)
+[4] Fri 03May13 17:27:34 - (000050) Receiving file d:\ftp\tmp1\20130503171928-db98-0013-3.jpg
+[4] Fri 03May13 17:27:53 - (000050) Received file d:\ftp\tmp1\20130503171928-db98-0013-3.jpg successfully (18.8 kB/sec - 364942 Bytes)
+[4] Fri 03May13 17:27:54 - (000050) Receiving file d:\ftp\tmp1\20130503171929-db98-0014-1.jpg
+[4] Fri 03May13 17:28:20 - (000050) Received file d:\ftp\tmp1\20130503171929-db98-0014-1.jpg successfully (13.6 kB/sec - 360257 Bytes)
+[4] Fri 03May13 17:28:21 - (000050) Receiving file d:\ftp\tmp1\20130503171930-db98-0014-2.jpg
+[4] Fri 03May13 17:28:50 - (000050) Received file d:\ftp\tmp1\20130503171930-db98-0014-2.jpg successfully (12.5 kB/sec - 370014 Bytes)
+[4] Fri 03May13 17:28:52 - (000050) Receiving file d:\ftp\tmp1\20130503171931-db98-0014-3.jpg
+[4] Fri 03May13 17:29:52 - (000050) Received file d:\ftp\tmp1\20130503171931-db98-0014-3.jpg successfully (6.17 kB/sec - 383993 Bytes)
+[4] Fri 03May13 17:29:54 - (000050) Receiving file d:\ftp\tmp1\20130503172121-db98-0015-1.jpg
+[4] Fri 03May13 17:30:26 - (000050) Received file d:\ftp\tmp1\20130503172121-db98-0015-1.jpg successfully (10.6 kB/sec - 341200 Bytes)
+[4] Fri 03May13 17:30:27 - (000050) Receiving file d:\ftp\tmp1\20130503172122-db98-0015-2.jpg
+[4] Fri 03May13 17:31:00 - (000050) Received file d:\ftp\tmp1\20130503172122-db98-0015-2.jpg successfully (10.1 kB/sec - 346026 Bytes)
+[4] Fri 03May13 17:31:01 - (000050) Receiving file d:\ftp\tmp1\20130503172123-db98-0015-3.jpg
+[4] Fri 03May13 17:31:34 - (000050) Received file d:\ftp\tmp1\20130503172123-db98-0015-3.jpg successfully (10.1 kB/sec - 339518 Bytes)
+[4] Fri 03May13 17:31:36 - (000050) Receiving file d:\ftp\tmp1\20130503172230-db98-0016-1.jpg
+[4] Fri 03May13 17:32:06 - (000050) Received file d:\ftp\tmp1\20130503172230-db98-0016-1.jpg successfully (12.7 kB/sec - 390341 Bytes)
+[4] Fri 03May13 17:32:08 - (000050) Receiving file d:\ftp\tmp1\20130503172231-db98-0016-2.jpg
+[4] Fri 03May13 17:32:43 - (000050) Received file d:\ftp\tmp1\20130503172231-db98-0016-2.jpg successfully (10.7 kB/sec - 387881 Bytes)
+[4] Fri 03May13 17:32:46 - (000050) Receiving file d:\ftp\tmp1\20130503172232-db98-0016-3.jpg
+[4] Fri 03May13 17:33:15 - (000050) Received file d:\ftp\tmp1\20130503172232-db98-0016-3.jpg successfully (12.4 kB/sec - 378182 Bytes)
+[4] Fri 03May13 17:33:17 - (000050) Receiving file d:\ftp\tmp1\20130503172315-db98-0017-1.jpg
+[4] Fri 03May13 17:33:40 - (000050) Received file d:\ftp\tmp1\20130503172315-db98-0017-1.jpg successfully (13.2 kB/sec - 310916 Bytes)
+[4] Fri 03May13 17:33:42 - (000050) Receiving file d:\ftp\tmp1\20130503172317-db98-0017-2.jpg
+[4] Fri 03May13 17:34:06 - (000050) Received file d:\ftp\tmp1\20130503172317-db98-0017-2.jpg successfully (12.1 kB/sec - 304888 Bytes)
+[4] Fri 03May13 17:34:08 - (000050) Receiving file d:\ftp\tmp1\20130503172318-db98-0017-3.jpg
+[4] Fri 03May13 17:34:30 - (000050) Received file d:\ftp\tmp1\20130503172318-db98-0017-3.jpg successfully (13.1 kB/sec - 302203 Bytes)
+[4] Fri 03May13 17:34:31 - (000050) Receiving file d:\ftp\tmp1\20130503172441-db98-0018-1.jpg
+[4] Fri 03May13 17:35:01 - (000050) Received file d:\ftp\tmp1\20130503172441-db98-0018-1.jpg successfully (14.0 kB/sec - 431375 Bytes)
+[4] Fri 03May13 17:35:03 - (000050) Receiving file d:\ftp\tmp1\20130503172442-db98-0018-2.jpg
+[4] Fri 03May13 17:35:42 - (000050) Received file d:\ftp\tmp1\20130503172442-db98-0018-2.jpg successfully (10.4 kB/sec - 416046 Bytes)
+[4] Fri 03May13 17:35:44 - (000050) Receiving file d:\ftp\tmp1\20130503172443-db98-0018-3.jpg
+[4] Fri 03May13 17:36:22 - (000050) Received file d:\ftp\tmp1\20130503172443-db98-0018-3.jpg successfully (10.3 kB/sec - 405235 Bytes)
+[4] Fri 03May13 17:36:24 - (000050) Receiving file d:\ftp\tmp1\20130503172636-db98-0019-1.jpg
+[4] Fri 03May13 17:37:10 - (000050) Received file d:\ftp\tmp1\20130503172636-db98-0019-1.jpg successfully (9.09 kB/sec - 425767 Bytes)
+[4] Fri 03May13 17:37:12 - (000050) Receiving file d:\ftp\tmp1\20130503172637-db98-0019-2.jpg
+[4] Fri 03May13 17:37:34 - (000050) Received file d:\ftp\tmp1\20130503172637-db98-0019-2.jpg successfully (17.8 kB/sec - 411163 Bytes)
+[4] Fri 03May13 17:37:35 - (000050) Receiving file d:\ftp\tmp1\20130503172638-db98-0019-3.jpg
+[4] Fri 03May13 17:38:09 - (000050) Received file d:\ftp\tmp1\20130503172638-db98-0019-3.jpg successfully (11.3 kB/sec - 389169 Bytes)
+[4] Fri 03May13 17:38:11 - (000050) Receiving file d:\ftp\tmp1\20130503172702-db98-0020-1.jpg
+[4] Fri 03May13 17:38:46 - (000050) Received file d:\ftp\tmp1\20130503172702-db98-0020-1.jpg successfully (10.5 kB/sec - 382106 Bytes)
+[4] Fri 03May13 17:38:48 - (000050) Receiving file d:\ftp\tmp1\20130503172702-db98-0020-2.jpg
+[4] Fri 03May13 17:39:18 - (000050) Received file d:\ftp\tmp1\20130503172702-db98-0020-2.jpg successfully (12.3 kB/sec - 378094 Bytes)
+[4] Fri 03May13 17:39:20 - (000050) Receiving file d:\ftp\tmp1\20130503172703-db98-0020-3.jpg
+[4] Fri 03May13 17:39:42 - (000050) Received file d:\ftp\tmp1\20130503172703-db98-0020-3.jpg successfully (16.6 kB/sec - 378735 Bytes)
+[4] Fri 03May13 17:39:43 - (000050) Receiving file d:\ftp\tmp1\20130503172740-db98-0021-1.jpg
+[4] Fri 03May13 17:40:17 - (000050) Received file d:\ftp\tmp1\20130503172740-db98-0021-1.jpg successfully (10.5 kB/sec - 361655 Bytes)
+[4] Fri 03May13 17:40:18 - (000050) Receiving file d:\ftp\tmp1\20130503172740-db98-0021-2.jpg
+[4] Fri 03May13 17:40:50 - (000050) Received file d:\ftp\tmp1\20130503172740-db98-0021-2.jpg successfully (11.0 kB/sec - 363908 Bytes)
+[4] Fri 03May13 17:40:51 - (000050) Receiving file d:\ftp\tmp1\20130503172741-db98-0021-3.jpg
+[4] Fri 03May13 17:41:19 - (000050) Received file d:\ftp\tmp1\20130503172741-db98-0021-3.jpg successfully (12.5 kB/sec - 360321 Bytes)
+[4] Fri 03May13 17:41:20 - (000050) Receiving file d:\ftp\tmp1\20130503172927-db98-0022-1.jpg
+[4] Fri 03May13 17:41:55 - (000050) Received file d:\ftp\tmp1\20130503172927-db98-0022-1.jpg successfully (11.4 kB/sec - 406644 Bytes)
+[4] Fri 03May13 17:41:57 - (000050) Receiving file d:\ftp\tmp1\20130503172928-db98-0022-2.jpg
+[4] Fri 03May13 17:42:56 - (000050) Received file d:\ftp\tmp1\20130503172928-db98-0022-2.jpg successfully (6.62 kB/sec - 405791 Bytes)
+[4] Fri 03May13 17:42:58 - (000050) Receiving file d:\ftp\tmp1\20130503172929-db98-0022-3.jpg
+[4] Fri 03May13 17:43:51 - (000050) Received file d:\ftp\tmp1\20130503172929-db98-0022-3.jpg successfully (7.52 kB/sec - 403369 Bytes)
+[4] Fri 03May13 17:43:54 - (000050) Receiving file d:\ftp\tmp1\20130503173110-db98-0023-1.jpg
+[4] Fri 03May13 17:44:43 - (000050) Received file d:\ftp\tmp1\20130503173110-db98-0023-1.jpg successfully (8.06 kB/sec - 404021 Bytes)
+[4] Fri 03May13 17:44:44 - (000050) Receiving file d:\ftp\tmp1\20130503173111-db98-0023-2.jpg
+[4] Fri 03May13 17:45:26 - (000050) Received file d:\ftp\tmp1\20130503173111-db98-0023-2.jpg successfully (9.10 kB/sec - 394789 Bytes)
+[4] Fri 03May13 17:45:29 - (000050) Receiving file d:\ftp\tmp1\20130503173112-db98-0023-3.jpg
+[4] Fri 03May13 17:46:16 - (000050) Received file d:\ftp\tmp1\20130503173112-db98-0023-3.jpg successfully (7.38 kB/sec - 355377 Bytes)
+[4] Fri 03May13 17:46:17 - (000050) Receiving file d:\ftp\tmp1\20130503173338-db98-0024-1.jpg
+[4] Fri 03May13 17:46:46 - (000050) Received file d:\ftp\tmp1\20130503173338-db98-0024-1.jpg successfully (11.4 kB/sec - 337390 Bytes)
+[4] Fri 03May13 17:46:47 - (000050) Receiving file d:\ftp\tmp1\20130503173339-db98-0024-2.jpg
+[4] Fri 03May13 17:47:06 - (000050) Received file d:\ftp\tmp1\20130503173339-db98-0024-2.jpg successfully (17.4 kB/sec - 342945 Bytes)
+[4] Fri 03May13 17:47:07 - (000050) Receiving file d:\ftp\tmp1\20130503173340-db98-0024-3.jpg
+[4] Fri 03May13 17:47:29 - (000050) Received file d:\ftp\tmp1\20130503173340-db98-0024-3.jpg successfully (15.7 kB/sec - 342271 Bytes)
+[4] Fri 03May13 17:47:30 - (000050) Receiving file d:\ftp\tmp1\20130503173423-db98-0025-1.jpg
+[4] Fri 03May13 17:47:53 - (000050) Received file d:\ftp\tmp1\20130503173423-db98-0025-1.jpg successfully (17.2 kB/sec - 397900 Bytes)
+[4] Fri 03May13 17:47:55 - (000050) Receiving file d:\ftp\tmp1\20130503173424-db98-0025-2.jpg
+[4] Fri 03May13 17:48:37 - (000050) Received file d:\ftp\tmp1\20130503173424-db98-0025-2.jpg successfully (8.19 kB/sec - 351938 Bytes)
+[4] Fri 03May13 17:48:38 - (000050) Receiving file d:\ftp\tmp1\20130503173424-db98-0025-3.jpg
+[4] Fri 03May13 17:49:15 - (000050) Received file d:\ftp\tmp1\20130503173424-db98-0025-3.jpg successfully (9.16 kB/sec - 351855 Bytes)
+[4] Fri 03May13 17:49:17 - (000050) Receiving file d:\ftp\tmp1\20130503173545-db98-0026-1.jpg
+[4] Fri 03May13 17:50:12 - (000050) Received file d:\ftp\tmp1\20130503173545-db98-0026-1.jpg successfully (7.36 kB/sec - 417421 Bytes)
+[4] Fri 03May13 17:50:14 - (000050) Receiving file d:\ftp\tmp1\20130503173546-db98-0026-2.jpg
+[4] Fri 03May13 17:50:44 - (000050) Received file d:\ftp\tmp1\20130503173546-db98-0026-2.jpg successfully (12.5 kB/sec - 387726 Bytes)
+[4] Fri 03May13 17:50:46 - (000050) Receiving file d:\ftp\tmp1\20130503173547-db98-0026-3.jpg
+[4] Fri 03May13 17:52:00 - (000050) Received file d:\ftp\tmp1\20130503173547-db98-0026-3.jpg successfully (5.15 kB/sec - 391072 Bytes)
+[4] Fri 03May13 17:52:04 - (000050) Receiving file d:\ftp\tmp1\20130503173715-db98-0027-1.jpg
+[4] Fri 03May13 17:53:09 - (000050) Received file d:\ftp\tmp1\20130503173715-db98-0027-1.jpg successfully (5.36 kB/sec - 357567 Bytes)
+[4] Fri 03May13 17:53:11 - (000050) Receiving file d:\ftp\tmp1\20130503173715-db98-0027-2.jpg
+[4] Fri 03May13 17:54:27 - (000050) Received file d:\ftp\tmp1\20130503173715-db98-0027-2.jpg successfully (4.51 kB/sec - 351532 Bytes)
+[4] Fri 03May13 17:54:29 - (000050) Receiving file d:\ftp\tmp1\20130503173716-db98-0027-3.jpg
+[4] Fri 03May13 17:55:23 - (000050) Received file d:\ftp\tmp1\20130503173716-db98-0027-3.jpg successfully (6.33 kB/sec - 346759 Bytes)
+[4] Fri 03May13 17:55:24 - (000050) Receiving file d:\ftp\tmp1\20130503173726-db98-0028-1.jpg
+[4] Fri 03May13 17:57:14 - (000050) Error receiving file d:\ftp\tmp1\20130503173726-db98-0028-1.jpg, aborting (2.04 kB/sec - 229376 Bytes, reason unknown)
+[5] Fri 03May13 17:57:14 - (000050) Closing connection for user SSS (00:31:04 connected)
+[5] Fri 03May13 17:57:14 - (000051) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 17:57:15 - (000051) User SSS logged in
+[4] Fri 03May13 17:57:16 - (000051) Receiving file d:\ftp\tmp1\20130503173726-db98-0028-1.jpg
+[4] Fri 03May13 17:57:36 - (000051) Received file d:\ftp\tmp1\20130503173726-db98-0028-1.jpg successfully (17.4 kB/sec - 355420 Bytes)
+[4] Fri 03May13 17:57:38 - (000051) Receiving file d:\ftp\tmp1\20130503173727-db98-0028-2.jpg
+[4] Fri 03May13 17:57:59 - (000051) Received file d:\ftp\tmp1\20130503173727-db98-0028-2.jpg successfully (16.4 kB/sec - 352895 Bytes)
+[4] Fri 03May13 17:57:59 - (000051) Receiving file d:\ftp\tmp1\20130503173728-db98-0028-3.jpg
+[4] Fri 03May13 17:58:26 - (000051) Received file d:\ftp\tmp1\20130503173728-db98-0028-3.jpg successfully (13.3 kB/sec - 361257 Bytes)
+[4] Fri 03May13 17:58:27 - (000051) Receiving file d:\ftp\tmp1\20130503173749-db98-0029-1.jpg
+[4] Fri 03May13 17:58:50 - (000051) Received file d:\ftp\tmp1\20130503173749-db98-0029-1.jpg successfully (19.8 kB/sec - 467027 Bytes)
+[4] Fri 03May13 17:58:51 - (000051) Receiving file d:\ftp\tmp1\20130503173750-db98-0029-2.jpg
+[4] Fri 03May13 17:59:25 - (000051) Received file d:\ftp\tmp1\20130503173750-db98-0029-2.jpg successfully (12.2 kB/sec - 423567 Bytes)
+[4] Fri 03May13 17:59:28 - (000051) Receiving file d:\ftp\tmp1\20130503173751-db98-0029-3.jpg
+[4] Fri 03May13 18:00:19 - (000051) Received file d:\ftp\tmp1\20130503173751-db98-0029-3.jpg successfully (8.32 kB/sec - 433390 Bytes)
+[4] Fri 03May13 18:00:21 - (000051) Receiving file d:\ftp\tmp1\20130503173849-db98-0030-1.jpg
+[4] Fri 03May13 18:01:06 - (000051) Received file d:\ftp\tmp1\20130503173849-db98-0030-1.jpg successfully (8.16 kB/sec - 375171 Bytes)
+[4] Fri 03May13 18:01:06 - (000051) Receiving file d:\ftp\tmp1\20130503173850-db98-0030-2.jpg
+[4] Fri 03May13 18:01:48 - (000051) Received file d:\ftp\tmp1\20130503173850-db98-0030-2.jpg successfully (8.73 kB/sec - 376022 Bytes)
+[4] Fri 03May13 18:01:50 - (000051) Receiving file d:\ftp\tmp1\20130503173851-db98-0030-3.jpg
+[4] Fri 03May13 18:02:31 - (000051) Received file d:\ftp\tmp1\20130503173851-db98-0030-3.jpg successfully (8.35 kB/sec - 352717 Bytes)
+[4] Fri 03May13 18:02:32 - (000051) Receiving file d:\ftp\tmp1\20130503173922-db98-0031-1.jpg
+[4] Fri 03May13 18:03:55 - (000051) Received file d:\ftp\tmp1\20130503173922-db98-0031-1.jpg successfully (4.69 kB/sec - 395870 Bytes)
+[4] Fri 03May13 18:03:57 - (000051) Receiving file d:\ftp\tmp1\20130503173923-db98-0031-2.jpg
+[4] Fri 03May13 18:05:08 - (000051) Received file d:\ftp\tmp1\20130503173923-db98-0031-2.jpg successfully (5.02 kB/sec - 365312 Bytes)
+[4] Fri 03May13 18:05:09 - (000051) Receiving file d:\ftp\tmp1\20130503173924-db98-0031-3.jpg
+[4] Fri 03May13 18:05:49 - (000051) Received file d:\ftp\tmp1\20130503173924-db98-0031-3.jpg successfully (8.84 kB/sec - 363662 Bytes)
+[4] Fri 03May13 18:05:51 - (000051) Receiving file d:\ftp\tmp1\20130503173934-db98-0032-1.jpg
+[4] Fri 03May13 18:06:19 - (000051) Received file d:\ftp\tmp1\20130503173934-db98-0032-1.jpg successfully (13.2 kB/sec - 384909 Bytes)
+[4] Fri 03May13 18:06:21 - (000051) Receiving file d:\ftp\tmp1\20130503173935-db98-0032-2.jpg
+[4] Fri 03May13 18:07:12 - (000051) Error receiving file d:\ftp\tmp1\20130503173935-db98-0032-2.jpg, aborting (3.74 kB/sec - 196608 Bytes, reason unknown)
+[5] Fri 03May13 18:07:12 - (000051) Closing connection for user SSS (00:09:58 connected)
+[5] Fri 03May13 18:07:13 - (000052) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 18:07:14 - (000052) User SSS logged in
+[4] Fri 03May13 18:07:16 - (000052) Receiving file d:\ftp\tmp1\20130503173935-db98-0032-2.jpg
+[4] Fri 03May13 18:08:00 - (000052) Received file d:\ftp\tmp1\20130503173935-db98-0032-2.jpg successfully (8.62 kB/sec - 389438 Bytes)
+[4] Fri 03May13 18:08:01 - (000052) Receiving file d:\ftp\tmp1\20130503173935-db98-0032-3.jpg
+[4] Fri 03May13 18:08:54 - (000052) Received file d:\ftp\tmp1\20130503173935-db98-0032-3.jpg successfully (7.16 kB/sec - 383974 Bytes)
+[4] Fri 03May13 18:08:55 - (000052) Receiving file d:\ftp\tmp1\20130503174328-db98-0033-1.jpg
+[4] Fri 03May13 18:09:46 - (000052) Received file d:\ftp\tmp1\20130503174328-db98-0033-1.jpg successfully (7.80 kB/sec - 407596 Bytes)
+[4] Fri 03May13 18:09:47 - (000052) Receiving file d:\ftp\tmp1\20130503174329-db98-0033-2.jpg
+[4] Fri 03May13 18:10:27 - (000052) Received file d:\ftp\tmp1\20130503174329-db98-0033-2.jpg successfully (10.6 kB/sec - 435893 Bytes)
+[4] Fri 03May13 18:10:30 - (000052) Receiving file d:\ftp\tmp1\20130503174330-db98-0033-3.jpg
+[4] Fri 03May13 18:11:35 - (000052) Received file d:\ftp\tmp1\20130503174330-db98-0033-3.jpg successfully (6.65 kB/sec - 445716 Bytes)
+[4] Fri 03May13 18:11:37 - (000052) Receiving file d:\ftp\tmp1\20130503174640-db98-0034-1.jpg
+[4] Fri 03May13 18:12:29 - (000052) Received file d:\ftp\tmp1\20130503174640-db98-0034-1.jpg successfully (7.18 kB/sec - 382769 Bytes)
+[4] Fri 03May13 18:12:31 - (000052) Receiving file d:\ftp\tmp1\20130503174641-db98-0034-2.jpg
+[4] Fri 03May13 18:13:21 - (000052) Received file d:\ftp\tmp1\20130503174641-db98-0034-2.jpg successfully (8.03 kB/sec - 418099 Bytes)
+[4] Fri 03May13 18:13:24 - (000052) Receiving file d:\ftp\tmp1\20130503174642-db98-0034-3.jpg
+[4] Fri 03May13 18:14:13 - (000052) Received file d:\ftp\tmp1\20130503174642-db98-0034-3.jpg successfully (8.37 kB/sec - 420109 Bytes)
+[4] Fri 03May13 18:14:14 - (000052) Receiving file d:\ftp\tmp1\20130503174849-db98-0035-1.jpg
+[4] Fri 03May13 18:14:59 - (000052) Received file d:\ftp\tmp1\20130503174849-db98-0035-1.jpg successfully (10.4 kB/sec - 479778 Bytes)
+[4] Fri 03May13 18:15:02 - (000052) Receiving file d:\ftp\tmp1\20130503174850-db98-0035-2.jpg
+[4] Fri 03May13 18:15:45 - (000052) Received file d:\ftp\tmp1\20130503174850-db98-0035-2.jpg successfully (10.9 kB/sec - 480262 Bytes)
+[4] Fri 03May13 18:15:47 - (000052) Receiving file d:\ftp\tmp1\20130503174851-db98-0035-3.jpg
+[4] Fri 03May13 18:16:46 - (000052) Received file d:\ftp\tmp1\20130503174851-db98-0035-3.jpg successfully (7.91 kB/sec - 478221 Bytes)
+[4] Fri 03May13 18:16:48 - (000052) Receiving file d:\ftp\tmp1\20130503175008-db98-0036-1.jpg
+[4] Fri 03May13 18:17:39 - (000052) Received file d:\ftp\tmp1\20130503175008-db98-0036-1.jpg successfully (8.59 kB/sec - 444078 Bytes)
+[4] Fri 03May13 18:17:40 - (000052) Receiving file d:\ftp\tmp1\20130503175009-db98-0036-2.jpg
+[4] Fri 03May13 18:18:25 - (000052) Received file d:\ftp\tmp1\20130503175009-db98-0036-2.jpg successfully (9.71 kB/sec - 446009 Bytes)
+[4] Fri 03May13 18:18:27 - (000052) Receiving file d:\ftp\tmp1\20130503175009-db98-0036-3.jpg
+[4] Fri 03May13 18:18:58 - (000052) Received file d:\ftp\tmp1\20130503175009-db98-0036-3.jpg successfully (13.2 kB/sec - 425288 Bytes)
+[4] Fri 03May13 18:19:00 - (000052) Receiving file d:\ftp\tmp1\20130503175141-db98-0037-1.jpg
+[4] Fri 03May13 18:19:24 - (000052) Received file d:\ftp\tmp1\20130503175141-db98-0037-1.jpg successfully (14.0 kB/sec - 351689 Bytes)
+[4] Fri 03May13 18:19:26 - (000052) Receiving file d:\ftp\tmp1\20130503175142-db98-0037-2.jpg
+[4] Fri 03May13 18:20:00 - (000052) Received file d:\ftp\tmp1\20130503175142-db98-0037-2.jpg successfully (10.4 kB/sec - 359865 Bytes)
+[4] Fri 03May13 18:20:02 - (000052) Receiving file d:\ftp\tmp1\20130503175142-db98-0037-3.jpg
+[4] Fri 03May13 18:20:35 - (000052) Received file d:\ftp\tmp1\20130503175142-db98-0037-3.jpg successfully (9.69 kB/sec - 329838 Bytes)
+[4] Fri 03May13 18:20:36 - (000052) Receiving file d:\ftp\tmp1\20130503175336-db98-0038-1.jpg
+[4] Fri 03May13 18:21:28 - (000052) Received file d:\ftp\tmp1\20130503175336-db98-0038-1.jpg successfully (7.79 kB/sec - 410797 Bytes)
+[4] Fri 03May13 18:21:30 - (000052) Receiving file d:\ftp\tmp1\20130503175338-db98-0038-2.jpg
+[4] Fri 03May13 18:22:30 - (000052) Received file d:\ftp\tmp1\20130503175338-db98-0038-2.jpg successfully (6.52 kB/sec - 403254 Bytes)
+[4] Fri 03May13 18:22:33 - (000052) Receiving file d:\ftp\tmp1\20130503175339-db98-0038-3.jpg
+[4] Fri 03May13 18:23:44 - (000052) Received file d:\ftp\tmp1\20130503175339-db98-0038-3.jpg successfully (5.70 kB/sec - 415307 Bytes)
+[4] Fri 03May13 18:23:51 - (000052) Receiving file d:\ftp\tmp1\20130503175342-db98-0039-1.jpg
+[4] Fri 03May13 18:25:10 - (000052) Received file d:\ftp\tmp1\20130503175342-db98-0039-1.jpg successfully (4.93 kB/sec - 400291 Bytes)
+[4] Fri 03May13 18:25:13 - (000052) Receiving file d:\ftp\tmp1\20130503175343-db98-0039-2.jpg
+[4] Fri 03May13 18:25:50 - (000052) Received file d:\ftp\tmp1\20130503175343-db98-0039-2.jpg successfully (10.6 kB/sec - 402420 Bytes)
+[4] Fri 03May13 18:25:52 - (000052) Receiving file d:\ftp\tmp1\20130503175344-db98-0039-3.jpg
+[4] Fri 03May13 18:26:17 - (000052) Received file d:\ftp\tmp1\20130503175344-db98-0039-3.jpg successfully (15.2 kB/sec - 379135 Bytes)
+[4] Fri 03May13 18:26:18 - (000052) Receiving file d:\ftp\tmp1\20130503175345-db98-0040-1.jpg
+[4] Fri 03May13 18:27:12 - (000052) Error receiving file d:\ftp\tmp1\20130503175345-db98-0040-1.jpg, aborting (2.34 kB/sec - 131072 Bytes, reason unknown)
+[5] Fri 03May13 18:27:12 - (000052) Closing connection for user SSS (00:19:59 connected)
+[5] Fri 03May13 18:27:13 - (000053) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 18:27:14 - (000053) User SSS logged in
+[4] Fri 03May13 18:27:16 - (000053) Receiving file d:\ftp\tmp1\20130503175345-db98-0040-1.jpg
+[4] Fri 03May13 18:27:56 - (000053) Received file d:\ftp\tmp1\20130503175345-db98-0040-1.jpg successfully (9.23 kB/sec - 377672 Bytes)
+[4] Fri 03May13 18:27:57 - (000053) Receiving file d:\ftp\tmp1\20130503175346-db98-0040-2.jpg
+[4] Fri 03May13 18:28:30 - (000053) Received file d:\ftp\tmp1\20130503175346-db98-0040-2.jpg successfully (11.3 kB/sec - 381223 Bytes)
+[4] Fri 03May13 18:28:31 - (000053) Receiving file d:\ftp\tmp1\20130503175347-db98-0040-3.jpg
+[4] Fri 03May13 18:28:57 - (000053) Received file d:\ftp\tmp1\20130503175347-db98-0040-3.jpg successfully (14.4 kB/sec - 384468 Bytes)
+[4] Fri 03May13 18:28:58 - (000053) Receiving file d:\ftp\tmp1\20130503175715-db98-0041-1.jpg
+[4] Fri 03May13 18:29:28 - (000053) Received file d:\ftp\tmp1\20130503175715-db98-0041-1.jpg successfully (13.1 kB/sec - 406045 Bytes)
+[4] Fri 03May13 18:29:31 - (000053) Receiving file d:\ftp\tmp1\20130503175715-db98-0041-2.jpg
+[4] Fri 03May13 18:30:01 - (000053) Received file d:\ftp\tmp1\20130503175715-db98-0041-2.jpg successfully (12.6 kB/sec - 387794 Bytes)
+[4] Fri 03May13 18:30:03 - (000053) Receiving file d:\ftp\tmp1\20130503175716-db98-0041-3.jpg
+[4] Fri 03May13 18:30:30 - (000053) Received file d:\ftp\tmp1\20130503175716-db98-0041-3.jpg successfully (14.7 kB/sec - 416228 Bytes)
+[4] Fri 03May13 18:30:31 - (000053) Receiving file d:\ftp\tmp1\20130503175723-db98-0042-1.jpg
+[4] Fri 03May13 18:31:04 - (000053) Received file d:\ftp\tmp1\20130503175723-db98-0042-1.jpg successfully (11.7 kB/sec - 393025 Bytes)
+[4] Fri 03May13 18:31:06 - (000053) Receiving file d:\ftp\tmp1\20130503175724-db98-0042-2.jpg
+[4] Fri 03May13 18:31:40 - (000053) Received file d:\ftp\tmp1\20130503175724-db98-0042-2.jpg successfully (11.0 kB/sec - 386791 Bytes)
+[4] Fri 03May13 18:31:41 - (000053) Receiving file d:\ftp\tmp1\20130503175724-db98-0042-3.jpg
+[4] Fri 03May13 18:32:08 - (000053) Received file d:\ftp\tmp1\20130503175724-db98-0042-3.jpg successfully (13.9 kB/sec - 384802 Bytes)
+[4] Fri 03May13 18:32:10 - (000053) Receiving file d:\ftp\tmp1\20130503180259-db98-0043-1.jpg
+[4] Fri 03May13 18:32:57 - (000053) Received file d:\ftp\tmp1\20130503180259-db98-0043-1.jpg successfully (8.13 kB/sec - 393360 Bytes)
+[4] Fri 03May13 18:32:58 - (000053) Receiving file d:\ftp\tmp1\20130503180259-db98-0043-2.jpg
+[4] Fri 03May13 18:33:36 - (000053) Received file d:\ftp\tmp1\20130503180259-db98-0043-2.jpg successfully (10.2 kB/sec - 389043 Bytes)
+[4] Fri 03May13 18:33:37 - (000053) Receiving file d:\ftp\tmp1\20130503180300-db98-0043-3.jpg
+[4] Fri 03May13 18:34:20 - (000053) Received file d:\ftp\tmp1\20130503180300-db98-0043-3.jpg successfully (8.54 kB/sec - 368593 Bytes)
+[4] Fri 03May13 18:34:21 - (000053) Receiving file d:\ftp\tmp1\20130503180343-db98-0044-1.jpg
+[4] Fri 03May13 18:35:10 - (000053) Received file d:\ftp\tmp1\20130503180343-db98-0044-1.jpg successfully (6.15 kB/sec - 311762 Bytes)
+[4] Fri 03May13 18:35:12 - (000053) Receiving file d:\ftp\tmp1\20130503180344-db98-0044-2.jpg
+[4] Fri 03May13 18:35:34 - (000053) Received file d:\ftp\tmp1\20130503180344-db98-0044-2.jpg successfully (15.1 kB/sec - 332716 Bytes)
+[4] Fri 03May13 18:35:35 - (000053) Receiving file d:\ftp\tmp1\20130503180345-db98-0044-3.jpg
+[4] Fri 03May13 18:36:03 - (000053) Received file d:\ftp\tmp1\20130503180345-db98-0044-3.jpg successfully (12.7 kB/sec - 357931 Bytes)
+[4] Fri 03May13 18:36:05 - (000053) Receiving file d:\ftp\tmp1\20130503180631-db98-0045-1.jpg
+[4] Fri 03May13 18:36:28 - (000053) Received file d:\ftp\tmp1\20130503180631-db98-0045-1.jpg successfully (14.4 kB/sec - 340109 Bytes)
+[4] Fri 03May13 18:36:30 - (000053) Receiving file d:\ftp\tmp1\20130503180632-db98-0045-2.jpg
+[4] Fri 03May13 18:37:03 - (000053) Received file d:\ftp\tmp1\20130503180632-db98-0045-2.jpg successfully (10.3 kB/sec - 348626 Bytes)
+[4] Fri 03May13 18:37:04 - (000053) Receiving file d:\ftp\tmp1\20130503180632-db98-0045-3.jpg
+[4] Fri 03May13 18:37:48 - (000053) Received file d:\ftp\tmp1\20130503180632-db98-0045-3.jpg successfully (7.81 kB/sec - 350422 Bytes)
+[4] Fri 03May13 18:37:50 - (000053) Receiving file d:\ftp\tmp1\20130503180807-db98-0046-1.jpg
+[4] Fri 03May13 18:38:26 - (000053) Received file d:\ftp\tmp1\20130503180807-db98-0046-1.jpg successfully (9.9 kB/sec - 366145 Bytes)
+[4] Fri 03May13 18:38:27 - (000053) Receiving file d:\ftp\tmp1\20130503180808-db98-0046-2.jpg
+[4] Fri 03May13 18:38:50 - (000053) Received file d:\ftp\tmp1\20130503180808-db98-0046-2.jpg successfully (16.2 kB/sec - 383704 Bytes)
+[4] Fri 03May13 18:38:52 - (000053) Receiving file d:\ftp\tmp1\20130503180808-db98-0046-3.jpg
+[4] Fri 03May13 18:39:26 - (000053) Received file d:\ftp\tmp1\20130503180808-db98-0046-3.jpg successfully (11.1 kB/sec - 390027 Bytes)
+[4] Fri 03May13 18:39:28 - (000053) Receiving file d:\ftp\tmp1\20130503180946-db98-0047-1.jpg
+[4] Fri 03May13 18:39:57 - (000053) Received file d:\ftp\tmp1\20130503180946-db98-0047-1.jpg successfully (11.8 kB/sec - 347618 Bytes)
+[4] Fri 03May13 18:39:59 - (000053) Receiving file d:\ftp\tmp1\20130503180946-db98-0047-2.jpg
+[4] Fri 03May13 18:40:29 - (000053) Received file d:\ftp\tmp1\20130503180946-db98-0047-2.jpg successfully (11.5 kB/sec - 358096 Bytes)
+[4] Fri 03May13 18:40:31 - (000053) Receiving file d:\ftp\tmp1\20130503180947-db98-0047-3.jpg
+[4] Fri 03May13 18:41:04 - (000053) Received file d:\ftp\tmp1\20130503180947-db98-0047-3.jpg successfully (10.4 kB/sec - 354388 Bytes)
+[4] Fri 03May13 18:41:06 - (000053) Receiving file d:\ftp\tmp1\20130503181226-db98-0048-1.jpg
+[4] Fri 03May13 18:41:37 - (000053) Received file d:\ftp\tmp1\20130503181226-db98-0048-1.jpg successfully (9.9 kB/sec - 311812 Bytes)
+[4] Fri 03May13 18:41:38 - (000053) Receiving file d:\ftp\tmp1\20130503181226-db98-0048-2.jpg
+[4] Fri 03May13 18:42:24 - (000053) Error receiving file d:\ftp\tmp1\20130503181226-db98-0048-2.jpg, aborting (0 Bytes/sec - 0 Bytes, reason unknown)
+[5] Fri 03May13 18:42:25 - (000053) Closing connection for user SSS (00:15:12 connected)
+[5] Fri 03May13 18:42:26 - (000054) Connected to 192.168.14.2 (Local address 10.20.1.129)
+[5] Fri 03May13 18:42:27 - (000054) User SSS logged in
+[4] Fri 03May13 18:42:28 - (000054) Receiving file d:\ftp\tmp1\20130503181226-db98-0048-2.jpg
+[4] Fri 03May13 18:42:53 - (000054) Received file d:\ftp\tmp1\20130503181226-db98-0048-2.jpg successfully (12.0 kB/sec - 298612 Bytes)
+[4] Fri 03May13 18:42:54 - (000054) Receiving file d:\ftp\tmp1\20130503181227-db98-0048-3.jpg
+[4] Fri 03May13 18:43:17 - (000054) Received file d:\ftp\tmp1\20130503181227-db98-0048-3.jpg successfully (13.0 kB/sec - 307137 Bytes)
+[4] Fri 03May13 18:43:18 - (000054) Receiving file d:\ftp\tmp1\20130503181512-db98-0049-1.jpg
+[4] Fri 03May13 18:44:07 - (000054) Received file d:\ftp\tmp1\20130503181512-db98-0049-1.jpg successfully (9.64 kB/sec - 479837 Bytes)
+[4] Fri 03May13 18:44:08 - (000054) Receiving file d:\ftp\tmp1\20130503181513-db98-0049-2.jpg
+[4] Fri 03May13 18:44:48 - (000054) Received file d:\ftp\tmp1\20130503181513-db98-0049-2.jpg successfully (11.2 kB/sec - 458269 Bytes)
+[4] Fri 03May13 18:44:49 - (000054) Receiving file d:\ftp\tmp1\20130503181514-db98-0049-3.jpg
+[4] Fri 03May13 18:45:51 - (000054) Received file d:\ftp\tmp1\20130503181514-db98-0049-3.jpg successfully (7.02 kB/sec - 445231 Bytes)
+[4] Fri 03May13 18:45:53 - (000054) Receiving file d:\ftp\tmp1\20130503181525-db98-0050-1.jpg
+[4] Fri 03May13 18:46:24 - (000054) Received file d:\ftp\tmp1\20130503181525-db98-0050-1.jpg successfully (10.8 kB/sec - 341055 Bytes)
+[4] Fri 03May13 18:46:25 - (000054) Receiving file d:\ftp\tmp1\20130503181526-db98-0050-2.jpg
+[4] Fri 03May13 18:46:53 - (000054) Received file d:\ftp\tmp1\20130503181526-db98-0050-2.jpg successfully (13.8 kB/sec - 384595 Bytes)
+[4] Fri 03May13 18:46:53 - (000054) Receiving file d:\ftp\tmp1\20130503181527-db98-0050-3.jpg
+[4] Fri 03May13 18:47:30 - (000054) Received file d:\ftp\tmp1\20130503181527-db98-0050-3.jpg successfully (10.8 kB/sec - 407408 Bytes)
+[4] Fri 03May13 18:47:34 - (000054) Receiving file d:\ftp\tmp1\20130503181744-db98-0051-1.jpg
+[4] Fri 03May13 18:48:23 - (000054) Received file d:\ftp\tmp1\20130503181744-db98-0051-1.jpg successfully (6.87 kB/sec - 347371 Bytes)
+[4] Fri 03May13 18:48:25 - (000054) Receiving file d:\ftp\tmp1\20130503181745-db98-0051-2.jpg
+[4] Fri 03May13 18:48:59 - (000054) Received file d:\ftp\tmp1\20130503181745-db98-0051-2.jpg successfully (10.7 kB/sec - 368000 Bytes)
+[4] Fri 03May13 18:49:01 - (000054) Receiving file d:\ftp\tmp1\20130503181746-db98-0051-3.jpg
+[4] Fri 03May13 18:49:44 - (000054) Received file d:\ftp\tmp1\20130503181746-db98-0051-3.jpg successfully (7.96 kB/sec - 353006 Bytes)
+[4] Fri 03May13 18:49:46 - (000054) Receiving file d:\ftp\tmp1\20130503181816-db98-0052-1.jpg
+[4] Fri 03May13 18:50:16 - (000054) Received file d:\ftp\tmp1\20130503181816-db98-0052-1.jpg successfully (11.4 kB/sec - 345557 Bytes)
+[4] Fri 03May13 18:50:17 - (000054) Receiving file d:\ftp\tmp1\20130503181816-db98-0052-2.jpg
+[4] Fri 03May13 18:51:01 - (000054) Received file d:\ftp\tmp1\20130503181816-db98-0052-2.jpg successfully (7.73 kB/sec - 348980 Bytes)
+[4] Fri 03May13 18:51:03 - (000054) Receiving file d:\ftp\tmp1\20130503181817-db98-0052-3.jpg
+[4] Fri 03May13 18:51:50 - (000054) Received file d:\ftp\tmp1\20130503181817-db98-0052-3.jpg successfully (6.72 kB/sec - 323974 Bytes)
+[4] Fri 03May13 18:51:51 - (000054) Receiving file d:\ftp\tmp1\20130503181913-db98-0053-1.jpg
+[4] Fri 03May13 18:52:44 - (000054) Received file d:\ftp\tmp1\20130503181913-db98-0053-1.jpg successfully (8.14 kB/sec - 438185 Bytes)
+[4] Fri 03May13 18:52:47 - (000054) Receiving file d:\ftp\tmp1\20130503181914-db98-0053-2.jpg
+[4] Fri 03May13 18:53:57 - (000054) Received file d:\ftp\tmp1\20130503181914-db98-0053-2.jpg successfully (6.34 kB/sec - 453989 Bytes)
+[4] Fri 03May13 18:54:00 - (000054) Receiving file d:\ftp\tmp1\20130503181914-db98-0053-3.jpg
+[4] Fri 03May13 18:55:10 - (000054) Received file d:\ftp\tmp1\20130503181914-db98-0053-3.jpg successfully (6.34 kB/sec - 453581 Bytes)
+[4] Fri 03May13 18:55:12 - (000054) Receiving file d:\ftp\tmp1\20130503182057-db98-0054-1.jpg
+[4] Fri 03May13 18:56:05 - (000054) Received file d:\ftp\tmp1\20130503182057-db98-0054-1.jpg successfully (5.94 kB/sec - 320318 Bytes)
+[4] Fri 03May13 18:56:06 - (000054) Receiving file d:\ftp\tmp1\20130503182059-db98-0054-2.jpg
+[4] Fri 03May13 18:56:53 - (000054) Received file d:\ftp\tmp1\20130503182059-db98-0054-2.jpg successfully (7.60 kB/sec - 362491 Bytes)
+[4] Fri 03May13 18:56:56 - (000054) Receiving file d:\ftp\tmp1\20130503182100-db98-0054-3.jpg
+[4] Fri 03May13 18:57:22 - (000054) Received file d:\ftp\tmp1\20130503182100-db98-0054-3.jpg successfully (12.5 kB/sec - 330780 Bytes)
+[4] Fri 03May13 18:57:24 - (000054) Receiving file d:\ftp\tmp1\20130503182336-db98-0055-1.jpg
+[4] Fri 03May13 18:57:54 - (000054) Received file d:\ftp\tmp1\20130503182336-db98-0055-1.jpg successfully (10.5 kB/sec - 329790 Bytes)
+[4] Fri 03May13 18:57:56 - (000054) Receiving file d:\ftp\tmp1\20130503182337-db98-0055-2.jpg
+[4] Fri 03May13 18:58:26 - (000054) Received file d:\ftp\tmp1\20130503182337-db98-0055-2.jpg successfully (11.1 kB/sec - 338768 Bytes)
+[4] Fri 03May13 18:58:28 - (000054) Receiving file d:\ftp\tmp1\20130503182338-db98-0055-3.jpg
+[4] Fri 03May13 18:59:10 - (000054) Received file d:\ftp\tmp1\20130503182338-db98-0055-3.jpg successfully (8.16 kB/sec - 353049 Bytes)
+[4] Fri 03May13 18:59:11 - (000054) Receiving file d:\ftp\tmp1\20130503182402-db98-0056-1.jpg
+[4] Fri 03May13 18:59:51 - (000054) Received file d:\ftp\tmp1\20130503182402-db98-0056-1.jpg successfully (9.56 kB/sec - 386906 Bytes)
+[4] Fri 03May13 18:59:53 - (000054) Receiving file d:\ftp\tmp1\20130503182404-db98-0056-2.jpg
+[4] Fri 03May13 19:00:38 - (000054) Received file d:\ftp\tmp1\20130503182404-db98-0056-2.jpg successfully (8.46 kB/sec - 386058 Bytes)
+[4] Fri 03May13 19:00:40 - (000054) Receiving file d:\ftp\tmp1\20130503182406-db98-0056-3.jpg
+[4] Fri 03May13 19:04:29 - (000054) Error receiving file d:\ftp\tmp1\20130503182406-db98-0056-3.jpg, aborting (1.12 kB/sec - 262144 Bytes, packet timed out)
+[5] Fri 03May13 19:06:13 - (000054) Closing connection for user SSS (00:23:47 connected)
