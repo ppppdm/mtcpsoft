@@ -101,3 +101,73 @@ def close_one_db_connect(conn):
             logger.debug(e)
     return
 '''
+
+import datetime
+#import os
+def store_to_db(infos):
+    
+    # store to logfile
+    logger.debug(infos)
+    
+    # store to db
+    db_conn = get_db_connect()
+    if db_conn:
+        
+        try:
+            cur                = db_conn.cursor()
+            
+            camera_id          = infos.get('MAC', '')
+            #picture_name       = os.path.basename(file)
+            gps_x              = infos.get('X', '')
+            gps_y              = infos.get('Y', '')
+            direction          = infos.get('DIRECT', '')
+            collect_date1      = infos.get('RTC', '')
+            car_id             = infos.get('CAR LICENSE', '')
+            license_color      = infos.get('LICENSE COLOR', '')
+            captrue_serial_num = infos.get('SERIAL NUMBER', '')
+            minor_captrue_num  = infos.get('NO.', '')
+            flag1              = infos.get('CAPTURE FALG', '')
+            
+            try:
+                collect_date1 = datetime.datetime.strptime(collect_date1, '%Y%m%d%H%M%S%f')
+            except:
+                collect_date1 = datetime.datetime.now()
+
+            recieve_time = collect_date1 = datetime.datetime.now()
+
+            cur.execute("INSERT INTO LS_pictures(camera_id, picture_name, gps_x, gps_y, direction, collect_date1, car_id, license_color, captrue_serial_num, minor_captrue_num, flag1, recieve_time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", 
+                (
+                camera_id, 
+                #picture_name,
+                gps_x,
+                gps_y, 
+                direction, 
+                collect_date1, 
+                car_id, 
+                license_color, 
+                captrue_serial_num, 
+                minor_captrue_num, 
+                flag1,
+                recieve_time
+                ))
+            
+        except: # just not print db error
+            print('db execute error!')
+            logger.debug('db execute error!')
+            #logger.error('Error file:%s', file)
+        
+        try:
+            db_conn.commit()
+            
+        except: # just not print db error
+            print('db commit error!')
+            logger.debug('db commit error!')
+            #logger.error('Error file:%s', file)
+    else:
+        # get db connect none
+        print('get db connect error!')
+        logger.debug('get db connect error!')
+        #logger.error('Error file:%s', file)
+        
+    close_db_connect(db_conn)
+    return
