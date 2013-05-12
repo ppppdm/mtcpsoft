@@ -38,6 +38,8 @@ def main_server():
     
     while True:
         fn = do_watch_file()
+        
+        # start a new thread to process the file
         threading.Thread(target=do_process_file, args=(fn, )).start()
         
     return

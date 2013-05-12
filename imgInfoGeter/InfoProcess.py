@@ -32,6 +32,49 @@ INFO_ITEM_LEN = [12, 17, 10, 11, 5,
 MAX_WAIT_OPEN_TIME = 600 # second
 EACH_WAIT_OPEN_TIME = 20
 
+GROUP_COMPLETE_NUM = 3
+
+g_info_group = {}
+g_file_pre_name = None
+
+class infoarray:
+    def __init__(self):
+        self.array = list()
+        self.flag = 0
+        self.count = 0
+        return
+    
+    def store_one_info(self, fn, infos):
+        
+        infos['FILE'] = os.path.abspath(fn)
+        self.array.append(infos)
+        
+        return
+    
+    def get_group_info(self):
+        ret = None
+        base = self.array[0]
+        dt = base['RTC'][0:8]       # date
+        gn = base['SERIAL NUMBER']  # group number
+        self.count = 1
+        
+        for i in self.array[1:]:
+            if i['RTC'][0:8] != dt or i['SERIAL NUMBER'] != gn:
+                self.flag = 1
+            else:
+                self.count += 1
+        
+        if self.flag == 1 or self.count == GROUP_COMPLETE_NUM:
+            ret = self.array[:self.count]
+            self.array = self.array[self.count:]
+            self.flag = 0
+        return ret
+    
+    def get_array(self):
+        return self.array
+
+g_info_array = infoarray()
+
 # read file and get info in the image
 # before the info we want there is 6 bytes file head
 # after that is the info we want, the item of info see
@@ -169,6 +212,37 @@ def file_process(file):
         logger.error('Error file:%s', file)
     return
 
+def do_open_file(fn):
+    while True:
+        try:
+            f = open(fn, 'rb')
+            break;
+        except:
+            time.sleep(EACH_WAIT_OPEN_TIME)
+    return f
+
+def do_get_file_infos(fn):
+    
+    # open the file
+    f = do_open_file(fn)
+    
+    infos = get_infos(f)
+    
+    # close the file after get the info inside 
+    f.close()
+    
+    # store the infos to group
+    g_info_array.store_one_info(fn, infos)
+    
+    
+    # retrun info group
+    re = g_info_array.get_group_info()
+    
+    # just has a problem when the last group of picture is not complete
+    # some day , this grop may return when the next day picture come.
+    
+    return re
+
 if __name__=='__main__':
     print(__file__, 'test')
     
@@ -180,11 +254,20 @@ if __name__=='__main__':
     TEST_FILES = ['../res/1.jpg', '../res/2013041710510982-d137-0001-3.jpg']
     for i in TEST_FILES:
         file_process(i)
-    '''
+    
     # test insert to db
     infos = {'MAC': '08002812d137', 'CAR DISTENCE': '40', 'RTC': '20130417105109823', 'SERIAL NUMBER': '001\x02', 'Y': '1848.3899,', 'X': '157.7773,', 'CAR LICENSE': 'ÕA0D928\x00', 'LICENSE COLOR':'À¶'}
     store_infos(infos, '../res/2013041710510982-d137-0001-3.jpg')
     
     infos = {'MAC': '08002812d137', 'CAR DISTENCE': '40', 'RTC': '20134417105109823', 'SERIAL NUMBER': '001\x02', 'Y': '1848.3899,', 'X': '157.7773,', 'CAR LICENSE': 'ÕA0D928\x00', 'LICENSE COLOR':'À¶'}
     store_infos(infos, '../res/2013041710510982-d137-0001-3.jpg')
+    '''
     
+    fl = ['../res/5.3/20130503170514-db98-0002-1.jpg', 
+          '../res/5.3/20130503170514-db98-0002-2.jpg', 
+          '../res/5.3/20130503170516-db98-0003-1.jpg']
+    for i in fl:
+        print(i)
+        print(do_get_file_infos(i))
+    
+    print(g_info_array.get_array())
