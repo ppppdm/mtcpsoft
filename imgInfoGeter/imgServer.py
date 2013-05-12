@@ -25,11 +25,11 @@ def do_process_file(fn):
 
 def do_get_file_infos(fn):
     
-    infos = InfoProcess.file_process(fn)
+    infos = InfoProcess.do_get_file_infos(fn)
     return infos
 
 def do_store_db(infos):
-    dbManager.store(infos)
+    dbManager.store_group_infos(infos)
     return
 
 def main_server():
@@ -47,4 +47,19 @@ def main_server():
 if __name__=='__main__':
     print(__file__, 'test')
     
-    main_server()
+    #main_server()
+    
+    '''
+    test 
+    '''
+    # test do_process_file
+    
+    fl = ['../res/5.3/20130503170514-db98-0002-1.jpg', 
+          '../res/5.3/20130503170514-db98-0002-2.jpg', 
+          '../res/5.3/20130503170515-db98-0002-3.jpg']
+    for i in fl:
+        print(i)
+        print(do_process_file(i))
+    
+    # test do_watch_file
+    

@@ -2,6 +2,7 @@
 # auther : pdm
 # email : ppppdm@gmail.com
 import logging
+import InfoProcess
 
 
 try:
@@ -104,70 +105,83 @@ def close_one_db_connect(conn):
 
 import datetime
 #import os
-def store_to_db(infos):
+def store_group_infos(groupinfos):
     
     # store to logfile
-    logger.debug(infos)
+    logger.debug(groupinfos)
     
     # store to db
-    db_conn = get_db_connect()
-    if db_conn:
+    
+    if groupinfos:
+        infos                = groupinfos[0]   # use the first info in group
+        camera_id            = infos.get('MAC', '')
+        picture_name         = infos.get('FILE', '')
+        gps_x                = infos.get('X', '')
+        gps_y                = infos.get('Y', '')
+        direction            = infos.get('DIRECT', '')
+        collect_date1        = infos.get('RTC', '')
+        car_id               = infos.get('CAR LICENSE', '')
+        license_color        = infos.get('LICENSE COLOR', '')
+        captrue_serial_num   = infos.get('SERIAL NUMBER', '')
+        minor_captrue_num    = infos.get('NO.', '')
+        flag1                = infos.get('CAPTURE FALG', '')
+        receive_picture_nums = len(groupinfos)
+        
+        if receive_picture_nums == InfoProcess.GROUP_COMPLETE_NUM:
+            flag             = 1
+        else:
+            flag             = 0
         
         try:
-            cur                = db_conn.cursor()
-            
-            camera_id          = infos.get('MAC', '')
-            #picture_name       = os.path.basename(file)
-            gps_x              = infos.get('X', '')
-            gps_y              = infos.get('Y', '')
-            direction          = infos.get('DIRECT', '')
-            collect_date1      = infos.get('RTC', '')
-            car_id             = infos.get('CAR LICENSE', '')
-            license_color      = infos.get('LICENSE COLOR', '')
-            captrue_serial_num = infos.get('SERIAL NUMBER', '')
-            minor_captrue_num  = infos.get('NO.', '')
-            flag1              = infos.get('CAPTURE FALG', '')
-            
+            collect_date1 = datetime.datetime.strptime(collect_date1, '%Y%m%d%H%M%S%f')
+        except:
+            collect_date1 = datetime.datetime.now()
+
+        recieve_time = datetime.datetime.now()
+        
+        print('receive_picture_nums', receive_picture_nums)
+        
+        db_conn = get_db_connect()
+        if db_conn:
+            cur                  = db_conn.cursor()
             try:
-                collect_date1 = datetime.datetime.strptime(collect_date1, '%Y%m%d%H%M%S%f')
-            except:
-                collect_date1 = datetime.datetime.now()
-
-            recieve_time = collect_date1 = datetime.datetime.now()
-
-            cur.execute("INSERT INTO LS_pictures(camera_id, picture_name, gps_x, gps_y, direction, collect_date1, car_id, license_color, captrue_serial_num, minor_captrue_num, flag1, recieve_time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", 
-                (
-                camera_id, 
-                #picture_name,
-                gps_x,
-                gps_y, 
-                direction, 
-                collect_date1, 
-                car_id, 
-                license_color, 
-                captrue_serial_num, 
-                minor_captrue_num, 
-                flag1,
-                recieve_time
-                ))
+                cur.execute("INSERT INTO LS_pictures(camera_id, picture_name, gps_x, gps_y, direction, collect_date1, flag, car_id, license_color, captrue_serial_num, minor_captrue_num, flag1, recieve_time, receive_picture_nums) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
+                    (
+                    camera_id, 
+                    picture_name,
+                    gps_x,
+                    gps_y, 
+                    direction, 
+                    collect_date1, 
+                    flag, 
+                    car_id, 
+                    license_color, 
+                    captrue_serial_num, 
+                    minor_captrue_num, 
+                    flag1,
+                    recieve_time, 
+                    receive_picture_nums
+                    ))
             
-        except: # just not print db error
-            print('db execute error!')
-            logger.debug('db execute error!')
+            except: # just not print db error
+                print('db execute error!')
+                logger.debug('db execute error!')
+                #logger.error('Error file:%s', file)
+        
+            try:
+                db_conn.commit()
+            
+            except: # just not print db error
+                print('db commit error!')
+                logger.debug('db commit error!')
+                #logger.error('Error file:%s', file)
+        else:
+            # get db connect none
+            print('get db connect error!')
+            logger.debug('get db connect error!')
             #logger.error('Error file:%s', file)
         
-        try:
-            db_conn.commit()
-            
-        except: # just not print db error
-            print('db commit error!')
-            logger.debug('db commit error!')
-            #logger.error('Error file:%s', file)
+        close_db_connect(db_conn)
     else:
-        # get db connect none
-        print('get db connect error!')
-        logger.debug('get db connect error!')
-        #logger.error('Error file:%s', file)
-        
-    close_db_connect(db_conn)
+        print('group info none')
     return
