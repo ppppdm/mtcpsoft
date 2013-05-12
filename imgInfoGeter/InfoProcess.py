@@ -6,6 +6,7 @@ import logging.config
 import datetime
 import os
 import time
+import threading
 
 logging.config.fileConfig("logging.conf")
 
@@ -39,19 +40,24 @@ g_file_pre_name = None
 
 class infoarray:
     def __init__(self):
+        self.tlock = threading.Lock()
         self.array = list()
         self.flag = 0
         self.count = 0
         return
     
     def store_one_info(self, fn, infos):
+        self.tlock.acquire()
         
         infos['FILE'] = os.path.abspath(fn)
         self.array.append(infos)
         
+        self.tlock.release()
         return
     
     def get_group_info(self):
+        self.tlock.acquire()
+        
         ret = None
         base = self.array[0]
         dt = base['RTC'][0:8]       # date
@@ -68,6 +74,8 @@ class infoarray:
             ret = self.array[:self.count]
             self.array = self.array[self.count:]
             self.flag = 0
+        
+        self.tlock.release()
         return ret
     
     def get_array(self):
