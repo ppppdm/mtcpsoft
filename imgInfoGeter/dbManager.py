@@ -2,6 +2,7 @@
 # auther : pdm
 # email : ppppdm@gmail.com
 import logging
+import os
 import InfoProcess
 
 
@@ -115,7 +116,6 @@ def store_group_infos(groupinfos):
     if groupinfos:
         infos                = groupinfos[0]   # use the first info in group
         camera_id            = infos.get('MAC', '')
-        picture_name         = infos.get('FILE', '')
         gps_x                = infos.get('X', '')
         gps_y                = infos.get('Y', '')
         direction            = infos.get('DIRECT', '')
@@ -139,7 +139,13 @@ def store_group_infos(groupinfos):
 
         recieve_time = datetime.datetime.now()
         
-        print('receive_picture_nums', receive_picture_nums)
+        picture_name = ''
+        for i in groupinfos:
+            fn = i.get('FILE', '')
+            if fn != '':
+                picture_name += os.path.abspath(fn) + ','
+            
+        print('picture_name', picture_name)
         
         db_conn = get_db_connect()
         if db_conn:

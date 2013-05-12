@@ -35,7 +35,7 @@ def main_server():
 if __name__=='__main__':
     print(__file__, 'test')
     
-    if sys.argv[1]:
+    if len(sys.argv) > 1:
         DIRECTORY_PATH = sys.argv[1]
     else:
         DIRECTORY_PATH = '.'
