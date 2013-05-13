@@ -125,9 +125,9 @@ def store_group_infos(groupinfos):
         captrue_serial_num   = infos.get('SERIAL NUMBER', '')
         minor_captrue_num    = infos.get('NO.', '')
         flag1                = infos.get('CAPTURE FALG', '')
-        receive_picture_nums = len(groupinfos)
+        recieve_picture_nums = len(groupinfos)
         
-        if receive_picture_nums == InfoProcess.GROUP_COMPLETE_NUM:
+        if recieve_picture_nums == InfoProcess.GROUP_COMPLETE_NUM:
             flag             = 1
         else:
             flag             = 0
@@ -151,7 +151,7 @@ def store_group_infos(groupinfos):
         if db_conn:
             cur                  = db_conn.cursor()
             try:
-                cur.execute("INSERT INTO LS_pictures(camera_id, picture_name, gps_x, gps_y, direction, collect_date1, flag, car_id, license_color, captrue_serial_num, minor_captrue_num, flag1, recieve_time, receive_picture_nums) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
+                cur.execute("INSERT INTO LS_pictures(camera_id, picture_name, gps_x, gps_y, direction, collect_date1, flag, car_id, license_color, captrue_serial_num, minor_captrue_num, flag1, recieve_time, recieve_picture_nums) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
                     (
                     camera_id, 
                     picture_name,
@@ -166,7 +166,7 @@ def store_group_infos(groupinfos):
                     minor_captrue_num, 
                     flag1,
                     recieve_time, 
-                    receive_picture_nums
+                    recieve_picture_nums
                     ))
             
             except: # just not print db error

@@ -158,6 +158,10 @@ def store_infos(infos, file):
     
     return
 
+def changeToFormate(data):
+    data = data[0:2] + b'-' + data[2:4] + b'-' + data[4:6] + b'-' + data[6:8] + b'-' + data[8:10] + b'-' + data[10:12]
+    return data
+
 def get_infos(f):
     infos = {}
     
@@ -180,6 +184,8 @@ def get_infos(f):
                 b_data = b_data[:2]
             if i == 'X' or i == 'Y':
                 b_data = b_data[:-1]
+            if i == 'MAC':
+                b_data = changeToFormate(b_data)
             #infos.append((i, str(b_data, 'gbk')))
             infos[i] = str(b_data, 'gbk')
         except Exception as e:
