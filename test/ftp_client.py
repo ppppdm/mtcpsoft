@@ -8,7 +8,7 @@ import time
 
 HOST = '10.20.1.128'
 USER = 'camera'
-PAWD = '123456'
+PAWD = 'camera'
 
 
 ftp = ftplib.FTP(HOST)
@@ -16,7 +16,7 @@ print(ftp.login(USER, PAWD))
 print(ftp.getwelcome())
 
 print(ftp.retrlines('LIST'))
-print(ftp.cwd('tmp'))
+#print(ftp.cwd('tmp'))
 print(ftp.pwd())
 
 filename = '../res/2013041710510982-d137-0001-3.jpg'
@@ -27,6 +27,16 @@ print(ftp.storbinary('STOR %s' % os.path.basename(filename),file_handler,bufsize
 s = ftp.retrlines('LIST')
 #print(s.encode('utf8').decode('gbk'))
 #print(ftp.retrlines('LIST'))
+
+path = '../res/5.3/'
+pic_list = os.listdir(path)
+print(len(pic_list))
+
+for i in pic_list:
+    if '.jpg' in i:
+        handler = open(path + i, 'rb')
+        ftp.storbinary('STOR %s' %os.path.basename(i), handler, bufsize)
+        time.sleep(1)
 
 time.sleep(2)
 #ftp.delete(os.path.basename(filename))

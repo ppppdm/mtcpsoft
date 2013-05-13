@@ -188,9 +188,9 @@ def get_infos(f):
                 b_data = changeToFormate(b_data)
             #infos.append((i, str(b_data, 'gbk')))
             infos[i] = str(b_data, 'gbk')
-        except Exception as e:
-            print('decode item %s error!'%(i), e)
-            logger.debug(e)
+        except:
+            print('decode item %s error!'%(i), b_data)
+            logger.debug('decode item %s error! %s'%(i, str(b_data)))
         
     #print(infos)
     

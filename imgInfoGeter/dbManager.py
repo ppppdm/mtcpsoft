@@ -108,12 +108,12 @@ import datetime
 #import os
 def store_group_infos(groupinfos):
     
-    # store to logfile
-    logger.debug(groupinfos)
     
     # store to db
-    
     if groupinfos:
+        # store to logfile
+        logger.debug(groupinfos)
+        
         infos                = groupinfos[0]   # use the first info in group
         camera_id            = infos.get('MAC', '')
         gps_x                = infos.get('X', '')
@@ -145,7 +145,7 @@ def store_group_infos(groupinfos):
             if fn != '':
                 picture_name += os.path.abspath(fn) + ','
             
-        print('picture_name', picture_name)
+        #print('picture_name', picture_name)
         
         db_conn = get_db_connect()
         if db_conn:
@@ -171,21 +171,21 @@ def store_group_infos(groupinfos):
             
             except: # just not print db error
                 print('db execute error!')
-                logger.debug('db execute error!')
-                #logger.error('Error file:%s', file)
+                logger.debug('db execute error! %s', groupinfos)
+                logger.error('db execute error! %s', groupinfos)
         
             try:
                 db_conn.commit()
             
             except: # just not print db error
                 print('db commit error!')
-                logger.debug('db commit error!')
-                #logger.error('Error file:%s', file)
+                logger.debug('db commit error! %s', groupinfos)
+                logger.error('db commit error! %s', groupinfos)
         else:
             # get db connect none
             print('get db connect error!')
-            logger.debug('get db connect error!')
-            #logger.error('Error file:%s', file)
+            logger.debug('get db connect error! %s', groupinfos)
+            logger.error('get db connect error! %s', groupinfos)
         
         close_db_connect(db_conn)
     else:
