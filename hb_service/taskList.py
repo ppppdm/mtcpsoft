@@ -1,6 +1,19 @@
 # -*- coding:gbk -*-
 # auther : pdm
 # email : ppppdm@gmail.com
+
+
+# taskList record the argments which will send to camera.
+# get the task by the MAC that respenct a camera.
+# we have two taskList, wait_exec_task_list and exected_task_list
+# when get a task, will insert it to wait_exec_task_list.
+# when hb_server send a task will move the task from wait_exec_task_list to exected_task_list.
+# when hb_server receive a heart beat package that changed to arg we set, the task in 
+# exected_task_list will be remove.
+
+
+
+
 import threading
 
 task_lock = threading.Lock()
