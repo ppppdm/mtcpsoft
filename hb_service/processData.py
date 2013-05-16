@@ -58,7 +58,7 @@ def changeToFormate(data):
     return data
 
 def decode_data(b_data):
-    s = ''
+    #s = ''
     infos = {}
     t = 2 # skip head and end
     
@@ -76,14 +76,14 @@ def decode_data(b_data):
                 item = changeToFormate(item)
             
             
-            s += item + '\t'
+            #s += item + '\t'
             infos[i] = item
         except:
             print(traceback.format_exc())
-            myLog.mylogger.debug(traceback.format_exc())
+            myLog.mylogger.error(traceback.format_exc())
         t+=item_len
     
-    myLog.mylogger.debug(s)
+    #myLog.mylogger.debug(s)
     myLog.mylogger.debug(infos)
     return infos
 
@@ -94,10 +94,17 @@ def is_in_lanes(location):
         x = float(location[0][:-1])
         y = float(location[1][:-1])
     except:
+        myLog.mylogger.error('camera location value error! x:%s y:%s'%(location[0][:-1], location[1][:-1]))
         x, y = 0, 0
     
     for p in readRoadGPS.ROAD_GPS_POINT_LIST:
-        if p[0] - COFFEE < x and x < p[0] + COFFEE and p[1] - COFFEE < y and y < p[1] + COFFEE:
+        try:
+            rX = float(p[0])
+            rY = float(p[1])
+        except:
+            myLog.mylogger.error('road gps value error! rX:%s rY:%s'%(p[0], p[1]))
+            rX , rY = 0, 0
+        if rX - COFFEE < x and x < rX + COFFEE and rY - COFFEE < y and y < rY + COFFEE:
             return True
     
     return True
@@ -206,14 +213,14 @@ def store_to_db(infos, conn, cur):
                 (camera_id, x, y, gpstime, road, mph, createtime))
             
         except:
-            myLog.mylogger.debug('db excute error!\n')
+            myLog.mylogger.error('db excute error!\n')
             print('db excute error!\n')
         
         try:
             conn.commit()
             myLog.mylogger.debug('store to db success!')
         except:
-            myLog.mylogger.debug('commit error!')
+            myLog.mylogger.error('commit error!')
             print('commit erorr!')
             
     return

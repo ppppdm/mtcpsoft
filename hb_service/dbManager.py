@@ -34,7 +34,7 @@ def init_db_connect_list(conn_num = MAX_DB_CONNECT):
             # release lock
             DB_CONNECT_LOCK.release()
         except: # not print db execption yet
-            myLog.mylogger.debug('init db got an error!')
+            myLog.mylogger.error('init db got an error!')
             print('init db got an error!')
             break
     print('init db conn done!')
@@ -53,10 +53,10 @@ def get_one_db_connect():
         
     except ValueError:
         print('not enough db_conn!')
-        myLog.mylogger.debug('not enough db_conn!')
+        myLog.mylogger.error('not enough db_conn!')
     except Exception as e:
         print(e)
-        myLog.mylogger.debug(e)
+        myLog.mylogger.error(e)
     return db_conn
 
 def close_one_db_connect(conn):
@@ -82,7 +82,7 @@ def close_one_db_connect(conn):
             DB_CONNECT_LOCK.release()
         except Exception as e:
             print(e)
-            myLog.mylogger.debug(e)
+            myLog.mylogger.error(e)
     return
 
 
