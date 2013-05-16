@@ -11,6 +11,7 @@ import time
 
 # self module
 import myLog
+import globalConfig
 
 DB_HOST = '10.20.1.200' # '210.73.152.201'
 USER = 'sa'
@@ -107,6 +108,14 @@ def db_connect_server():
     return
 
 def init_db():
+    # init db args
+    global SERVER_PORT, DB_HOST, USER, PWD
+    SERVER_PORT = globalConfig.SERVER_PORT
+    DB_HOST     = globalConfig.DB_HOST
+    USER        = globalConfig.USER
+    PWD         = globalConfig.PWD
+    
+    
     # do two things
     # one to init db connect list(db connect pool)
     t1 = threading.Thread(target=init_db_connect_list)
