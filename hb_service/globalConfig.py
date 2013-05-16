@@ -37,8 +37,8 @@ def readConfig():
     global SERVER_PORT, DB_HOST, USER, PWD, DATABASE, ROAD_GPS_FILE, TIME_UPPER_LIMIT, TIME_LOWER_LIMIT, COFFEE
     
     cf = configparser.ConfigParser()
-    print(cf.read('config.ini'))
-    print(cf.sections())
+    cf.read('config.ini')
+    cf.sections()
     
     SERVER_PORT      = cf.getint('network', 'SERVER_PORT')
     DB_HOST          = cf.get('db', 'DB_HOST')
@@ -50,6 +50,8 @@ def readConfig():
     TIME_LOWER_LIMIT = cf.get('parameter', 'TIME_LOWER_LIMIT')
     COFFEE           = cf.get('parameter', 'COFFEE')
     
+    
+    print(SERVER_PORT, DB_HOST, USER, PWD, DATABASE, ROAD_GPS_FILE, TIME_UPPER_LIMIT, TIME_LOWER_LIMIT, COFFEE)
 
 if __name__=='__main__':
     readConfig()

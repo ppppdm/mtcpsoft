@@ -38,7 +38,7 @@ def init_db_connect_list(conn_num = MAX_DB_CONNECT):
             myLog.mylogger.error('init db got an error!')
             print('init db got an error!')
             break
-    print('init db conn done!')
+    print('init db conn done! connections :', len(DB_CONNECT_NOT_USE_LIST))
     myLog.mylogger.debug('init db conn done!')
     return
 

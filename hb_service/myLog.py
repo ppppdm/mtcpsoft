@@ -3,6 +3,7 @@
 # email : ppppdm@gmail.com
 
 import logging
+import logging.config
 
 LOG_FILE   = 'log.txt'
 LOG_LEVEL  = logging.DEBUG
