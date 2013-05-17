@@ -191,3 +191,106 @@ def store_group_infos(groupinfos):
     else:
         print('group info none')
     return
+
+def isTheFirstOfGroup():
+    return False
+
+# store one image infos
+def store_pic_infos(infos):
+    
+    # store to db
+    if infos:
+        # store to logfile
+        logger.debug(infos)
+        
+        camera_id            = infos.get('MAC', '')
+        gps_xN               = infos.get('X', '')
+        gps_yN               = infos.get('Y', '')
+        direction            = infos.get('DIRECT', '')
+        collect_dateN        = infos.get('RTC', '')
+        car_id               = infos.get('CAR LICENSE', '')
+        license_color        = infos.get('LICENSE COLOR', '')
+        captrue_serial_num   = infos.get('SERIAL NUMBER', '')
+        recieve_begin_timeN  = infos.get('CREATE TIME', '')
+        receive_timeN        = infos.get('MODIFY TIME', '')
+        car_distanceN        = infos.get('CAR DISTENCE', '')
+        speedN               = infos.get('SPEED', '')
+        backup1              = infos.get('DATE', '')
+        picture_name         = infos.get('FILE', '')
+        
+        try:
+            collect_dateN = datetime.datetime.strptime(collect_dateN, '%Y%m%d%H%M%S%f')
+        except:
+            collect_dateN = datetime.datetime.now()
+
+        create_time = datetime.datetime.now()
+        
+        #print('picture_name', picture_name)
+        
+        db_conn = get_db_connect()
+        if db_conn:
+            cur                  = db_conn.cursor()
+            try:
+                if isTheFirstOfGroup():
+                
+                    recieve_picture_nums = 1
+                
+                    cur.execute("INSERT INTO LS_pictures(camera_id, picture_name, direction, car_id, license_color, captrue_serial_num, recieve_picture_nums, collect_dateN, recieve_begin_timeN, receive_timeN, gps_xN, gps_yN, car_distanceN , speedN, create_time ,backup1) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
+                            (
+                            camera_id, 
+                            picture_name,
+                            direction,
+                            car_id, 
+                            license_color, 
+                            captrue_serial_num, 
+                            recieve_picture_nums, 
+                            collect_dateN, 
+                            recieve_begin_timeN,
+                            receive_timeN,
+                            gps_xN,
+                            gps_yN,
+                            car_distanceN,
+                            speedN,
+                            create_time,
+                            backup1
+                            ))
+                else:
+                    cur.execute("UPDATE LS_pictures SET picture_name = picture_name + ?,receive_picture_nums = recieve_picture_nums + 1,collect_dateN = ?,recieve_begin_timeN = ?,receive_timeN = ?,gps_xN = ?,gps_yN = ?,car_distanceN = ?,speedN = ?,create_time = ?WHERE (camera_id = ?,backup1 = ?,capture_serial_num = ?)", 
+                            (
+                            picture_name, 
+                            collect_dateN, 
+                            recieve_begin_timeN, 
+                            receive_timeN, 
+                            gps_xN,
+                            gps_yN,
+                            car_distanceN,
+                            speedN,
+                            create_time, 
+                            camera_id, 
+                            backup1, 
+                            captrue_serial_num
+                            ))
+            except:
+                print('db execute error!')
+                logger.debug('db execute error! %s', infos)
+                logger.error('db execute error! %s', infos)
+            
+            try:
+                db_conn.commit()
+            
+            except: # just not print db error
+                print('db commit error!')
+                logger.debug('db commit error! %s', infos)
+                logger.error('db commit error! %s', infos)
+                
+        else:
+            # get db connect none
+            print('get db connect error!')
+            logger.debug('get db connect error! %s', infos)
+            logger.error('get db connect error! %s', infos)
+        
+        close_db_connect(db_conn)
+    else:
+        print('group info none')
+    
+    return

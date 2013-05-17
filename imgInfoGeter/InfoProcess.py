@@ -235,27 +235,66 @@ def do_open_file(fn):
             time.sleep(EACH_WAIT_OPEN_TIME)
     return f
 
+def get_file_time(fn):
+    file_st = os.stat(fn)
+    return datetime.datetime.fromtimestamp(file_st.st_mtime), datetime.datetime.fromtimestamp(file_st.st_atime)
+
+def isImageComplete(f):
+    # the image file formate is JPEG
+    # find the sign of end of image (0xFF 0xD9), if found return true
+    ret = False
+    f.seek(0)
+    
+    buff = f.read()
+    
+    if b'\xff\xd9' in buff:
+        print('now len is ', f.tell())
+        ret = True
+    f.seek(0)
+    return ret
+
 def do_get_file_infos(fn):
     
     # open the file
     f = do_open_file(fn)
+    
+    # Determine the integrity of the image file
+    isCmp = isImageComplete(f)
+    print(isCmp)
+    if isCmp != True:
+        logger.error('Error file Img Not Complete:%s', fn)
+        return None
     
     infos = get_infos(f)
     
     # close the file after get the info inside 
     f.close()
     
-    # store the infos to group
-    g_info_array.store_one_info(fn, infos)
+    # get the file create_time and last_modify_time
+    m_time, c_time = get_file_time(fn)
+    infos['MODIFY TIME'] = m_time
+    infos['CREATE TIME'] = c_time
     
+    # get the date
+    pic_date = infos.get('RTC', '')
+    if pic_date == '':
+        pic_date = datetime.datetime.now().date() 
+    else:
+        pic_date = pic_date.date()
+    
+    infos['DATE'] = pic_date
+    infos['FILE'] = os.path.abspath(fn)
+    
+    # store the infos to group
+    # g_info_array.store_one_info(fn, infos)
     
     # retrun info group
-    re = g_info_array.get_group_info()
+    # re = g_info_array.get_group_info()
     
     # just has a problem when the last group of picture is not complete
     # some day , this grop may return when the next day picture come.
     
-    return re
+    return infos
 
 if __name__=='__main__':
     print(__file__, 'test')

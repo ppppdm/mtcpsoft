@@ -1,5 +1,7 @@
 #coding=utf-8
 import os
+import sys
+import datetime
 
 DataPath = '//10.20.1.129/ftp/tmp1'
 
@@ -26,5 +28,15 @@ def main():
     print('average :', total/len(delta_list))
     pass
 
+def get_file_time(fn):
+    file_st = os.stat(fn)
+    print(file_st)
+    return datetime.datetime.fromtimestamp(file_st.st_mtime), datetime.datetime.fromtimestamp(file_st.st_atime)
+  
+
 if __name__ == '__main__':
-    main()
+    #main()
+    
+    # test get_file_time
+    if len(sys.argv[1]) > 1:
+        print(get_file_time(sys.argv[1]))
