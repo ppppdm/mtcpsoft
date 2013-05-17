@@ -1,4 +1,4 @@
-# -*- coding:utf8 -*-
+# -*- coding:gbk -*-
 # auther : pdm
 # email : ppppdm@gmail.com
 
@@ -6,12 +6,14 @@ import ftplib
 import os
 import time
 
-HOST = '10.20.1.128'
-USER = 'camera'
-PAWD = 'camera'
+HOST = '10.20.1.129'
+PORT = 7777      # 21
+USER = 'cdmtcp4' #'camera' #
+PAWD = '123'     #'camera' #
 
 
-ftp = ftplib.FTP(HOST)
+ftp = ftplib.FTP()
+ftp.connect(HOST, PORT)
 print(ftp.login(USER, PAWD))
 print(ftp.getwelcome())
 
@@ -21,8 +23,8 @@ print(ftp.pwd())
 
 filename = '../res/2013041710510982-d137-0001-3.jpg'
 
-bufsize = 1024#è®¾ç½®ç¼“å†²å—å¤§å° 
-file_handler = open(filename,'rb')#ä»¥è¯»æ¨¡å¼åœ¨æœ¬åœ°æ‰“å¼€æ–‡ä»¶ 
+bufsize = 1024#ÉèÖÃ»º³å¿é´óĞ¡ 
+file_handler = open(filename,'rb')#ÒÔ¶ÁÄ£Ê½ÔÚ±¾µØ´ò¿ªÎÄ¼ş 
 print(ftp.storbinary('STOR %s' % os.path.basename(filename),file_handler,bufsize))
 s = ftp.retrlines('LIST')
 #print(s.encode('utf8').decode('gbk'))
