@@ -192,8 +192,22 @@ def store_group_infos(groupinfos):
         print('group info none')
     return
 
-def isTheFirstOfGroup():
-    return False
+groupCount = dict()
+
+def isTheFirstOfGroup(camera_id, backup1, captrue_serial_num):
+    ret = False
+    ginfo = groupCount.get(camera_id)
+    if  ginfo == None:
+        groupCount[camera_id] = (backup1, captrue_serial_num)
+        ret =  True
+    elif ginfo[0] < backup1:
+        groupCount[camera_id] = (backup1, captrue_serial_num)
+        ret = True
+    elif ginfo[1] < captrue_serial_num:
+        groupCount[camera_id] = (ginfo[0], captrue_serial_num)
+        ret = True
+    
+    return ret
 
 # store one image infos
 def store_pic_infos(infos):
@@ -229,9 +243,9 @@ def store_pic_infos(infos):
         
         db_conn = get_db_connect()
         if db_conn:
-            cur                  = db_conn.cursor()
+            cur              = db_conn.cursor()
             try:
-                if isTheFirstOfGroup():
+                if isTheFirstOfGroup(camera_id, backup1, captrue_serial_num):
                 
                     recieve_picture_nums = 1
                 
