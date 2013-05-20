@@ -66,6 +66,7 @@ def usage():
           '     -c Count    count of gps information sending to server, default is 1\n'
           '     -t Time     second of sleep time between two sending, default is 5\n'
           '     -a Address  server address, default is local IP\n'
+          '     -p Port     server port, defalut is 44444'
           '     -h, --help  print this help\n')
     print()
 
@@ -76,7 +77,7 @@ if __name__=='__main__':
     print(sys.argv)
     
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'c:t:a:h', ['help'])
+        opts, args = getopt.getopt(sys.argv[1:], 'c:t:a:p:h', ['help'])
     except getopt.GetoptError as err:
         # print usage
         print(err)
@@ -89,6 +90,8 @@ if __name__=='__main__':
             SLEEP_TIME = float(a)
         elif o == '-a':
             SERVER_ADDR = a
+        elif o == '-p':
+            SERVER_PORT = int(a)
         elif o == '-h' or o == '--help':
             usage()
             exit()
