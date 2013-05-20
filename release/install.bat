@@ -18,6 +18,9 @@ msiexec /qb! /i python-3.3.1.amd64.msi TARGETDIR=%py_dir% ALLUSERS=1 ADDLOCAL=AL
 :: setup pyodbc
 copy /b lib.win-amd64-3.3\pyodbc.pyd %py_lib%
 
+:: setup pywin32-amd64
+pywin32-218.win-amd64-py3.3.exe
+
 :: setup hb_service
 md %hb_dir%
 copy hb_service\* %hb_dir%
@@ -34,6 +37,9 @@ msiexec /qb! /i python-3.3.1.msi TARGETDIR=%py_dir% ALLUSERS=1 ADDLOCAL=ALL
 
 :: setup pyodbc
 copy /b lib.win32-3.3\pyodbc.pyd %py_lib%
+
+:: setup pywin32
+pywin32-218.win32-py3.3.exe
 
 :: setup hb_service
 md %hb_dir%
