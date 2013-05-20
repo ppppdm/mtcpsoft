@@ -16,9 +16,9 @@ logging.config.fileConfig("logging.conf")
 #create logger
 logger = logging.getLogger("example")
 
-DB_HOST = '10.20.1.200' # '210.73.152.201'
+DB_HOST = '10.20.1.129' # '210.73.152.201'
 USER = 'sa'
-PWD = 'sa'
+PWD = 'skcl@2013'
 DATABASE = 'CDMTCP'
 
 def get_db_connect():
@@ -226,20 +226,44 @@ def store_pic_infos(infos):
         license_color        = infos.get('LICENSE COLOR', '')
         captrue_serial_num   = infos.get('SERIAL NUMBER', '')
         recieve_begin_timeN  = infos.get('CREATE TIME', '')
-        receive_timeN        = infos.get('MODIFY TIME', '')
+        recieve_timeN        = infos.get('MODIFY TIME', '')
         car_distanceN        = infos.get('CAR DISTENCE', '')
         speedN               = infos.get('SPEED', '')
         backup1              = infos.get('DATE', '')
         picture_name         = infos.get('FILE', '')
+        No                   = infos.get('NO.', '0')
+        No                   = str(int(No) + 1)
+        
+        #print('collect_dateN', collect_dateN)
         
         try:
             collect_dateN = datetime.datetime.strptime(collect_dateN, '%Y%m%d%H%M%S%f')
         except:
             collect_dateN = datetime.datetime.now()
+            
+        #print('collect_dateN', collect_dateN)
+        
+        try:
+            recieve_begin_timeN = datetime.datetime.strptime(collect_dateN, '%Y%m%d%H%M%S%f')
+        except:
+            recieve_begin_timeN = datetime.datetime.now()
+        
+        try:
+            recieve_timeN = datetime.datetime.strptime(collect_dateN, '%Y%m%d%H%M%S%f')
+        except:
+            recieve_timeN = datetime.datetime.now()
 
         create_time = datetime.datetime.now()
         
         #print('picture_name', picture_name)
+        
+        collect_date = 'collect_date' + No
+        recieve_begin_time = 'recieve_begin_time' + No
+        recieve_time = 'recieve_time' + No
+        gps_x = 'gps_x' + No
+        gps_y = 'gps_y' + No
+        car_distance = 'car_distance' + No
+        speed = 'speed' + No
         
         db_conn = get_db_connect()
         if db_conn:
@@ -248,8 +272,22 @@ def store_pic_infos(infos):
                 if isTheFirstOfGroup(camera_id, backup1, captrue_serial_num):
                 
                     recieve_picture_nums = 1
+                    # change backup1 type to str
+                    backup1 = backup1.strftime('%Y%m%d')
+                    
+                    sql = "INSERT INTO LS_pictures(camera_id, picture_name, direction, car_id, license_color, captrue_serial_num, recieve_picture_nums, " + \
+                                                collect_date + ',' + \
+                                                recieve_begin_time + ',' + \
+                                                recieve_time + ',' + \
+                                                gps_x + ',' + \
+                                                gps_y + ',' + \
+                                                car_distance + ',' + \
+                                                speed + ',' + \
+                                                "create_time, backup1) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+                    print(sql)
+                    
                 
-                    cur.execute("INSERT INTO LS_pictures(camera_id, picture_name, direction, car_id, license_color, captrue_serial_num, recieve_picture_nums, collect_dateN, recieve_begin_timeN, receive_timeN, gps_xN, gps_yN, car_distanceN , speedN, create_time ,backup1) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
+                    cur.execute(sql, 
                             (
                             camera_id, 
                             picture_name,
@@ -259,26 +297,50 @@ def store_pic_infos(infos):
                             captrue_serial_num, 
                             recieve_picture_nums, 
                             collect_dateN, 
-                            recieve_begin_timeN,
-                            receive_timeN,
+                            recieve_begin_timeN, 
+                            recieve_timeN, 
                             gps_xN,
                             gps_yN,
                             car_distanceN,
-                            speedN,
-                            create_time,
+                            speedN, 
+                            create_time, 
                             backup1
                             ))
                 else:
-                    cur.execute("UPDATE LS_pictures SET picture_name = picture_name + ?,receive_picture_nums = recieve_picture_nums + 1,collect_dateN = ?,recieve_begin_timeN = ?,receive_timeN = ?,gps_xN = ?,gps_yN = ?,car_distanceN = ?,speedN = ?,create_time = ?WHERE (camera_id = ?,backup1 = ?,capture_serial_num = ?)", 
+                     # change backup1 type to str
+                    backup1 = backup1.strftime('%Y%m%d')
+                    
+                    sql = "UPDATE LS_pictures SET picture_name = picture_name + ',' + ?,recieve_picture_nums = recieve_picture_nums + 1," + \
+                                                collect_date + '=?,' + \
+                                                recieve_begin_time + '=?,' + \
+                                                recieve_time+ '=?,' + \
+                                                gps_x + '=?,' + \
+                                                gps_y + '=?,' + \
+                                                car_distance + '=?,' + \
+                                                speed + '=?,' + \
+                                                "create_time = ? WHERE (camera_id = ?) and (backup1 = ?) and (captrue_serial_num = ?)"
+                    print(sql)
+                    print(picture_name, 
+                            camera_id, 
+                            collect_dateN, 
+                            recieve_begin_timeN, 
+                            recieve_timeN, 
+                            gps_xN,
+                            gps_yN,
+                            car_distanceN,
+                            speedN, 
+                            backup1, 
+                            captrue_serial_num)
+                    cur.execute(sql, 
                             (
                             picture_name, 
                             collect_dateN, 
                             recieve_begin_timeN, 
-                            receive_timeN, 
+                            recieve_timeN, 
                             gps_xN,
                             gps_yN,
                             car_distanceN,
-                            speedN,
+                            speedN, 
                             create_time, 
                             camera_id, 
                             backup1, 

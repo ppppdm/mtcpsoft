@@ -17,7 +17,7 @@ def do_get_file_infos(fn):
     return infos
 
 def do_store_db(infos):
-    dbManager.store_group_infos(infos)
+    dbManager.store_pic_infos(infos)
     return
 
 
@@ -41,3 +41,11 @@ if __name__=='__main__':
         DIRECTORY_PATH = '.'
     main_server()
     
+    ''' # test do process
+    fl = ['../res/5.3/20130503170514-db98-0002-1.jpg', 
+          '../res/5.3/20130503170514-db98-0002-2.jpg', 
+          '../res/5.3/20130503170515-db98-0002-3.jpg']
+    for i in fl:
+        print(i)
+        print(do_process_file(i))
+    ''' 
