@@ -2,24 +2,24 @@
 # auther : pdm
 # email : ppppdm@gmail.com
 import logging
-import os
-import InfoProcess
-
+import logging.config
+import datetime
 
 try:
     import pyodbc
 except:
     print('no module pyodbc, should init first!')
 
+# create logger
 logging.config.fileConfig("logging.conf")
-
-#create logger
 logger = logging.getLogger("example")
 
+# global variabls
 DB_HOST = '10.20.1.129' # '210.73.152.201'
 USER = 'sa'
 PWD = 'skcl@2013'
 DATABASE = 'CDMTCP'
+
 
 def get_db_connect():
     db_conn = None
@@ -104,93 +104,6 @@ def close_one_db_connect(conn):
     return
 '''
 
-import datetime
-#import os
-def store_group_infos(groupinfos):
-    
-    
-    # store to db
-    if groupinfos:
-        # store to logfile
-        logger.debug(groupinfos)
-        
-        infos                = groupinfos[0]   # use the first info in group
-        camera_id            = infos.get('MAC', '')
-        gps_x                = infos.get('X', '')
-        gps_y                = infos.get('Y', '')
-        direction            = infos.get('DIRECT', '')
-        collect_date1        = infos.get('RTC', '')
-        car_id               = infos.get('CAR LICENSE', '')
-        license_color        = infos.get('LICENSE COLOR', '')
-        captrue_serial_num   = infos.get('SERIAL NUMBER', '')
-        minor_captrue_num    = infos.get('NO.', '')
-        flag1                = infos.get('CAPTURE FALG', '')
-        recieve_picture_nums = len(groupinfos)
-        
-        if recieve_picture_nums == InfoProcess.GROUP_COMPLETE_NUM:
-            flag             = 1
-        else:
-            flag             = 0
-        
-        try:
-            collect_date1 = datetime.datetime.strptime(collect_date1, '%Y%m%d%H%M%S%f')
-        except:
-            collect_date1 = datetime.datetime.now()
-
-        recieve_time = datetime.datetime.now()
-        
-        picture_name = ''
-        for i in groupinfos:
-            fn = i.get('FILE', '')
-            if fn != '':
-                picture_name += os.path.abspath(fn) + ','
-            
-        #print('picture_name', picture_name)
-        
-        db_conn = get_db_connect()
-        if db_conn:
-            cur                  = db_conn.cursor()
-            try:
-                cur.execute("INSERT INTO LS_pictures(camera_id, picture_name, gps_x, gps_y, direction, collect_date1, flag, car_id, license_color, captrue_serial_num, minor_captrue_num, flag1, recieve_time, recieve_picture_nums) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
-                    (
-                    camera_id, 
-                    picture_name,
-                    gps_x,
-                    gps_y, 
-                    direction, 
-                    collect_date1, 
-                    flag, 
-                    car_id, 
-                    license_color, 
-                    captrue_serial_num, 
-                    minor_captrue_num, 
-                    flag1,
-                    recieve_time, 
-                    recieve_picture_nums
-                    ))
-            
-            except: # just not print db error
-                print('db execute error!')
-                logger.debug('db execute error! %s', groupinfos)
-                logger.error('db execute error! %s', groupinfos)
-        
-            try:
-                db_conn.commit()
-            
-            except: # just not print db error
-                print('db commit error!')
-                logger.debug('db commit error! %s', groupinfos)
-                logger.error('db commit error! %s', groupinfos)
-        else:
-            # get db connect none
-            print('get db connect error!')
-            logger.debug('get db connect error! %s', groupinfos)
-            logger.error('get db connect error! %s', groupinfos)
-        
-        close_db_connect(db_conn)
-    else:
-        print('group info none')
-    return
 
 groupCount = dict()
 
@@ -284,7 +197,7 @@ def store_pic_infos(infos):
                                                 car_distance + ',' + \
                                                 speed + ',' + \
                                                 "create_time, backup1) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
-                    print(sql)
+                    logger.debug(sql)
                     
                 
                     cur.execute(sql, 
@@ -319,18 +232,8 @@ def store_pic_infos(infos):
                                                 car_distance + '=?,' + \
                                                 speed + '=?,' + \
                                                 "create_time = ? WHERE (camera_id = ?) and (backup1 = ?) and (captrue_serial_num = ?)"
-                    print(sql)
-                    print(picture_name, 
-                            camera_id, 
-                            collect_dateN, 
-                            recieve_begin_timeN, 
-                            recieve_timeN, 
-                            gps_xN,
-                            gps_yN,
-                            car_distanceN,
-                            speedN, 
-                            backup1, 
-                            captrue_serial_num)
+                    logger.debug(sql)
+                    
                     cur.execute(sql, 
                             (
                             picture_name, 
@@ -367,6 +270,6 @@ def store_pic_infos(infos):
         
         close_db_connect(db_conn)
     else:
-        print('info none')
+        logger.debug('info none')
     
     return

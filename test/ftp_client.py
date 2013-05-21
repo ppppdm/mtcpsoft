@@ -17,15 +17,15 @@ PAWD = '123'     #'camera' #
 
 
 def usage():
-    print('usage: python fpt_client.py [option]'
-          '    -a addr     address of ftp server'
-          '    -p port     port of ftp server listened'
-          '    -U user     ftp user'
-          '    -P pw       password of the ftp user')
+    print('usage: python fpt_client.py [option] \n'
+          '    -a addr     address of ftp server \n'
+          '    -p port     port of ftp server listened \n'
+          '    -U user     ftp user \n'
+          '    -P pw       password of the ftp user \n')
 
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], 'a:p:U:P:')
+    opts, args = getopt.getopt(sys.argv[1:], 'a:p:U:P:h')
 except:
     usage()
     exit()
@@ -41,6 +41,9 @@ for o, a in opts:
         USER = a
     elif o == '-P':
         PAWD = a
+    elif o == '-h':
+        usage()
+        exit()
         
 
 print(HOST, PORT, USER, PAWD)
