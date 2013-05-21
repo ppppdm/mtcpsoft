@@ -5,12 +5,45 @@
 import ftplib
 import os
 import time
+import sys
+import getopt
+
+# global variables
 
 HOST = '10.20.1.129'
 PORT = 7777      # 21
 USER = 'cdmtcp4' #'camera' #
 PAWD = '123'     #'camera' #
 
+
+def usage():
+    print('usage: python fpt_client.py [option]'
+          '    -a addr     address of ftp server'
+          '    -p port     port of ftp server listened'
+          '    -U user     ftp user'
+          '    -P pw       password of the ftp user')
+
+
+try:
+    opts, args = getopt.getopt(sys.argv[1:], 'a:p:U:P:')
+except:
+    usage()
+    exit()
+
+print(opts)
+
+for o, a in opts:
+    if o == '-a':
+        HOST = a
+    elif o == '-p':
+        PORT = int(a)
+    elif o == '-U':
+        USER = a
+    elif o == '-P':
+        PAWD = a
+        
+
+print(HOST, PORT, USER, PAWD)
 
 ftp = ftplib.FTP()
 ftp.connect(HOST, PORT)

@@ -2,10 +2,13 @@
 # auther : pdm
 # email : ppppdm@gmail.com
 import sys
+import configparser
+
 import fileWatcher
 import InfoProcess
 import dbManager
 
+DIRECTORY_PATH = ''
 
 def do_process_file(fn):
     infos = do_get_file_infos(fn)
@@ -27,8 +30,27 @@ def handle_change(changes):
             print(file)
             do_process_file(file)
 
+def readConfig():
+    global DIRECTORY_PATH
+    
+    cf = configparser.ConfigParser()
+    cf.read('config.ini')
+    cf.sections()
+    
+    
+    dbManager.DB_HOST          = cf.get('db', 'DB_HOST')
+    dbManager.USER             = cf.get('db', 'USER')
+    dbManager.PWD              = cf.get('db', 'PWD')
+    dbManager.DATABASE         = cf.get('db', 'DATABASE')
+    
+    DIRECTORY_PATH           = cf.get('parameter', 'DIRECTORY_PATH')
 
 def main_server():
+    
+    # init global variables from file config.ini 
+    readConfig()
+    
+    
     fileWatcher.watchFileChange(DIRECTORY_PATH, handle_change)
     return
 

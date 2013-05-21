@@ -246,9 +246,8 @@ def isImageComplete(f):
     f.seek(0)
     
     buff = f.read()
-    
+    print('now len is ', f.tell())
     if b'\xff\xd9' in buff:
-        print('now len is ', f.tell())
         ret = True
     f.seek(0)
     return ret
@@ -259,6 +258,12 @@ def do_get_file_infos(fn):
     f = do_open_file(fn)
     
     # Determine the integrity of the image file
+    # As the image file has not upload completed when open and read it ,
+    # we should sleep and wait for the file upload complete.
+    
+    # sleep 120 second 
+    time.sleep(120)
+    
     isCmp = isImageComplete(f)
     print(isCmp)
     if isCmp != True:

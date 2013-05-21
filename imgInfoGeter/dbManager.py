@@ -367,6 +367,6 @@ def store_pic_infos(infos):
         
         close_db_connect(db_conn)
     else:
-        print('group info none')
+        print('info none')
     
     return
