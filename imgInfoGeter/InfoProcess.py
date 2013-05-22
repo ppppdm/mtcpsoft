@@ -136,7 +136,7 @@ def do_get_file_infos(fn):
         pic_date = datetime.datetime.strptime(pic_date, '%Y%m%d%H%M%S%f').date()
     
     infos['DATE'] = pic_date
-    infos['FILE'] = os.path.abspath(fn)
+    infos['FILE'] = os.path.basename(fn)
     
     return infos
 
