@@ -15,17 +15,20 @@ PORT = 7777      # 21
 USER = 'cdmtcp4' #'camera' #
 PAWD = '123'     #'camera' #
 
+path = '../res/5.3/'
+
 
 def usage():
     print('usage: python fpt_client.py [option] \n'
           '    -a addr     address of ftp server \n'
           '    -p port     port of ftp server listened \n'
           '    -U user     ftp user \n'
-          '    -P pw       password of the ftp user \n')
+          '    -P pw       password of the ftp user \n'
+          '    -r res      resource floder upload to ftp\n')
 
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], 'a:p:U:P:h')
+    opts, args = getopt.getopt(sys.argv[1:], 'a:p:U:P:r:h')
 except:
     usage()
     exit()
@@ -41,6 +44,8 @@ for o, a in opts:
         USER = a
     elif o == '-P':
         PAWD = a
+    elif o == '-r':
+        path = a
     elif o == '-h':
         usage()
         exit()
@@ -53,23 +58,12 @@ ftp.connect(HOST, PORT)
 print(ftp.login(USER, PAWD))
 print(ftp.getwelcome())
 
-print(ftp.retrlines('LIST'))
-#print(ftp.cwd('tmp'))
-print(ftp.pwd())
 
-filename = '../res/2013041710510982-d137-0001-3.jpg'
 
-bufsize = 1024#设置缓冲块大小 
-file_handler = open(filename,'rb')#以读模式在本地打开文件 
-print(ftp.storbinary('STOR %s' % os.path.basename(filename),file_handler,bufsize))
-s = ftp.retrlines('LIST')
-#print(s.encode('utf8').decode('gbk'))
-#print(ftp.retrlines('LIST'))
-
-path = '../res/5.3/'
 pic_list = os.listdir(path)
 print(len(pic_list))
 
+bufsize = 1024#设置缓冲块大小 
 for i in pic_list:
     if '.jpg' in i:
         handler = open(path + i, 'rb')
@@ -77,7 +71,7 @@ for i in pic_list:
         time.sleep(1)
 
 time.sleep(2)
-#ftp.delete(os.path.basename(filename))
+
 
 print(ftp.quit())
 print(ftp.close())
