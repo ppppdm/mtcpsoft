@@ -2,24 +2,24 @@
 # auther : pdm
 # email : ppppdm@gmail.com
 import logging
-import os
-import InfoProcess
-
+import logging.config
+import datetime
 
 try:
     import pyodbc
 except:
     print('no module pyodbc, should init first!')
 
+# create logger
 logging.config.fileConfig("logging.conf")
-
-#create logger
 logger = logging.getLogger("example")
 
-DB_HOST = '10.20.1.200' # '210.73.152.201'
+# global variabls
+DB_HOST = '10.20.1.129' # '210.73.152.201'
 USER = 'sa'
-PWD = 'sa'
+PWD = 'skcl@2013'
 DATABASE = 'CDMTCP'
+
 
 def get_db_connect():
     db_conn = None
@@ -104,90 +104,172 @@ def close_one_db_connect(conn):
     return
 '''
 
-import datetime
-#import os
-def store_group_infos(groupinfos):
+
+groupCount = dict()
+
+def isTheFirstOfGroup(camera_id, backup1, captrue_serial_num):
+    ret = False
+    ginfo = groupCount.get(camera_id)
+    if  ginfo == None:
+        groupCount[camera_id] = (backup1, captrue_serial_num)
+        ret =  True
+    elif ginfo[0] < backup1:
+        groupCount[camera_id] = (backup1, captrue_serial_num)
+        ret = True
+    elif ginfo[1] < captrue_serial_num:
+        groupCount[camera_id] = (ginfo[0], captrue_serial_num)
+        ret = True
     
+    return ret
+
+# store one image infos
+def store_pic_infos(infos):
     
     # store to db
-    if groupinfos:
+    if infos:
         # store to logfile
-        logger.debug(groupinfos)
+        logger.debug(infos)
         
-        infos                = groupinfos[0]   # use the first info in group
         camera_id            = infos.get('MAC', '')
-        gps_x                = infos.get('X', '')
-        gps_y                = infos.get('Y', '')
+        gps_xN               = infos.get('X', '')
+        gps_yN               = infos.get('Y', '')
         direction            = infos.get('DIRECT', '')
-        collect_date1        = infos.get('RTC', '')
+        collect_dateN        = infos.get('RTC', '')
         car_id               = infos.get('CAR LICENSE', '')
         license_color        = infos.get('LICENSE COLOR', '')
         captrue_serial_num   = infos.get('SERIAL NUMBER', '')
-        minor_captrue_num    = infos.get('NO.', '')
-        flag1                = infos.get('CAPTURE FALG', '')
-        recieve_picture_nums = len(groupinfos)
+        recieve_begin_timeN  = infos.get('CREATE TIME', '')
+        recieve_timeN        = infos.get('MODIFY TIME', '')
+        car_distanceN        = infos.get('CAR DISTENCE', '')
+        speedN               = infos.get('SPEED', '')
+        backup1              = infos.get('DATE', '')
+        picture_name         = infos.get('FILE', '')
+        No                   = infos.get('NO.', '0')
+        No                   = str(int(No) + 1)
         
-        if recieve_picture_nums == InfoProcess.GROUP_COMPLETE_NUM:
-            flag             = 1
-        else:
-            flag             = 0
+        #print('collect_dateN', collect_dateN)
         
         try:
-            collect_date1 = datetime.datetime.strptime(collect_date1, '%Y%m%d%H%M%S%f')
+            collect_dateN = datetime.datetime.strptime(collect_dateN, '%Y%m%d%H%M%S%f')
         except:
-            collect_date1 = datetime.datetime.now()
-
-        recieve_time = datetime.datetime.now()
-        
-        picture_name = ''
-        for i in groupinfos:
-            fn = i.get('FILE', '')
-            if fn != '':
-                picture_name += os.path.abspath(fn) + ','
+            collect_dateN = datetime.datetime.now()
             
+        #print('collect_dateN', collect_dateN)
+        
+        try:
+            recieve_begin_timeN = datetime.datetime.strptime(collect_dateN, '%Y%m%d%H%M%S%f')
+        except:
+            recieve_begin_timeN = datetime.datetime.now()
+        
+        try:
+            recieve_timeN = datetime.datetime.strptime(collect_dateN, '%Y%m%d%H%M%S%f')
+        except:
+            recieve_timeN = datetime.datetime.now()
+
+        create_time = datetime.datetime.now()
+        
         #print('picture_name', picture_name)
+        
+        collect_date = 'collect_date' + No
+        recieve_begin_time = 'recieve_begin_time' + No
+        recieve_time = 'recieve_time' + No
+        gps_x = 'gps_x' + No
+        gps_y = 'gps_y' + No
+        car_distance = 'car_distance' + No
+        speed = 'speed' + No
         
         db_conn = get_db_connect()
         if db_conn:
-            cur                  = db_conn.cursor()
+            cur              = db_conn.cursor()
             try:
-                cur.execute("INSERT INTO LS_pictures(camera_id, picture_name, gps_x, gps_y, direction, collect_date1, flag, car_id, license_color, captrue_serial_num, minor_captrue_num, flag1, recieve_time, recieve_picture_nums) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
-                    (
-                    camera_id, 
-                    picture_name,
-                    gps_x,
-                    gps_y, 
-                    direction, 
-                    collect_date1, 
-                    flag, 
-                    car_id, 
-                    license_color, 
-                    captrue_serial_num, 
-                    minor_captrue_num, 
-                    flag1,
-                    recieve_time, 
-                    recieve_picture_nums
-                    ))
-            
-            except: # just not print db error
+                if isTheFirstOfGroup(camera_id, backup1, captrue_serial_num):
+                
+                    recieve_picture_nums = 1
+                    # change backup1 type to str
+                    backup1 = backup1.strftime('%Y%m%d')
+                    
+                    sql = "INSERT INTO LS_pictures(camera_id, picture_name, direction, car_id, license_color, captrue_serial_num, recieve_picture_nums, " + \
+                                                collect_date + ',' + \
+                                                recieve_begin_time + ',' + \
+                                                recieve_time + ',' + \
+                                                gps_x + ',' + \
+                                                gps_y + ',' + \
+                                                car_distance + ',' + \
+                                                speed + ',' + \
+                                                "create_time, backup1) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+                    logger.debug(sql)
+                    
+                
+                    cur.execute(sql, 
+                            (
+                            camera_id, 
+                            picture_name,
+                            direction,
+                            car_id, 
+                            license_color, 
+                            captrue_serial_num, 
+                            recieve_picture_nums, 
+                            collect_dateN, 
+                            recieve_begin_timeN, 
+                            recieve_timeN, 
+                            gps_xN,
+                            gps_yN,
+                            car_distanceN,
+                            speedN, 
+                            create_time, 
+                            backup1
+                            ))
+                else:
+                     # change backup1 type to str
+                    backup1 = backup1.strftime('%Y%m%d')
+                    
+                    sql = "UPDATE LS_pictures SET picture_name = picture_name + ',' + ?,recieve_picture_nums = recieve_picture_nums + 1," + \
+                                                collect_date + '=?,' + \
+                                                recieve_begin_time + '=?,' + \
+                                                recieve_time+ '=?,' + \
+                                                gps_x + '=?,' + \
+                                                gps_y + '=?,' + \
+                                                car_distance + '=?,' + \
+                                                speed + '=?,' + \
+                                                "create_time = ? WHERE (camera_id = ?) and (backup1 = ?) and (captrue_serial_num = ?)"
+                    logger.debug(sql)
+                    
+                    cur.execute(sql, 
+                            (
+                            picture_name, 
+                            collect_dateN, 
+                            recieve_begin_timeN, 
+                            recieve_timeN, 
+                            gps_xN,
+                            gps_yN,
+                            car_distanceN,
+                            speedN, 
+                            create_time, 
+                            camera_id, 
+                            backup1, 
+                            captrue_serial_num
+                            ))
+            except:
                 print('db execute error!')
-                logger.debug('db execute error! %s', groupinfos)
-                logger.error('db execute error! %s', groupinfos)
-        
+                logger.debug('db execute error! %s', infos)
+                logger.error('db execute error! %s', infos)
+            
             try:
                 db_conn.commit()
             
             except: # just not print db error
                 print('db commit error!')
-                logger.debug('db commit error! %s', groupinfos)
-                logger.error('db commit error! %s', groupinfos)
+                logger.debug('db commit error! %s', infos)
+                logger.error('db commit error! %s', infos)
+                
         else:
             # get db connect none
             print('get db connect error!')
-            logger.debug('get db connect error! %s', groupinfos)
-            logger.error('get db connect error! %s', groupinfos)
+            logger.debug('get db connect error! %s', infos)
+            logger.error('get db connect error! %s', infos)
         
         close_db_connect(db_conn)
     else:
-        print('group info none')
+        logger.debug('info none')
+    
     return
