@@ -213,14 +213,14 @@ def store_to_db(infos, conn, cur):
                 (camera_id, x, y, gpstime, road, mph, createtime))
             
         except:
-            myLog.mylogger.error('db excute error!\n')
+            myLog.mylogger.error('db excute error! %s\n', infos)
             print('db excute error!\n')
         
         try:
             conn.commit()
             myLog.mylogger.debug('store to db success!')
         except:
-            myLog.mylogger.error('commit error!')
+            myLog.mylogger.error('commit error! %s\n', infos)
             print('commit erorr!')
             
     return
