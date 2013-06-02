@@ -215,7 +215,8 @@ def store_to_db(infos, conn, cur):
         except:
             myLog.mylogger.error('db excute error! %s\n', infos)
             print('db excute error!\n')
-        
+            return
+            
         try:
             conn.commit()
             myLog.mylogger.debug('store to db success!')

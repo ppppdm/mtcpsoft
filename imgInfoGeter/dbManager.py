@@ -145,7 +145,7 @@ def store_pic_infos(infos):
         backup1              = infos.get('DATE', '')
         picture_name         = infos.get('FILE', '')
         No                   = infos.get('NO.', '0')
-        No                   = str(int(No) + 1)
+        No                   = str(int(No))
         
         #print('collect_dateN', collect_dateN)
         
