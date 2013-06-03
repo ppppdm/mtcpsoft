@@ -5,8 +5,6 @@
 
 ROAD_GPS_POINT_LIST = list()
 
-ROAD_GPS_FILE = 'roadgps.txt'
-
 
 def set_list(data_str):
     global ROAD_GPS_POINT_LIST
@@ -29,4 +27,5 @@ def initRoadGPS(filename):
         print(e)
 
 if __name__=='__main__':
-    initRoadGPS(ROAD_GPS_FILE)
+    
+    initRoadGPS('roadgps.txt')

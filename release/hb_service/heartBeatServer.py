@@ -10,11 +10,12 @@ import traceback
 import processData
 import dbManager
 import myLog
+import globalConfig
 
 # Global Variables
 INADDR_ANY = '0.0.0.0' # OR INADDR_ANY = ''
 HOST = INADDR_ANY # socket.gethostbyname(socket.gethostname()) #socket.INADDR_ANY
-SERVER_PORT = 44444
+#SERVER_PORT = 44444
 
 client_list = list()
 list_lock = threading.Lock()
@@ -86,7 +87,7 @@ def handleConnect(sock, addr):
             sock.send(r_data)
         except:
             print(traceback.format_exc())
-            myLog.mylogger.debug(traceback.format_exc())
+            myLog.mylogger.error(traceback.format_exc())
             break
     
     do_finish(dbconn, cur, sock)
@@ -94,10 +95,11 @@ def handleConnect(sock, addr):
     return
 
 def Server():
+    PORT = globalConfig.SERVER_PORT
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        print(HOST)
-        sock.bind((HOST, SERVER_PORT))
+        print(HOST, PORT)
+        sock.bind((HOST, PORT))
         sock.listen(5)
         print('main server ready to accept...')
         while True:
@@ -108,10 +110,10 @@ def Server():
                 t.start()
             except RuntimeError as e:
                 print(e)
-                myLog.mylogger.debug(e)
+                myLog.mylogger.error(e)
     except:
         print(traceback.format_exc())
-        myLog.mylogger.debug(traceback.format_exc())
+        myLog.mylogger.error(traceback.format_exc())
 
 
 if __name__=='__main__':

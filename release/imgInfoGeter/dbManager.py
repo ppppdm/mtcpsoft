@@ -178,6 +178,9 @@ def store_pic_infos(infos):
         car_distance = 'car_distance' + No
         speed = 'speed' + No
         
+        # change backup1 type to str
+        backup1 = backup1.strftime('%Y-%m-%d')
+        
         db_conn = get_db_connect()
         if db_conn:
             cur              = db_conn.cursor()
@@ -185,8 +188,7 @@ def store_pic_infos(infos):
                 if isTheFirstOfGroup(camera_id, backup1, captrue_serial_num):
                 
                     recieve_picture_nums = 1
-                    # change backup1 type to str
-                    backup1 = backup1.strftime('%Y%m%d')
+                    
                     
                     sql = "INSERT INTO LS_pictures(camera_id, picture_name, direction, car_id, license_color, captrue_serial_num, recieve_picture_nums, " + \
                                                 collect_date + ',' + \
@@ -220,8 +222,6 @@ def store_pic_infos(infos):
                             backup1
                             ))
                 else:
-                     # change backup1 type to str
-                    backup1 = backup1.strftime('%Y%m%d')
                     
                     sql = "UPDATE LS_pictures SET picture_name = picture_name + ',' + ?,recieve_picture_nums = recieve_picture_nums + 1," + \
                                                 collect_date + '=?,' + \

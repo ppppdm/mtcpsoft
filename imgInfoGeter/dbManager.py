@@ -145,7 +145,7 @@ def store_pic_infos(infos):
         backup1              = infos.get('DATE', '')
         picture_name         = infos.get('FILE', '')
         No                   = infos.get('NO.', '0')
-        No                   = str(int(No) + 1)
+        No                   = str(int(No))
         
         #print('collect_dateN', collect_dateN)
         
@@ -186,7 +186,10 @@ def store_pic_infos(infos):
             cur              = db_conn.cursor()
             try:
                 if isTheFirstOfGroup(camera_id, backup1, captrue_serial_num):
-                
+                    # change 2013.6.1 
+                    recieve_time = 'recieve_time'
+                    gps_x = 'gps_x'
+                    gps_y = 'gps_y'
                     recieve_picture_nums = 1
                     
                     
@@ -222,6 +225,11 @@ def store_pic_infos(infos):
                             backup1
                             ))
                 else:
+<<<<<<< HEAD
+=======
+                    # change backup1 type to str
+                    backup1 = backup1.strftime('%Y%m%d')
+>>>>>>> 21d11df772ceb93eed1bb1f76d215132c43c3f72
                     
                     sql = "UPDATE LS_pictures SET picture_name = picture_name + ',' + ?,recieve_picture_nums = recieve_picture_nums + 1," + \
                                                 collect_date + '=?,' + \

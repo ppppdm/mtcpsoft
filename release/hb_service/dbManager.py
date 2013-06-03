@@ -11,6 +11,7 @@ import time
 
 # self module
 import myLog
+import globalConfig
 
 DB_HOST = '10.20.1.200' # '210.73.152.201'
 USER = 'sa'
@@ -34,10 +35,10 @@ def init_db_connect_list(conn_num = MAX_DB_CONNECT):
             # release lock
             DB_CONNECT_LOCK.release()
         except: # not print db execption yet
-            myLog.mylogger.debug('init db got an error!')
+            myLog.mylogger.error('init db got an error!')
             print('init db got an error!')
             break
-    print('init db conn done!')
+    print('init db conn done! connections :', len(DB_CONNECT_NOT_USE_LIST))
     myLog.mylogger.debug('init db conn done!')
     return
 
@@ -53,10 +54,10 @@ def get_one_db_connect():
         
     except ValueError:
         print('not enough db_conn!')
-        myLog.mylogger.debug('not enough db_conn!')
+        myLog.mylogger.error('not enough db_conn!')
     except Exception as e:
         print(e)
-        myLog.mylogger.debug(e)
+        myLog.mylogger.error(e)
     return db_conn
 
 def close_one_db_connect(conn):
@@ -82,7 +83,7 @@ def close_one_db_connect(conn):
             DB_CONNECT_LOCK.release()
         except Exception as e:
             print(e)
-            myLog.mylogger.debug(e)
+            myLog.mylogger.error(e)
     return
 
 
@@ -107,6 +108,14 @@ def db_connect_server():
     return
 
 def init_db():
+    # init db args
+    global SERVER_PORT, DB_HOST, USER, PWD
+    SERVER_PORT = globalConfig.SERVER_PORT
+    DB_HOST     = globalConfig.DB_HOST
+    USER        = globalConfig.USER
+    PWD         = globalConfig.PWD
+    
+    
     # do two things
     # one to init db connect list(db connect pool)
     t1 = threading.Thread(target=init_db_connect_list)
