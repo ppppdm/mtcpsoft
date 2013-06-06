@@ -68,7 +68,8 @@ def do_finish(dbconn, cur, sock):
 def handleConnect(sock, addr):
     
     dbconn, cur = do_init()
-    
+    print('total connect:', total_in_list())
+    myLog.mylogger.error('total connect:%s', total_in_list())
     
     while True:
         try:
