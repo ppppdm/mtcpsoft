@@ -225,11 +225,6 @@ def store_pic_infos(infos):
                             backup1
                             ))
                 else:
-<<<<<<< HEAD
-=======
-                    # change backup1 type to str
-                    backup1 = backup1.strftime('%Y%m%d')
->>>>>>> 21d11df772ceb93eed1bb1f76d215132c43c3f72
                     
                     sql = "UPDATE LS_pictures SET picture_name = picture_name + ',' + ?,recieve_picture_nums = recieve_picture_nums + 1," + \
                                                 collect_date + '=?,' + \
