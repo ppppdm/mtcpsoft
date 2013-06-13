@@ -157,12 +157,12 @@ def store_pic_infos(infos):
         #print('collect_dateN', collect_dateN)
         
         try:
-            recieve_begin_timeN = datetime.datetime.strptime(collect_dateN, '%Y%m%d%H%M%S%f')
+            recieve_begin_timeN = datetime.datetime.strptime(recieve_begin_timeN, '%Y%m%d%H%M%S%f')
         except:
             recieve_begin_timeN = datetime.datetime.now()
         
         try:
-            recieve_timeN = datetime.datetime.strptime(collect_dateN, '%Y%m%d%H%M%S%f')
+            recieve_timeN = datetime.datetime.strptime(recieve_timeN, '%Y%m%d%H%M%S%f')
         except:
             recieve_timeN = datetime.datetime.now()
 
