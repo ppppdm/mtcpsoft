@@ -203,14 +203,20 @@ def store_to_db(infos, conn, cur):
         x          = infos.get('X', 'X error')
         y          = infos.get('Y', 'Y error')
         road       = ''
+        direction  = infos.get('GPS DIRCT', 'ss')
+        hb_interval= float(infos.get('HB INTERVAL', '5'))
+        upload_num = int(infos.get('UPLOAD NUM', '3'))
+        track_num  = int(infos.get('TRACK NUM', '3'))
+        car_distance= infos.get('CAR DEFAULT RANGE', '')
+        compression_factor = float(infos.get('COMPRESSION FACTOR', '5'))
         createtime = datetime.datetime.now()
         
         print(gpstime, camera_id, x, y, road, mph)
         myLog.mylogger.debug('%s %s %s %s %s %s', gpstime, camera_id, x, y, road, mph)
         
         try:
-            cur.execute("INSERT INTO tbl_heartbeatinfo( ID, camera_id, gpx, gpy, gpstime, roadname, mph, createtime) VALUES (newid(), ?, ?, ?, ?, ?, ?, ?)", 
-                (camera_id, x, y, gpstime, road, mph, createtime))
+            cur.execute("INSERT INTO tbl_heartbeatinfo( ID, camera_id, gpx, gpy, gpstime, roadname, mph, createtime, direction, hb_interval, upload_num, track_num, car_distance, compression_factor) VALUES (newid(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+                (camera_id, x, y, gpstime, road, mph, createtime, direction, hb_interval, upload_num, track_num, car_distance, compression_factor))
             
         except:
             myLog.mylogger.error('db excute error! %s\n', infos)

@@ -50,12 +50,12 @@ def main_server():
     # init global variables from file config.ini 
     readConfig()
     
-    
+    print('watch foder:', DIRECTORY_PATH)
     fileWatcher.watchFileChange(DIRECTORY_PATH, handle_change)
     return
 
 if __name__=='__main__':
-    print(__file__, 'test')
+    print('imgInfoGeter imgServer start')
     
     if len(sys.argv) > 1:
         DIRECTORY_PATH = sys.argv[1]
