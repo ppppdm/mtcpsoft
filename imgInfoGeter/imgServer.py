@@ -45,16 +45,24 @@ def readConfig():
     dbManager.PWD              = cf.get('db', 'PWD')
     dbManager.DATABASE         = cf.get('db', 'DATABASE')
     DIRECTORY_PATH             = cf.get('parameter', 'DIRECTORY_PATH')
+    InfoProcess.IS_RENAME      = cf.getboolean('rename', 'IS_RENAME')
+    InfoProcess.RENAME_FLODER  = cf.get('rename', 'RENAME_FLODER')
     
     # Standardization the user input
     DIRECTORY_PATH = os.path.abspath(DIRECTORY_PATH)
+    InfoProcess.RENAME_FLODER = os.path.abspath(InfoProcess.RENAME_FLODER) + os.path.sep
+    
+    
+    # print configration
+    print('watch floder :', DIRECTORY_PATH)
+    print('is rename    :', InfoProcess.IS_RENAME)
+    print('rename floder:', InfoProcess.RENAME_FLODER)
 
 def main_server():
     
     # init global variables from file config.ini 
     readConfig()
     
-    print('watch foder:', DIRECTORY_PATH)
     fileWatcher.watchFileChange(DIRECTORY_PATH, handle_change)
     return
 
