@@ -1,6 +1,7 @@
 # -*- coding:gbk -*-
 # auther : pdm
 # email : ppppdm@gmail.com
+import os
 import sys
 import configparser
 
@@ -26,7 +27,8 @@ def do_store_db(infos):
 
 def handle_change(changes):
     for action, file in changes:
-        if action == 1 and 'jpg' in file:
+        parent_path = os.path.dirname(os.path.abspath(file))
+        if action == 1 and 'jpg' in file and parent_path == DIRECTORY_PATH:
             print(file)
             do_process_file(file)
 
@@ -42,8 +44,10 @@ def readConfig():
     dbManager.USER             = cf.get('db', 'USER')
     dbManager.PWD              = cf.get('db', 'PWD')
     dbManager.DATABASE         = cf.get('db', 'DATABASE')
+    DIRECTORY_PATH             = cf.get('parameter', 'DIRECTORY_PATH')
     
-    DIRECTORY_PATH           = cf.get('parameter', 'DIRECTORY_PATH')
+    # Standardization the user input
+    DIRECTORY_PATH = os.path.abspath(DIRECTORY_PATH)
 
 def main_server():
     
@@ -70,4 +74,4 @@ if __name__=='__main__':
     for i in fl:
         print(i)
         print(do_process_file(i))
-    ''' 
+    '''

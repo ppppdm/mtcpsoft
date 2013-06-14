@@ -153,26 +153,6 @@ def watchFileChange(path_to_watch, func_handle_change = None):
             # if needed create a thread to handle results
             t = threading.Thread(target=func_handle_change, args = (changes, ))
             t.start()
-
-
-# ------------------------------ handle funciton ------------------------------ 
-# 
-import InfoProcess
-
-def handle_change(changes):
-        print(changes)
-        for action, file in changes:
-            print(action, file)
-            # when created , we will proccess the file
-            # as the file not complete as soon as it created, we will wait 5s
-            # otherwise will got an error of permission denied
-            # the time that sleep depend on how big the file and how soon it will complete
-            if action == 1 and 'jpg' in file:
-                print(file)
-                #time.sleep(60)
-                # use os.access for check weather can read a file instead of simple sleep
-                # this check will do in InfoProcess.file_process
-                InfoProcess.file_process(file)
     
 
 if __name__=='__main__':
@@ -183,4 +163,3 @@ if __name__=='__main__':
         DIRECTORY_PATH = sys.argv[1]
     else:
         DIRECTORY_PATH = '.'
-    watchFileChange(DIRECTORY_PATH, handle_change)
