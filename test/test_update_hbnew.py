@@ -9,6 +9,8 @@ PWD = 'skcl@2013'
 DATABASE = 'CDMTCP'
 
 import datetime
+import time
+import threading
 
 try:
     import pyodbc
@@ -27,6 +29,36 @@ def get_db_connect():
 def close_db_connect(db_conn):
     if db_conn:
         db_conn.close()
+
+def insert_hbnew(camera_id):
+    conn = get_db_connect()
+    #print('autocommit :', conn.autocommit)
+    if conn:
+        cur = conn.cursor()
+        gpx = 110.253
+        gpy = 31.021
+        gpstime = datetime.datetime.now()
+        roadname = ''
+        mph = 0
+        createtime = datetime.datetime.now()
+        
+        sql = "insert into tbl_heartbeatinfo_new (ID, camera_id, gpx, gpy, gpstime, roadname, mph, createtime) VALUES (newid(), ?, ?, ?, ?, ?, ?, ?)"
+        try:
+            cur.execute(sql, camera_id, gpx, gpy, gpstime, roadname, mph, createtime)
+        except:
+            print('db execute error')
+        
+        try:
+            conn.commit()
+        except:
+            print('db commit error')
+        else:
+            print('db insert success')
+        
+        
+    
+    close_db_connect(conn)
+    return
 
 def update_hbnew(camera_id):
     conn = get_db_connect()
@@ -58,7 +90,22 @@ def update_hbnew(camera_id):
     close_db_connect(conn)
     return
 
+def run_update(id, times):
+    for i in range(times):
+        update_hbnew('id')
+        time.sleep(5)
+
 if __name__=='__main__':
     print(__file__, 'test')
-    update_hbnew('123456')
+    total_client = 1000
+    for i in range(total_client):
+        insert_hbnew(i)
+    
+    for i in range(total_client):
+        new_t = threading.Thread(target=run_update, args=(i, 10))
+        new_t.start()
+        time.sleep(1)
+   
+    
+    
     
