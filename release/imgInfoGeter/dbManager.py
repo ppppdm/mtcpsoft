@@ -145,7 +145,7 @@ def store_pic_infos(infos):
         backup1              = infos.get('DATE', '')
         picture_name         = infos.get('FILE', '')
         No                   = infos.get('NO.', '0')
-        No                   = str(int(No) + 1)
+        No                   = str(int(No))
         
         #print('collect_dateN', collect_dateN)
         
@@ -157,12 +157,12 @@ def store_pic_infos(infos):
         #print('collect_dateN', collect_dateN)
         
         try:
-            recieve_begin_timeN = datetime.datetime.strptime(collect_dateN, '%Y%m%d%H%M%S%f')
+            recieve_begin_timeN = datetime.datetime.strptime(recieve_begin_timeN, '%Y%m%d%H%M%S%f')
         except:
             recieve_begin_timeN = datetime.datetime.now()
         
         try:
-            recieve_timeN = datetime.datetime.strptime(collect_dateN, '%Y%m%d%H%M%S%f')
+            recieve_timeN = datetime.datetime.strptime(recieve_timeN, '%Y%m%d%H%M%S%f')
         except:
             recieve_timeN = datetime.datetime.now()
 
@@ -186,7 +186,10 @@ def store_pic_infos(infos):
             cur              = db_conn.cursor()
             try:
                 if isTheFirstOfGroup(camera_id, backup1, captrue_serial_num):
-                
+                    # change 2013.6.1 
+                    recieve_time = 'recieve_time'
+                    gps_x = 'gps_x'
+                    gps_y = 'gps_y'
                     recieve_picture_nums = 1
                     
                     

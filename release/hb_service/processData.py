@@ -199,28 +199,51 @@ def store_to_db(infos, conn, cur):
         except:
             mph = 0
         
-        camera_id  = infos.get('MAC', 'ID error')
-        x          = infos.get('X', 'X error')
-        y          = infos.get('Y', 'Y error')
-        road       = ''
-        createtime = datetime.datetime.now()
+        try:
+            hb_interval = float(infos.get('HB INTERVAL', '5'))
+        except:
+            hb_interval = 5
+        
+        try:
+            upload_num = int(infos.get('UPLOAD NUM', '3'))
+        except:
+            upload_num = 3
+        
+        try:
+            track_num  = int(infos.get('TRACK NUM', '3'))
+        except:
+            track_num = 3
+        
+        try:
+            compression_factor  = float(infos.get('COMPRESSION FACTOR', '5'))
+        except:
+            compression_factor = 3
+        
+        camera_id    = infos.get('MAC', 'ID error')
+        x            = infos.get('X', 'X error')
+        y            = infos.get('Y', 'Y error')
+        road         = ''
+        direction    = infos.get('GPS DIRCT', 'ss')
+        car_distance = infos.get('CAR DEFAULT RANGE', '')
+        createtime   = datetime.datetime.now()
         
         print(gpstime, camera_id, x, y, road, mph)
         myLog.mylogger.debug('%s %s %s %s %s %s', gpstime, camera_id, x, y, road, mph)
         
         try:
-            cur.execute("INSERT INTO tbl_heartbeatinfo( ID, camera_id, gpx, gpy, gpstime, roadname, mph, createtime) VALUES (newid(), ?, ?, ?, ?, ?, ?, ?)", 
-                (camera_id, x, y, gpstime, road, mph, createtime))
+            cur.execute("INSERT INTO tbl_heartbeatinfo( ID, camera_id, gpx, gpy, gpstime, roadname, mph, createtime, direction, hb_interval, upload_num, track_num, car_distance, compression_factor) VALUES (newid(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+                (camera_id, x, y, gpstime, road, mph, createtime, direction, hb_interval, upload_num, track_num, car_distance, compression_factor))
             
         except:
-            myLog.mylogger.error('db excute error!\n')
+            myLog.mylogger.error('db excute error! %s\n', infos)
             print('db excute error!\n')
-        
+            return
+            
         try:
             conn.commit()
             myLog.mylogger.debug('store to db success!')
         except:
-            myLog.mylogger.error('commit error!')
+            myLog.mylogger.error('commit error! %s\n', infos)
             print('commit erorr!')
             
     return

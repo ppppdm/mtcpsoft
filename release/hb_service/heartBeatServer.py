@@ -68,7 +68,8 @@ def do_finish(dbconn, cur, sock):
 def handleConnect(sock, addr):
     
     dbconn, cur = do_init()
-    
+    print('total connect:', total_in_list())
+    myLog.mylogger.error('total connect:%s', total_in_list())
     
     while True:
         try:
@@ -86,12 +87,14 @@ def handleConnect(sock, addr):
             
             sock.send(r_data)
         except:
+            # should not get error while print exception
             print(traceback.format_exc())
             myLog.mylogger.error(traceback.format_exc())
             break
     
     do_finish(dbconn, cur, sock)
-    print(total_in_list())
+    print('left connect:', total_in_list())
+    myLog.mylogger.error('left connect:%s', total_in_list())
     return
 
 def Server():

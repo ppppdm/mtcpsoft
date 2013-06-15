@@ -13,6 +13,11 @@ logging.config.fileConfig("logging.conf")
 logger = logging.getLogger("example")
 
 
+# Global variabls
+IS_RENAME = False
+RENAME_FLODER = os.path.abspath('../PICS/')+os.path.sep
+
+
 BEFORE_INFO_LEN = 6
 INFO_LEN        = 89
 TOTAL_MARK_LEN  = 124
@@ -99,6 +104,28 @@ def isImageComplete(f):
     f.seek(0)
     return ret
 
+def rename_file(fn, infos):
+    print('Is rename', IS_RENAME)
+    if IS_RENAME:
+    
+        old_fn = os.path.abspath(fn)
+    
+        camera_id = infos['MAC']
+        # There should change to bus_id with camera_id, not do yet
+        
+        
+        date = infos['DATE'].strftime('%y%m%d%H%M%S')
+        number = infos['NO.']
+        new_fn = RENAME_FLODER + camera_id + '-' + date + '-0-000000000000-00000-000-3-' + number + '.jpg'
+    
+    
+        # new file should in another directory, else will find the new file created
+        os.rename(old_fn, new_fn)
+    
+        return new_fn
+    else:
+        return fn
+
 def do_get_file_infos(fn):
     
     # open the file
@@ -115,6 +142,7 @@ def do_get_file_infos(fn):
     print(isCmp)
     if isCmp != True:
         logger.error('Error file Img Not Complete:%s', fn)
+        f.close()
         return None
     
     infos = get_infos(f)
@@ -136,7 +164,11 @@ def do_get_file_infos(fn):
         pic_date = datetime.datetime.strptime(pic_date, '%Y%m%d%H%M%S%f').date()
     
     infos['DATE'] = pic_date
-    infos['FILE'] = os.path.basename(fn)
+    #infos['FILE'] = os.path.basename(fn)
+    
+    # rename the pic file
+    new_fn = rename_file(fn, infos)
+    infos['FILE'] = os.path.basename(new_fn)
     
     return infos
 

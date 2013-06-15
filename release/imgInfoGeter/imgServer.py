@@ -1,6 +1,7 @@
 # -*- coding:gbk -*-
 # auther : pdm
 # email : ppppdm@gmail.com
+import os
 import sys
 import configparser
 
@@ -26,7 +27,8 @@ def do_store_db(infos):
 
 def handle_change(changes):
     for action, file in changes:
-        if action == 1 and 'jpg' in file:
+        parent_path = os.path.dirname(os.path.abspath(file))
+        if action == 1 and 'jpg' in file and parent_path == DIRECTORY_PATH:
             print(file)
             do_process_file(file)
 
@@ -42,20 +44,30 @@ def readConfig():
     dbManager.USER             = cf.get('db', 'USER')
     dbManager.PWD              = cf.get('db', 'PWD')
     dbManager.DATABASE         = cf.get('db', 'DATABASE')
+    DIRECTORY_PATH             = cf.get('parameter', 'DIRECTORY_PATH')
+    InfoProcess.IS_RENAME      = cf.getboolean('rename', 'IS_RENAME')
+    InfoProcess.RENAME_FLODER  = cf.get('rename', 'RENAME_FLODER')
     
-    DIRECTORY_PATH           = cf.get('parameter', 'DIRECTORY_PATH')
+    # Standardization the user input
+    DIRECTORY_PATH = os.path.abspath(DIRECTORY_PATH)
+    InfoProcess.RENAME_FLODER = os.path.abspath(InfoProcess.RENAME_FLODER) + os.path.sep
+    
+    
+    # print configration
+    print('watch floder :', DIRECTORY_PATH)
+    print('is rename    :', InfoProcess.IS_RENAME)
+    print('rename floder:', InfoProcess.RENAME_FLODER)
 
 def main_server():
     
     # init global variables from file config.ini 
     readConfig()
     
-    
     fileWatcher.watchFileChange(DIRECTORY_PATH, handle_change)
     return
 
 if __name__=='__main__':
-    print(__file__, 'test')
+    print('imgInfoGeter imgServer start')
     
     if len(sys.argv) > 1:
         DIRECTORY_PATH = sys.argv[1]
@@ -70,4 +82,4 @@ if __name__=='__main__':
     for i in fl:
         print(i)
         print(do_process_file(i))
-    ''' 
+    '''
