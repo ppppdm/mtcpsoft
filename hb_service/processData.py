@@ -47,6 +47,8 @@ DEFALUT_PACKAGE_CONTENT = {'HEAD':b'\xaa\x55', 'CMD':b'0', 'WORK MODE':b'0', 'SE
 
 
 COFFEE = 0.01
+IS_USE_LANES = False
+IS_USE_VALID_PERIOD = False
 
 ###################################################################################3
 def get_next_item(b_data, i, t):
@@ -90,6 +92,10 @@ def decode_data(b_data):
 ###################################################################################3
 
 def is_in_lanes(location):
+    if IS_USE_LANES == False:
+        # if not use lanes, always return true
+        return True
+    
     try:
         x = float(location[0][:-1])
         y = float(location[1][:-1])
@@ -110,6 +116,10 @@ def is_in_lanes(location):
     return False
 
 def is_valid_period():
+    if IS_USE_VALID_PERIOD == False:
+        # if not use valid preiod, always reutrn true
+        return True
+    
     # valid period is 6:00 to 18:00
     tn = datetime.datetime.now().time()
     tu = datetime.time(TIME_UPPER_LIMIT)
@@ -117,7 +127,7 @@ def is_valid_period():
     
     if tn <= tu and tn >= tl:
        return True 
-    return True
+    return False
 
 def encode_return_data(infos, changed_args=dict()):
     r_data = bytearray()
