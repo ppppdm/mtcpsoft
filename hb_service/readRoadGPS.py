@@ -28,4 +28,5 @@ def initRoadGPS(filename):
 
 if __name__=='__main__':
     
-    initRoadGPS('roadgps.txt')
+    initRoadGPS('roadgps_hefei.txt')
+    print(ROAD_GPS_POINT_LIST)

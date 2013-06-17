@@ -107,7 +107,7 @@ def is_in_lanes(location):
         if rX - COFFEE < x and x < rX + COFFEE and rY - COFFEE < y and y < rY + COFFEE:
             return True
     
-    return True
+    return False
 
 def is_valid_period():
     # valid period is 6:00 to 18:00
