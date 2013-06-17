@@ -97,8 +97,14 @@ def is_in_lanes(location):
         return True
     
     try:
-        x = float(location[0][:-1])
-        y = float(location[1][:-1])
+        # the location from camera should be transform from ddmm.mmmm to dd.dddddddd..
+        xd = float(location[0][:2])
+        xm = float(location[0][2:-1])
+        yd = float(location[1][:2])
+        ym = float(location[1][2:-1])
+        
+        x = xd + xm/60
+        y = yd + ym/60
     except:
         myLog.mylogger.error('camera location value error! x:%s y:%s'%(location[0][:-1], location[1][:-1]))
         x, y = 0, 0
