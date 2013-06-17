@@ -117,8 +117,12 @@ def is_in_lanes(location):
             myLog.mylogger.error('road gps value error! rX:%s rY:%s'%(p[0], p[1]))
             rX , rY = 0, 0
         if rX - COFFEE < x and x < rX + COFFEE and rY - COFFEE < y and y < rY + COFFEE:
+            print('camera in lanes')
+            myLog.mylogger.debug('camera in lanes')
             return True
     
+    print('camera not in lanes')
+    myLog.mylogger.debug('camera not in lanes')
     return False
 
 def is_valid_period():
@@ -132,7 +136,12 @@ def is_valid_period():
     tl = datetime.time(TIME_LOWER_LIMIT)
     
     if tn <= tu and tn >= tl:
-       return True 
+        print('camera in valid_period')
+        myLog.mylogger.debug('camera in valid_period')
+        return True 
+    
+    print('camera not in valid_period')
+    myLog.mylogger.debug('camera not in valid_period')
     return False
 
 def encode_return_data(infos, changed_args=dict()):
