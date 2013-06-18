@@ -5,6 +5,7 @@
 import socket
 import threading
 import traceback
+import sys
 
 # self module
 import processData
@@ -117,6 +118,8 @@ def Server():
     except:
         print(traceback.format_exc())
         myLog.mylogger.error(traceback.format_exc())
+        # if server error exit
+        sys.exit()
 
 
 if __name__=='__main__':

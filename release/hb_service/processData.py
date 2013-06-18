@@ -47,6 +47,8 @@ DEFALUT_PACKAGE_CONTENT = {'HEAD':b'\xaa\x55', 'CMD':b'0', 'WORK MODE':b'0', 'SE
 
 
 COFFEE = 0.01
+IS_USE_LANES = False
+IS_USE_VALID_PERIOD = False
 
 ###################################################################################3
 def get_next_item(b_data, i, t):
@@ -56,6 +58,39 @@ def changeToFormate(data):
     '12-34-56-78-90-ab'
     data = data[0:2] + '-' + data[2:4] + '-' + data[4:6] + '-' + data[6:8] + '-' + data[8:10] + '-' + data[10:12]
     return data
+
+def get_road_name_from_location(location):
+    road_name = ''
+    try:
+        # the location from camera should be transform from ddmm.mmmm to dd.dddddddd..
+        xd = float(location[0][:2])
+        xm = float(location[0][2:-1])
+        yd = float(location[1][:3])
+        ym = float(location[1][3:-1])
+        
+        x = xd + xm/60
+        y = yd + ym/60
+    except:
+        myLog.mylogger.error('camera location value error! x:%s y:%s'%(location[0][:-1], location[1][:-1]))
+        x, y = 0, 0
+    
+    for p in readRoadGPS.ROAD_GPS_POINT_LIST:
+        try:
+            rX = float(p[0])
+            rY = float(p[1])
+        except:
+            myLog.mylogger.error('road gps value error! rX:%s rY:%s'%(p[0], p[1]))
+            rX , rY = 0, 0
+        try:
+            rR = p[2]
+        except:
+            myLog.mylogger.error('road gps have no name')
+            rR = ''
+        if rX - COFFEE < x and x < rX + COFFEE and rY - COFFEE < y and y < rY + COFFEE:
+            road_name = rR
+            return road_name
+    
+    return road_name
 
 def decode_data(b_data):
     #s = ''
@@ -83,16 +118,32 @@ def decode_data(b_data):
             myLog.mylogger.error(traceback.format_exc())
         t+=item_len
     
+    # get the road name info if is in lanes
+    location = (infos['X'], infos['Y'])
+    road_name = get_road_name_from_location(location)
+    infos['ROAD'] = road_name
+    
     #myLog.mylogger.debug(s)
     myLog.mylogger.debug(infos)
+    
     return infos
 
 ###################################################################################3
 
 def is_in_lanes(location):
+    if IS_USE_LANES == False:
+        # if not use lanes, always return true
+        return True
+    
     try:
-        x = float(location[0][:-1])
-        y = float(location[1][:-1])
+        # the location from camera should be transform from ddmm.mmmm to dd.dddddddd..
+        xd = float(location[0][:2])
+        xm = float(location[0][2:-1])
+        yd = float(location[1][:3])
+        ym = float(location[1][3:-1])
+        
+        x = xd + xm/60
+        y = yd + ym/60
     except:
         myLog.mylogger.error('camera location value error! x:%s y:%s'%(location[0][:-1], location[1][:-1]))
         x, y = 0, 0
@@ -105,19 +156,32 @@ def is_in_lanes(location):
             myLog.mylogger.error('road gps value error! rX:%s rY:%s'%(p[0], p[1]))
             rX , rY = 0, 0
         if rX - COFFEE < x and x < rX + COFFEE and rY - COFFEE < y and y < rY + COFFEE:
+            print('camera in lanes')
+            myLog.mylogger.debug('camera in lanes')
             return True
     
-    return True
+    print('camera not in lanes')
+    myLog.mylogger.debug('camera not in lanes')
+    return False
 
 def is_valid_period():
+    if IS_USE_VALID_PERIOD == False:
+        # if not use valid preiod, always reutrn true
+        return True
+    
     # valid period is 6:00 to 18:00
     tn = datetime.datetime.now().time()
     tu = datetime.time(TIME_UPPER_LIMIT)
     tl = datetime.time(TIME_LOWER_LIMIT)
     
     if tn <= tu and tn >= tl:
-       return True 
-    return True
+        print('camera in valid_period')
+        myLog.mylogger.debug('camera in valid_period')
+        return True 
+    
+    print('camera not in valid_period')
+    myLog.mylogger.debug('camera not in valid_period')
+    return False
 
 def encode_return_data(infos, changed_args=dict()):
     r_data = bytearray()
@@ -222,7 +286,7 @@ def store_to_db(infos, conn, cur):
         camera_id    = infos.get('MAC', 'ID error')
         x            = infos.get('X', 'X error')
         y            = infos.get('Y', 'Y error')
-        road         = ''
+        road         = infos.get('ROAD', '')
         direction    = infos.get('GPS DIRCT', 'ss')
         car_distance = infos.get('CAR DEFAULT RANGE', '')
         createtime   = datetime.datetime.now()
