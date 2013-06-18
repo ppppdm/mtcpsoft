@@ -65,8 +65,8 @@ def get_road_name_from_location(location):
         # the location from camera should be transform from ddmm.mmmm to dd.dddddddd..
         xd = float(location[0][:2])
         xm = float(location[0][2:-1])
-        yd = float(location[1][:2])
-        ym = float(location[1][2:-1])
+        yd = float(location[1][:3])
+        ym = float(location[1][3:-1])
         
         x = xd + xm/60
         y = yd + ym/60
@@ -139,8 +139,8 @@ def is_in_lanes(location):
         # the location from camera should be transform from ddmm.mmmm to dd.dddddddd..
         xd = float(location[0][:2])
         xm = float(location[0][2:-1])
-        yd = float(location[1][:2])
-        ym = float(location[1][2:-1])
+        yd = float(location[1][:3])
+        ym = float(location[1][3:-1])
         
         x = xd + xm/60
         y = yd + ym/60
