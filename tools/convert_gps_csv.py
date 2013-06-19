@@ -18,10 +18,11 @@ while True:
     hb_list.append(arr)
 in_f.close()
 
-# write to file
+# write to file, the file should be 纬度，经度，路段名
 out_f = open(OUT_FILE, 'wt')
+s=''
 for i in hb_list:
-    s = i[1]+','+i[2]+','+i[7]+'\n'
-    out_f.write(s)
-
+    s += i[2]+','+i[1]+','+i[7]+'\n'
+s = s.strip('\n')
+out_f.write(s)
 out_f.close()
