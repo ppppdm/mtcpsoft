@@ -14,8 +14,11 @@ logger = logging.getLogger("example")
 
 
 # Global variabls
-IS_RENAME = False
-RENAME_FLODER = os.path.abspath('../PICS/')+os.path.sep
+MOVE_FILE = False
+RENAME_BY_EQUIP = False
+CAMERAID_EQUIPMENTID = dict()
+CAMERA_EQUIP_FILE = ''
+MOVE_FLODER = os.path.abspath('../PICS/')+os.path.sep
 
 
 BEFORE_INFO_LEN = 6
@@ -105,20 +108,22 @@ def isImageComplete(f):
     return ret
 
 def rename_file(fn, infos):
-    print('Is rename', IS_RENAME)
-    if IS_RENAME:
-    
+    print('Is move file', MOVE_FILE)
+    if MOVE_FILE:
+        if RENAME_BY_EQUIP:
+            camera_id = infos['MAC'].upper()
+            print(camera_id)
+            # There should change to equipment_id with camera_id
+            equipment_id = CAMERAID_EQUIPMENTID.get(camera_id, '000000000000')
+        
+        
+            date = infos['DATE'].strftime('%y%m%d%H%M%S')
+            number = infos['NO.']
+            new_fn = MOVE_FLODER + equipment_id + '-' + date + '-0-000000000000-00000-000-3-' + number + '.jpg'
+        else:
+            new_fn = MOVE_FLODER + os.path.basename(fn)
+        
         old_fn = os.path.abspath(fn)
-    
-        camera_id = infos['MAC']
-        # There should change to bus_id with camera_id, not do yet
-        
-        
-        date = infos['DATE'].strftime('%y%m%d%H%M%S')
-        number = infos['NO.']
-        new_fn = RENAME_FLODER + camera_id + '-' + date + '-0-000000000000-00000-000-3-' + number + '.jpg'
-    
-    
         # new file should in another directory, else will find the new file created
         os.rename(old_fn, new_fn)
     
@@ -136,7 +141,7 @@ def do_get_file_infos(fn):
     # we should sleep and wait for the file upload complete.
     
     # sleep 120 second 
-    time.sleep(120)
+    time.sleep(5)
     
     isCmp = isImageComplete(f)
     print(isCmp)
