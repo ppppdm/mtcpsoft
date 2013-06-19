@@ -49,7 +49,7 @@ def readConfig():
     
     processData.TIME_UPPER_LIMIT    = cf.get('parameter', 'TIME_UPPER_LIMIT')
     processData.TIME_LOWER_LIMIT    = cf.get('parameter', 'TIME_LOWER_LIMIT')
-    processData.COFFEE              = cf.get('parameter', 'COFFEE')
+    processData.COFFEE              = cf.getfloat('parameter', 'COFFEE')
     processData.IS_USE_LANES        = cf.getboolean('gpsdata', 'IS_USE_LANES')
     processData.IS_USE_VALID_PERIOD = cf.getboolean('parameter', 'IS_USE_VALID_PERIOD')
     
