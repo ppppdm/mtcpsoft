@@ -107,19 +107,21 @@ def close_one_db_connect(conn):
 
 groupCount = dict()
 
-def isTheFirstOfGroup(camera_id, backup1, captrue_serial_num):
+def isTheFirstOfGroup(camera_id, backup1, captrue_serial_num, collect_date):
     ret = False
     ginfo = groupCount.get(camera_id)
     if  ginfo == None:
-        groupCount[camera_id] = (backup1, captrue_serial_num)
+        groupCount[camera_id] = (backup1, captrue_serial_num, collect_date)
         ret =  True
     elif ginfo[0] < backup1:
-        groupCount[camera_id] = (backup1, captrue_serial_num)
+        groupCount[camera_id] = (backup1, captrue_serial_num, collect_date)
         ret = True
     elif ginfo[1] < captrue_serial_num:
-        groupCount[camera_id] = (ginfo[0], captrue_serial_num)
+        groupCount[camera_id] = (ginfo[0], captrue_serial_num, collect_date)
         ret = True
-    
+    elif (collect_date - ginfo[2] > datetime.timedelta(0, 0, 0, 0, 1)):
+        groupCount[camera_id] = (backup1, captrue_serial_num, collect_date)
+        ret = True
     return ret
 
 # store one image infos
@@ -185,7 +187,7 @@ def store_pic_infos(infos):
         if db_conn:
             cur              = db_conn.cursor()
             try:
-                if isTheFirstOfGroup(camera_id, backup1, captrue_serial_num):
+                if isTheFirstOfGroup(camera_id, backup1, captrue_serial_num, collect_dateN):
                     # change 2013.6.1 
                     recieve_time = 'recieve_time'
                     gps_x = 'gps_x'
