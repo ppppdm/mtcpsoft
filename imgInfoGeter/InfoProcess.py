@@ -20,6 +20,8 @@ CAMERAID_EQUIPMENTID = dict()
 CAMERA_EQUIP_FILE = ''
 MOVE_FLODER = os.path.abspath('../PICS/')+os.path.sep
 
+USING_IMG_COMPLETE = False
+
 
 BEFORE_INFO_LEN = 6
 INFO_LEN        = 89
@@ -95,6 +97,10 @@ def get_file_time(fn):
     return datetime.datetime.fromtimestamp(file_st.st_mtime), datetime.datetime.fromtimestamp(file_st.st_atime)
 
 def isImageComplete(f):
+    # if not use this function always return True
+    if USING_IMG_COMPLETE == False:
+        return True
+    
     # the image file formate is JPEG
     # find the sign of end of image (0xFF 0xD9), if found return true
     ret = False
