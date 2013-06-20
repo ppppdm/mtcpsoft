@@ -66,9 +66,9 @@ def delete_tmp_floder():
 if __name__=='__main__':
     create_tmp_floder()
     
-    copy_to_tmp_floder('hb_service', 'hefei')
+    copy_to_tmp_floder('imgInfoGeter', 'hefei')
     
-    tar_tmp_floder('hb_service', 'hefei')
+    tar_tmp_floder('imgInfoGeter', 'hefei')
     
     delete_tmp_floder()
 

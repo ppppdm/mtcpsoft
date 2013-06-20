@@ -49,6 +49,7 @@ def readConfig():
     InfoProcess.RENAME_BY_EQUIP = cf.getboolean('rename', 'RENAME_BY_EQUIP')
     InfoProcess.MOVE_FLODER    = cf.get('rename', 'MOVE_FLODER')
     InfoProcess.CAMERA_EQUIP_FILE  = cf.get('rename', 'CAMERA_EQUIP_FILE')
+    InfoProcess.USING_IMG_COMPLETE = cf.getboolean('parameter', 'USING_IMG_COMPLETE')
     
     # Standardization the user input
     DIRECTORY_PATH = os.path.abspath(DIRECTORY_PATH)
