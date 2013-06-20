@@ -45,23 +45,41 @@ def readConfig():
     dbManager.PWD              = cf.get('db', 'PWD')
     dbManager.DATABASE         = cf.get('db', 'DATABASE')
     DIRECTORY_PATH             = cf.get('parameter', 'DIRECTORY_PATH')
-    InfoProcess.IS_RENAME      = cf.getboolean('rename', 'IS_RENAME')
-    InfoProcess.RENAME_FLODER  = cf.get('rename', 'RENAME_FLODER')
+    InfoProcess.MOVE_FILE      = cf.getboolean('rename', 'MOVE_FILE')
+    InfoProcess.RENAME_BY_EQUIP = cf.getboolean('rename', 'RENAME_BY_EQUIP')
+    InfoProcess.MOVE_FLODER    = cf.get('rename', 'MOVE_FLODER')
+    InfoProcess.CAMERA_EQUIP_FILE  = cf.get('rename', 'CAMERA_EQUIP_FILE')
     
     # Standardization the user input
     DIRECTORY_PATH = os.path.abspath(DIRECTORY_PATH)
-    InfoProcess.RENAME_FLODER = os.path.abspath(InfoProcess.RENAME_FLODER) + os.path.sep
+    InfoProcess.MOVE_FLODER = os.path.abspath(InfoProcess.MOVE_FLODER) + os.path.sep
     
     
     # print configration
     print('watch floder :', DIRECTORY_PATH)
-    print('is rename    :', InfoProcess.IS_RENAME)
-    print('rename floder:', InfoProcess.RENAME_FLODER)
+    print('is rename    :', InfoProcess.MOVE_FILE)
+    print('rename floder:', InfoProcess.MOVE_FLODER)
+
+def read_camera_equipment():
+    if InfoProcess.RENAME_BY_EQUIP and InfoProcess.CAMERA_EQUIP_FILE != '':
+        f = open(InfoProcess.CAMERA_EQUIP_FILE, 'rt')
+        while True:
+            ss = f.readline()
+            ss = ss.strip('\n')
+            if ss == '':
+                break
+            arr = ss.split(',')
+            InfoProcess.CAMERAID_EQUIPMENTID[arr[0]] = arr[1]
+        f.close()
+    #print(InfoProcess.CAMERAID_EQUIPMENTID)
 
 def main_server():
     
     # init global variables from file config.ini 
     readConfig()
+    
+    # init camera_equipment_table
+    read_camera_equipment()
     
     fileWatcher.watchFileChange(DIRECTORY_PATH, handle_change)
     return

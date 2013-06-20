@@ -26,11 +26,6 @@ DATABASE = 'CDMTCP'
 # gpsdata
 ROAD_GPS_FILE = 'roadgps.txt'
 
-# process parameter 
-TIME_UPPER_LIMIT = 18
-TIME_LOWER_LIMIT = 6
-COFFEE = 0.01
-
 
 #
 import processData
@@ -51,15 +46,15 @@ def readConfig():
     PWD              = cf.get('db', 'PWD')
     DATABASE         = cf.get('db', 'DATABASE')
     ROAD_GPS_FILE    = cf.get('gpsdata', 'ROAD_GPS_FILE')
-    TIME_UPPER_LIMIT = cf.get('parameter', 'TIME_UPPER_LIMIT')
-    TIME_LOWER_LIMIT = cf.get('parameter', 'TIME_LOWER_LIMIT')
-    COFFEE           = cf.get('parameter', 'COFFEE')
     
+    processData.TIME_UPPER_LIMIT    = cf.get('parameter', 'TIME_UPPER_LIMIT')
+    processData.TIME_LOWER_LIMIT    = cf.get('parameter', 'TIME_LOWER_LIMIT')
+    processData.COFFEE              = cf.getfloat('parameter', 'COFFEE')
     processData.IS_USE_LANES        = cf.getboolean('gpsdata', 'IS_USE_LANES')
     processData.IS_USE_VALID_PERIOD = cf.getboolean('parameter', 'IS_USE_VALID_PERIOD')
     
     
-    print(SERVER_PORT, DB_HOST, USER, PWD, DATABASE, ROAD_GPS_FILE, TIME_UPPER_LIMIT, TIME_LOWER_LIMIT, COFFEE)
+    print(SERVER_PORT, DB_HOST, USER, PWD, DATABASE, ROAD_GPS_FILE)
 
 if __name__=='__main__':
     readConfig()

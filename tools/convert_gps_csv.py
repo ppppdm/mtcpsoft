@@ -1,6 +1,6 @@
 
-IN_FILE = '../res/合肥专用道_Point（6月18日）.txt.csv'
-OUT_FILE = '../res/roadgps_hefei.txt'
+IN_FILE = '../res/合肥专用道6月20日_Point.txt.csv'
+OUT_FILE = '../res/roadgps_hefei_20.txt'
 
 hb_list = list()
 
@@ -22,7 +22,7 @@ in_f.close()
 out_f = open(OUT_FILE, 'wt')
 s=''
 for i in hb_list:
-    s += i[2]+','+i[1]+','+i[7]+'\n'
+    s += i[2]+','+i[1]+','+i[6]+'\n'
 s = s.strip('\n')
 out_f.write(s)
 out_f.close()
