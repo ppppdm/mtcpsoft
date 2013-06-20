@@ -35,6 +35,9 @@ def copy_to_tmp_floder(project_name, config_name):
         if '_'+config_name+'.' in filename:
             #print(filename)
             shutil.copy(cfg_dir + filename, TEMP_FLODER + filename.replace('_'+config_name, ''))
+    
+    if os.path.exists(TEMP_FLODER+'log') == False:
+        os.mkdir(TEMP_FLODER+'log')
 
 
 def tar_tmp_floder(project_name, config_name):
@@ -52,7 +55,10 @@ def tar_tmp_floder(project_name, config_name):
 
 def delete_tmp_floder():
     for i in os.listdir(TEMP_FLODER):
-        os.remove(TEMP_FLODER+'/'+i)
+        if os.path.isdir(TEMP_FLODER+'/'+i):
+            os.removedirs(TEMP_FLODER+'/'+i)
+        else:
+            os.remove(TEMP_FLODER+'/'+i)
     os.removedirs(TEMP_FLODER)
 
 
