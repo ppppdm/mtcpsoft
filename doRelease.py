@@ -9,8 +9,8 @@ TEMP_FLODER = 'tmp' + os.path.sep
 RELEASE_FLODER = 'release' + os.path.sep
 
 # global values
-CONFIG_NAME = 'hefei'
-WORK_PROJECT = ['hb_service', 'imgInfoGeter', 'all']
+CONFIG_NAME = ['hefei', 'chengdu']
+WORK_PROJECT = ['hb_service', 'imgInfoGeter']
 
 
 
@@ -64,12 +64,29 @@ def delete_tmp_floder():
 
 
 if __name__=='__main__':
+    print(WORK_PROJECT)
+    print('选择一个项目，输入0或1:', end = '')
+    op = input()
+    project_name = WORK_PROJECT[int(op)]
+    print('选择了', project_name)
+    print()
+    
+    print(CONFIG_NAME)
+    print('选择一个配置，输入0或1:', end = '')
+    op = input()
+    config_name = CONFIG_NAME[int(op)]
+    print('选择了', config_name)
+    print()
+    
+    
     create_tmp_floder()
     
-    copy_to_tmp_floder('imgInfoGeter', 'hefei')
+    copy_to_tmp_floder(project_name, config_name)
     
-    tar_tmp_floder('imgInfoGeter', 'hefei')
+    tar_tmp_floder(project_name, config_name)
     
     delete_tmp_floder()
+    
+    print('完成')
 
 
