@@ -94,7 +94,7 @@ def do_open_file(fn):
 
 def get_file_time(fn):
     file_st = os.stat(fn)
-    return datetime.datetime.fromtimestamp(file_st.st_mtime), datetime.datetime.fromtimestamp(file_st.st_atime)
+    return datetime.datetime.fromtimestamp(file_st.st_mtime), datetime.datetime.fromtimestamp(file_st.st_ctime)
 
 def isImageComplete(f):
     # if not use this function always return True
