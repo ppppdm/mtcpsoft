@@ -21,6 +21,7 @@ CAMERA_EQUIP_FILE = ''
 MOVE_FLODER = os.path.abspath('../PICS/')+os.path.sep
 
 USING_IMG_COMPLETE = False
+MODIFY_LAST_BYTE_RTC = False
 
 
 BEFORE_INFO_LEN = 6
@@ -78,9 +79,8 @@ def get_infos(f):
         except:
             #print('decode item %s error!'%(i), b_data)
             logger.debug('decode item %s error! %s'%(i, str(b_data)))
-        
+            
     #print(infos)
-    
     return infos
 
 def do_open_file(fn):
@@ -165,6 +165,12 @@ def do_get_file_infos(fn):
     m_time, c_time = get_file_time(fn)
     infos['MODIFY TIME'] = m_time
     infos['CREATE TIME'] = c_time
+    
+    # modify the RTC last byte
+    if MODIFY_LAST_BYTE_RTC:
+        rtc = infos.get('RTC', '')
+        if rtc != '' and rtc[-1] > '9':
+            infos['RTC'] = rtc[:-1] + '9'
     
     # get the date
     pic_date = infos.get('RTC', '')
