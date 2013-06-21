@@ -172,7 +172,10 @@ def do_get_file_infos(fn):
         pic_date = datetime.datetime.now().date() 
     else:
         #print(pic_date)
-        pic_date = datetime.datetime.strptime(pic_date, '%Y%m%d%H%M%S%f').date()
+        try:
+            pic_date = datetime.datetime.strptime(pic_date, '%Y%m%d%H%M%S%f').date()
+        except:
+            pic_date = datetime.datetime.now().date()
     
     infos['DATE'] = pic_date
     #infos['FILE'] = os.path.basename(fn)
