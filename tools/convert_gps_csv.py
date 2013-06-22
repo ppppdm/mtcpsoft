@@ -38,7 +38,7 @@ in_f.close()
 
 
 print('Enter the column number of 纬度 经度 路段名 in input file, start from 0')
-print('Example   : 1,2,6')
+print('Example   : 2,1,6')
 print('Enter Here: ', end='')
 
 cols = input().split(',')
