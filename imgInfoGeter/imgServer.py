@@ -8,6 +8,7 @@ import configparser
 import fileWatcher
 import InfoProcess
 import dbManager
+import readRoadGPS
 
 DIRECTORY_PATH = ''
 
@@ -40,17 +41,19 @@ def readConfig():
     cf.sections()
     
     
-    dbManager.DB_HOST          = cf.get('db', 'DB_HOST')
-    dbManager.USER             = cf.get('db', 'USER')
-    dbManager.PWD              = cf.get('db', 'PWD')
-    dbManager.DATABASE         = cf.get('db', 'DATABASE')
-    DIRECTORY_PATH             = cf.get('parameter', 'DIRECTORY_PATH')
-    InfoProcess.MOVE_FILE      = cf.getboolean('rename', 'MOVE_FILE')
-    InfoProcess.RENAME_BY_EQUIP = cf.getboolean('rename', 'RENAME_BY_EQUIP')
-    InfoProcess.MOVE_FLODER    = cf.get('rename', 'MOVE_FLODER')
+    dbManager.DB_HOST              = cf.get('db', 'DB_HOST')
+    dbManager.USER                 = cf.get('db', 'USER')
+    dbManager.PWD                  = cf.get('db', 'PWD')
+    dbManager.DATABASE             = cf.get('db', 'DATABASE')
+    DIRECTORY_PATH                 = cf.get('parameter', 'DIRECTORY_PATH')
+    InfoProcess.MOVE_FILE          = cf.getboolean('rename', 'MOVE_FILE')
+    InfoProcess.RENAME_BY_EQUIP    = cf.getboolean('rename', 'RENAME_BY_EQUIP')
+    InfoProcess.MOVE_FLODER        = cf.get('rename', 'MOVE_FLODER')
     InfoProcess.CAMERA_EQUIP_FILE  = cf.get('rename', 'CAMERA_EQUIP_FILE')
     InfoProcess.USING_IMG_COMPLETE = cf.getboolean('parameter', 'USING_IMG_COMPLETE')
-    InfoProcess.TIME_WAIT_FOR_FTP = cf.getint('parameter', 'TIME_WAIT_FOR_FTP')
+    InfoProcess.TIME_WAIT_FOR_FTP  = cf.getint('parameter', 'TIME_WAIT_FOR_FTP')
+    InfoProcess.COFFEE             = cf.getfloat('parameter', 'COFFEE')
+    readRoadGPS.ROAD_GPS_FILE      = cf.get('parameter', 'ROAD_GPS_FILE')
     
     # Standardization the user input
     DIRECTORY_PATH = os.path.abspath(DIRECTORY_PATH)
@@ -80,6 +83,9 @@ def main_server():
     
     # init global variables from file config.ini 
     readConfig()
+    
+    # init roadgps
+    readRoadGPS.initRoadGPS(readRoadGPS.ROAD_GPS_FILE)
     
     # init camera_equipment_table
     read_camera_equipment()

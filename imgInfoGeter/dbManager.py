@@ -146,6 +146,7 @@ def store_pic_infos(infos):
         speedN               = infos.get('SPEED', '')
         backup1              = infos.get('DATE', '')
         picture_name         = infos.get('FILE', '')
+        road                 = infos.get('ROAD', '')
         No                   = infos.get('NO.', '0')
         No                   = str(int(No))
         
@@ -195,7 +196,7 @@ def store_pic_infos(infos):
                     recieve_picture_nums = 1
                     
                     
-                    sql = "INSERT INTO LS_pictures(camera_id, picture_name, direction, car_id, license_color, captrue_serial_num, recieve_picture_nums, " + \
+                    sql = "INSERT INTO LS_pictures(camera_id, picture_name, direction, road, car_id, license_color, captrue_serial_num, recieve_picture_nums, " + \
                                                 collect_date + ',' + \
                                                 recieve_begin_time + ',' + \
                                                 recieve_time + ',' + \
@@ -203,7 +204,7 @@ def store_pic_infos(infos):
                                                 gps_y + ',' + \
                                                 car_distance + ',' + \
                                                 speed + ',' + \
-                                                "create_time, backup1) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+                                                "create_time, backup1) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
                     logger.debug(sql)
                     
                 
@@ -212,6 +213,7 @@ def store_pic_infos(infos):
                             camera_id, 
                             picture_name,
                             direction,
+                            road, 
                             car_id, 
                             license_color, 
                             captrue_serial_num, 

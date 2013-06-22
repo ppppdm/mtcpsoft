@@ -7,6 +7,8 @@ import datetime
 import os
 import time
 
+import readRoadGPS
+
 
 #create logger
 logging.config.fileConfig("logging.conf")
@@ -28,6 +30,7 @@ BEFORE_INFO_LEN = 6
 INFO_LEN        = 89
 TOTAL_MARK_LEN  = 124
 TIME_WAIT_FOR_FTP = 60
+COFFEE = 0.0001
 
 INFO_ITMES = ['MAC', 'RTC', 'X', 'Y', 'SPEED', 
               'DIRECT', 'CAR LICENSE', 'LICENSE COLOR', 'CAR DISTENCE', 'SERIAL NUMBER', 
@@ -142,6 +145,39 @@ def rename_file(fn, infos):
     else:
         return fn
 
+def get_road_name_from_location(location):
+    road_name = ''
+    try:
+        # the location from camera should be transform from ddmm.mmmm to dd.dddddddd..
+        xd = float(location[0][:2])
+        xm = float(location[0][2:])
+        yd = float(location[1][:3])
+        ym = float(location[1][3:])
+        
+        x = xd + xm/60
+        y = yd + ym/60
+    except:
+        logger.debug('camera location value error! x:%s y:%s'%(location[0][:-1], location[1][:-1]))
+        x, y = 0, 0
+    
+    for p in readRoadGPS.ROAD_GPS_POINT_LIST:
+        try:
+            rX = float(p[0])
+            rY = float(p[1])
+        except:
+            logger.debug('road gps value error! rX:%s rY:%s'%(p[0], p[1]))
+            rX , rY = 0, 0
+        try:
+            rR = p[2]
+        except:
+            logger.debug('road gps have no name')
+            rR = ''
+        if rX - COFFEE < x and x < rX + COFFEE and rY - COFFEE < y and y < rY + COFFEE:
+            road_name = rR
+            return road_name
+    
+    return road_name
+
 def do_get_file_infos(fn):
     
     # open the file
@@ -194,6 +230,12 @@ def do_get_file_infos(fn):
     # rename the pic file
     new_fn = rename_file(fn, infos)
     infos['FILE'] = os.path.basename(new_fn)
+    
+    
+    # get road name by gps
+    location = (infos['X'], infos['Y'])
+    road_name = get_road_name_from_location(location)
+    infos['ROAD'] = road_name
     
     return infos
 
