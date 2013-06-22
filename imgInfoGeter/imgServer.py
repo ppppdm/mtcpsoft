@@ -50,6 +50,7 @@ def readConfig():
     InfoProcess.MOVE_FLODER    = cf.get('rename', 'MOVE_FLODER')
     InfoProcess.CAMERA_EQUIP_FILE  = cf.get('rename', 'CAMERA_EQUIP_FILE')
     InfoProcess.USING_IMG_COMPLETE = cf.getboolean('parameter', 'USING_IMG_COMPLETE')
+    InfoProcess.TIME_WAIT_FOR_FTP = cf.getint('parameter', 'TIME_WAIT_FOR_FTP')
     
     # Standardization the user input
     DIRECTORY_PATH = os.path.abspath(DIRECTORY_PATH)
@@ -60,6 +61,7 @@ def readConfig():
     print('watch floder :', DIRECTORY_PATH)
     print('is rename    :', InfoProcess.MOVE_FILE)
     print('rename floder:', InfoProcess.MOVE_FLODER)
+    print('time wait for ftp:', InfoProcess.TIME_WAIT_FOR_FTP)
 
 def read_camera_equipment():
     if InfoProcess.RENAME_BY_EQUIP and InfoProcess.CAMERA_EQUIP_FILE != '':

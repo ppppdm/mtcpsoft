@@ -27,6 +27,7 @@ MODIFY_LAST_BYTE_RTC = False
 BEFORE_INFO_LEN = 6
 INFO_LEN        = 89
 TOTAL_MARK_LEN  = 124
+TIME_WAIT_FOR_FTP = 60
 
 INFO_ITMES = ['MAC', 'RTC', 'X', 'Y', 'SPEED', 
               'DIRECT', 'CAR LICENSE', 'LICENSE COLOR', 'CAR DISTENCE', 'SERIAL NUMBER', 
@@ -85,6 +86,10 @@ def get_infos(f):
 
 def do_open_file(fn):
     while True:
+        # check the file content's length, if not have the infomation ,close and wait
+        if os.path.getsize(fn) < BEFORE_INFO_LEN + INFO_LEN:
+            time.sleep(EACH_WAIT_OPEN_TIME)
+            continue
         try:
             f = open(fn, 'rb')
             break;
@@ -147,7 +152,7 @@ def do_get_file_infos(fn):
     # we should sleep and wait for the file upload complete.
     
     # sleep 120 second 
-    time.sleep(5)
+    time.sleep(TIME_WAIT_FOR_FTP)
     
     isCmp = isImageComplete(f)
     print(isCmp)
