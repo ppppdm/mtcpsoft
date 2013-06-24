@@ -1,3 +1,4 @@
+# -*- coding:gbk -*-
 import tarfile
 import datetime
 import os
@@ -65,17 +66,17 @@ def delete_tmp_floder():
 
 if __name__=='__main__':
     print(WORK_PROJECT)
-    print('é€‰æ‹©ä¸€ä¸ªé¡¹ç›®ï¼Œè¾“å…¥0æˆ–1:', end = '')
+    print('Ñ¡ÔñÒ»¸öÏîÄ¿£¬ÊäÈë0»ò1:', end = '')
     op = input()
     project_name = WORK_PROJECT[int(op)]
-    print('é€‰æ‹©äº†', project_name)
+    print('Ñ¡ÔñÁË', project_name)
     print()
     
     print(CONFIG_NAME)
-    print('é€‰æ‹©ä¸€ä¸ªé…ç½®ï¼Œè¾“å…¥0æˆ–1:', end = '')
+    print('Ñ¡ÔñÒ»¸öÅäÖÃ£¬ÊäÈë0»ò1:', end = '')
     op = input()
     config_name = CONFIG_NAME[int(op)]
-    print('é€‰æ‹©äº†', config_name)
+    print('Ñ¡ÔñÁË', config_name)
     print()
     
     
@@ -87,6 +88,6 @@ if __name__=='__main__':
     
     delete_tmp_floder()
     
-    print('å®Œæˆ')
+    print('Íê³É')
 
 
