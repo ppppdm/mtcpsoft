@@ -49,6 +49,7 @@ DEFALUT_PACKAGE_CONTENT = {'HEAD':b'\xaa\x55', 'CMD':b'0', 'WORK MODE':b'0', 'SE
 COFFEE = 0.01
 IS_USE_LANES = False
 IS_USE_VALID_PERIOD = False
+DO_UPDATE = False
 
 ###################################################################################3
 def get_next_item(b_data, i, t):
@@ -312,6 +313,66 @@ def store_to_db(infos, conn, cur):
             
     return
 
+def update_to_heartbeatinfo_new(infos, conn, cur):
+    if conn and cur:
+        try:
+            gpstime = datetime.datetime.strptime(infos['GPS DATE']+infos['GPS TIME'], '%Y%m%d%H%M%S')
+        except:
+            gpstime = datetime.datetime.now()
+        
+        try:
+            mph = float(infos.get('GPS SPEED', '0'))
+        except:
+            mph = 0
+        '''
+        try:
+            hb_interval = float(infos.get('HB INTERVAL', '0'))
+        except:
+            hb_interval = 5
+        
+        try:
+            upload_num = int(infos.get('UPLOAD NUM', '0'))
+        except:
+            upload_num = 3
+        
+        try:
+            track_num  = int(infos.get('TRACK NUM', '0'))
+        except:
+            track_num = 3
+        
+        try:
+            compression_factor  = float(infos.get('COMPRESSION FACTOR', '0'))
+        except:
+            compression_factor = 3
+        '''
+        
+        camera_id    = infos.get('MAC', '')
+        gpx          = infos.get('X', '')
+        gpy          = infos.get('Y', '')
+        roadname     = infos.get('ROAD', '')
+        #direction    = infos.get('GPS DIRCT', '')
+        #car_distance = infos.get('CAR DEFAULT RANGE', '')
+        createtime   = datetime.datetime.now()
+        
+        #print(gpstime, camera_id, gpx, gpy, road, mph)
+        #myLog.mylogger.debug('%s %s %s %s %s %s', gpstime, camera_id, x, y, road, mph)
+        
+        try:
+            sql = "update tbl_heartbeatinfo_new set gpx = ?, gpy = ?, gpstime = ?, roadname = ?, mph = ?, createtime = ? where (camera_id = ?)"
+            cur.execute(sql, gpx, gpy, gpstime, roadname, mph, createtime, camera_id)
+            
+        except:
+            myLog.mylogger.error('db excute error! %s\n', infos)
+            print('db excute error!\n')
+            return
+        try:
+            conn.commit()
+            myLog.mylogger.debug('store to db success!')
+        except:
+            myLog.mylogger.error('commit error! %s\n', infos)
+            print('commit erorr!')
+    return
+
 
 # @ primary
 def process_data(b_data, dbconn, cur):
@@ -322,6 +383,10 @@ def process_data(b_data, dbconn, cur):
     
     # store to db
     store_to_db(infos, dbconn, cur)
+    
+    # update data to heartbeatinfo_new
+    if DO_UPDATE:
+        update_to_heartbeatinfo_new(infos, dbconn, cur)
     
     # encode 
     r_data = encode_return_data(infos)

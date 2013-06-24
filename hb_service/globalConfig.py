@@ -52,6 +52,7 @@ def readConfig():
     processData.COFFEE              = cf.getfloat('parameter', 'COFFEE')
     processData.IS_USE_LANES        = cf.getboolean('gpsdata', 'IS_USE_LANES')
     processData.IS_USE_VALID_PERIOD = cf.getboolean('parameter', 'IS_USE_VALID_PERIOD')
+    processData.DO_UPDATE           = cf.getboolean('parameter', 'DO_UPDATE')
     
     
     print(SERVER_PORT, DB_HOST, USER, PWD, DATABASE, ROAD_GPS_FILE)
