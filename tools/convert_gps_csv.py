@@ -1,7 +1,8 @@
+# -*- coding:gbk -*-
 import sys
 import os
 
-IN_FILE = '../res/åˆè‚¥ä¸“ç”¨é“6æœˆ20æ—¥_Point.txt.csv'
+IN_FILE = '../res/ºÏ·Ê×¨ÓÃµÀ6ÔÂ20ÈÕ_Point.txt.csv'
 OUT_FILE = '../res/roadgps.txt'
 
 if len(sys.argv) > 1:
@@ -37,7 +38,7 @@ in_f.close()
 
 
 
-print('Enter the column number of çº¬åº¦ ç»åº¦ è·¯æ®µå in input file, start from 0')
+print('Enter the column number of Î³¶È ¾­¶È Â·¶ÎÃû in input file, start from 0')
 print('Example   : 2,1,6')
 print('Enter Here: ', end='')
 
@@ -47,7 +48,7 @@ if len(cols) < 3:
     exit()
 
 
-# write to file, the file should be çº¬åº¦ï¼Œç»åº¦ï¼Œè·¯æ®µå
+# write to file, the file should be Î³¶È£¬¾­¶È£¬Â·¶ÎÃû
 try:
     s=''
     x = int(cols[0])
