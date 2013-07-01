@@ -20,6 +20,8 @@ USER = 'sa'
 PWD = 'skcl@2013'
 DATABASE = 'CDMTCP'
 
+TIME_DELTA = datetime.timedelta(0, 0, 0, 0, 1)
+
 
 def get_db_connect():
     db_conn = None
@@ -119,7 +121,7 @@ def isTheFirstOfGroup(camera_id, backup1, captrue_serial_num, collect_date):
     elif ginfo[1] < captrue_serial_num:
         groupCount[camera_id] = (ginfo[0], captrue_serial_num, collect_date)
         ret = True
-    elif (collect_date - ginfo[2] > datetime.timedelta(0, 0, 0, 0, 1)):
+    elif (collect_date - ginfo[2] > TIME_DELTA):
         groupCount[camera_id] = (backup1, captrue_serial_num, collect_date)
         ret = True
     return ret
@@ -189,6 +191,7 @@ def store_pic_infos(infos):
             cur              = db_conn.cursor()
             try:
                 if isTheFirstOfGroup(camera_id, backup1, captrue_serial_num, collect_dateN):
+                    print(picture_name, 'is the first of group')
                     # change 2013.6.1 
                     recieve_time = 'recieve_time'
                     gps_x = 'gps_x'
@@ -229,7 +232,7 @@ def store_pic_infos(infos):
                             backup1
                             ))
                 else:
-                    
+                    print(picture_name, 'is not the first of group')
                     sql = "UPDATE LS_pictures SET picture_name = picture_name + ',' + ?,recieve_picture_nums = recieve_picture_nums + 1," + \
                                                 collect_date + '=?,' + \
                                                 recieve_begin_time + '=?,' + \
@@ -238,7 +241,7 @@ def store_pic_infos(infos):
                                                 gps_y + '=?,' + \
                                                 car_distance + '=?,' + \
                                                 speed + '=?,' + \
-                                                "create_time = ? WHERE (camera_id = ?) and (backup1 = ?) and (captrue_serial_num = ?)"
+                                                "WHERE (camera_id = ?) and (backup1 = ?) and (captrue_serial_num = ?) and ( ? - create_time < ?)"
                     logger.debug(sql)
                     
                     cur.execute(sql, 
@@ -251,10 +254,11 @@ def store_pic_infos(infos):
                             gps_yN,
                             car_distanceN,
                             speedN, 
-                            create_time, 
                             camera_id, 
                             backup1, 
-                            captrue_serial_num
+                            captrue_serial_num, 
+                            create_time, 
+                            TIME_DELTA
                             ))
             except:
                 print('db execute error!')
