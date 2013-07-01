@@ -113,15 +113,19 @@ def isTheFirstOfGroup(camera_id, backup1, captrue_serial_num, collect_date):
     ret = False
     ginfo = groupCount.get(camera_id)
     if  ginfo == None:
+        print('group info none')
         groupCount[camera_id] = (backup1, captrue_serial_num, collect_date)
         ret =  True
     elif ginfo[0] < backup1:
+        print('date < group info date')
         groupCount[camera_id] = (backup1, captrue_serial_num, collect_date)
         ret = True
     elif ginfo[1] < captrue_serial_num:
+        print('num < group info num')
         groupCount[camera_id] = (ginfo[0], captrue_serial_num, collect_date)
         ret = True
     elif (collect_date - ginfo[2] > TIME_DELTA):
+        print('time - group info time > ', TIME_DELTA)
         groupCount[camera_id] = (backup1, captrue_serial_num, collect_date)
         ret = True
     return ret
@@ -241,7 +245,7 @@ def store_pic_infos(infos):
                                                 gps_y + '=?,' + \
                                                 car_distance + '=?,' + \
                                                 speed + '=?,' + \
-                                                "WHERE (camera_id = ?) and (backup1 = ?) and (captrue_serial_num = ?) and ( ? - create_time < ?)"
+                                                "create_time = ? WHERE (camera_id = ?) and (backup1 = ?) and (captrue_serial_num = ?) and ( ? - create_time < ?)"
                     logger.debug(sql)
                     
                     cur.execute(sql, 
@@ -253,12 +257,13 @@ def store_pic_infos(infos):
                             gps_xN,
                             gps_yN,
                             car_distanceN,
-                            speedN, 
+                            speedN,
+                            create_time, 
                             camera_id, 
                             backup1, 
                             captrue_serial_num, 
                             create_time, 
-                            TIME_DELTA
+                            str(TIME_DELTA)
                             ))
             except:
                 print('db execute error!')
