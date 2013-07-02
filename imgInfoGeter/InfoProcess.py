@@ -145,38 +145,46 @@ def rename_file(fn, infos):
     else:
         return fn
 
-def get_road_name_from_location(location):
-    road_name = ''
+def get_road_id_from_location(location):
+    road_id = ''
     try:
-        # the location from camera should be transform from ddmm.mmmm to dd.dddddddd..
-        xd = float(location[0][:2])
-        xm = float(location[0][2:])
-        yd = float(location[1][:3])
-        ym = float(location[1][3:])
-        
-        x = xd + xm/60
-        y = yd + ym/60
+        # the location format is ddmm.mmmm dddmm.mmmm
+        x = float(location[0])
+        y = float(location[1])
     except:
-        logger.debug('camera location value error! x:%s y:%s'%(location[0][:-1], location[1][:-1]))
+        logger.error('camera location value error! x:%s y:%s'%(location[0][:-1], location[1][:-1]))
         x, y = 0, 0
+    
+    # the unit of COFFEE is degree, the minute of mCOFFEE = 60*COFFEE
+    mCOFFEE = 60*COFFEE
     
     for p in readRoadGPS.ROAD_GPS_POINT_LIST:
         try:
             rX = float(p[0])
             rY = float(p[1])
         except:
-            logger.debug('road gps value error! rX:%s rY:%s'%(p[0], p[1]))
+            logger.error('road gps value error! rX:%s rY:%s'%(p[0], p[1]))
             rX , rY = 0, 0
         try:
-            rR = p[2]
+            rID = p[2]
         except:
-            logger.debug('road gps have no name')
-            rR = ''
-        if rX - COFFEE < x and x < rX + COFFEE and rY - COFFEE < y and y < rY + COFFEE:
-            road_name = rR
-            return road_name
+            logger.error('road gps have no name')
+            rID = ''
+        if rX - mCOFFEE < x and x < rX + mCOFFEE and rY - mCOFFEE < y and y < rY + mCOFFEE:
+            road_id = rID
+            return road_id
     
-    return road_name
+    return road_id
+
+def get_road_arcinfo_by_id(road_id):
+    if road_id == '':
+        return None
+    
+    arc_info = None
+    for i in readRoadGPS.ROAD_ARC_INFO_LIST:
+        if road_id == i[0]:
+            arc_info = i
+    return arc_info
 
 def do_get_file_infos(fn):
     
@@ -231,11 +239,15 @@ def do_get_file_infos(fn):
     new_fn = rename_file(fn, infos)
     infos['FILE'] = os.path.basename(new_fn)
     
-    
-    # get road name by gps
+    # get the road ID info if is in lanes
     location = (infos['X'], infos['Y'])
-    road_name = get_road_name_from_location(location)
-    infos['ROAD'] = road_name
+    road_id = get_road_id_from_location(location)
+    infos['ROAD_ID'] = road_id
+    
+    # get road arcinfo by road ID
+    arcinfo = get_road_arcinfo_by_id(road_id)
+    if arcinfo:
+        infos['ROAD'] = arcinfo[2]
     
     return infos
 

@@ -54,6 +54,7 @@ def readConfig():
     InfoProcess.TIME_WAIT_FOR_FTP  = cf.getint('parameter', 'TIME_WAIT_FOR_FTP')
     InfoProcess.COFFEE             = cf.getfloat('parameter', 'COFFEE')
     readRoadGPS.ROAD_GPS_FILE      = cf.get('parameter', 'ROAD_GPS_FILE')
+    readRoadGPS.ROAD_ARC_FILE      = cf.get('parameter', 'ROAD_ARC_FILE')
     
     # Standardization the user input
     DIRECTORY_PATH = os.path.abspath(DIRECTORY_PATH)
@@ -86,6 +87,9 @@ def main_server():
     
     # init roadgps
     readRoadGPS.initRoadGPS(readRoadGPS.ROAD_GPS_FILE)
+    
+    # init road arcinfo
+    readRoadGPS.initRoadArc(readRoadGPS.ROAD_ARC_FILE)
     
     # init camera_equipment_table
     read_camera_equipment()
