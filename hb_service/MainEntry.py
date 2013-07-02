@@ -17,6 +17,9 @@ if __name__=='__main__':
     # init global values from config file
     globalConfig.readConfig()
     
+    # init database
+    dbManager.init_db()
+    
     # init road data
     readRoadGPS.initRoadGPS(globalConfig.ROAD_GPS_FILE)
     
@@ -26,5 +29,3 @@ if __name__=='__main__':
     t = threading.Thread(target=remoteControlServer.Server)
     t.start()
     
-    # init database
-    dbManager.init_db()

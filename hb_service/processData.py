@@ -46,10 +46,12 @@ DEFALUT_PACKAGE_CONTENT = {'HEAD':b'\xaa\x55', 'CMD':b'0', 'WORK MODE':b'0', 'SE
                            }
 
 
-COFFEE = 0.01
+COFFEE = 0.0001
 IS_USE_LANES = False
 IS_USE_VALID_PERIOD = False
 DO_UPDATE = False
+ROAD_TIME_TYPE_Tidal = '8a9481d03f79b7d6013f7a0948310002'
+ROAD_TIME_TYPE_Daytime = '8a9481d03f79b7d6013f7a0948310003'
 
 ###################################################################################3
 def get_next_item(b_data, i, t):
@@ -60,20 +62,18 @@ def changeToFormate(data):
     data = data[0:2] + '-' + data[2:4] + '-' + data[4:6] + '-' + data[6:8] + '-' + data[8:10] + '-' + data[10:12]
     return data
 
-def get_road_name_from_location(location):
-    road_name = ''
+def get_road_id_from_location(location):
+    road_id = ''
     try:
-        # the location from camera should be transform from ddmm.mmmm to dd.dddddddd..
-        xd = float(location[0][:2])
-        xm = float(location[0][2:])
-        yd = float(location[1][:3])
-        ym = float(location[1][3:])
-        
-        x = xd + xm/60
-        y = yd + ym/60
+        # the location format is ddmm.mmmm dddmm.mmmm
+        x = float(location[0])
+        y = float(location[1])
     except:
         myLog.mylogger.error('camera location value error! x:%s y:%s'%(location[0][:-1], location[1][:-1]))
         x, y = 0, 0
+    
+    # the unit of COFFEE is degree, the minute of mCOFFEE = 60*COFFEE
+    mCOFFEE = 60*COFFEE
     
     for p in readRoadGPS.ROAD_GPS_POINT_LIST:
         try:
@@ -83,15 +83,25 @@ def get_road_name_from_location(location):
             myLog.mylogger.error('road gps value error! rX:%s rY:%s'%(p[0], p[1]))
             rX , rY = 0, 0
         try:
-            rR = p[2]
+            rID = p[2]
         except:
             myLog.mylogger.error('road gps have no name')
-            rR = ''
-        if rX - COFFEE < x and x < rX + COFFEE and rY - COFFEE < y and y < rY + COFFEE:
-            road_name = rR
-            return road_name
+            rID = ''
+        if rX - mCOFFEE < x and x < rX + mCOFFEE and rY - mCOFFEE < y and y < rY + mCOFFEE:
+            road_id = rID
+            return road_id
     
-    return road_name
+    return road_id
+
+def get_road_arcinfo_by_id(road_id):
+    if road_id == '':
+        return None
+    
+    arc_info = None
+    for i in readRoadGPS.ROAD_ARC_INFO_LIST:
+        if road_id == i[0]:
+            arc_info = i
+    return arc_info
 
 def decode_data(b_data):
     #s = ''
@@ -119,10 +129,21 @@ def decode_data(b_data):
             myLog.mylogger.error(traceback.format_exc())
         t+=item_len
     
-    # get the road name info if is in lanes
+    # get the road ID info if is in lanes
     location = (infos['X'], infos['Y'])
-    road_name = get_road_name_from_location(location)
-    infos['ROAD'] = road_name
+    road_id = get_road_id_from_location(location)
+    infos['ROAD_ID'] = road_id
+    
+    
+    # get road arcinfo by road ID
+    arcinfo = get_road_arcinfo_by_id(road_id)
+    if arcinfo:
+        infos['ROAD STATUS'] = arcinfo[1]
+        infos['ROAD'] = arcinfo[2]
+        infos['ROAD TIME_TYPE'] = arcinfo[3]
+        infos['ROAD TIME '] = arcinfo[4]
+        infos['ROAD sTIME'] = arcinfo[5]
+        infos['ROAD eTIME'] = arcinfo[6]
     
     #myLog.mylogger.debug(s)
     myLog.mylogger.debug(infos)
@@ -138,16 +159,23 @@ def is_in_lanes(location):
     
     try:
         # the location from camera should be transform from ddmm.mmmm to dd.dddddddd..
-        xd = float(location[0][:2])
-        xm = float(location[0][2:])
-        yd = float(location[1][:3])
-        ym = float(location[1][3:])
+        #xd = float(location[0][:2])
+        #xm = float(location[0][2:])
+        #yd = float(location[1][:3])
+        #ym = float(location[1][3:])
         
-        x = xd + xm/60
-        y = yd + ym/60
+        #x = xd + xm/60
+        #y = yd + ym/60
+        
+        # the location format is ddmm.mmmm dddmm.mmmm
+        x = float(location[0])
+        y = float(location[1])
     except:
         myLog.mylogger.error('camera location value error! x:%s y:%s'%(location[0][:-1], location[1][:-1]))
         x, y = 0, 0
+    
+    # the unit of COFFEE is degree, the minute of mCOFFEE = 60*COFFEE
+    mCOFFEE = 60*COFFEE
     
     for p in readRoadGPS.ROAD_GPS_POINT_LIST:
         try:
@@ -156,7 +184,7 @@ def is_in_lanes(location):
         except:
             myLog.mylogger.error('road gps value error! rX:%s rY:%s'%(p[0], p[1]))
             rX , rY = 0, 0
-        if rX - COFFEE < x and x < rX + COFFEE and rY - COFFEE < y and y < rY + COFFEE:
+        if rX - mCOFFEE < x and x < rX + mCOFFEE and rY - mCOFFEE < y and y < rY + mCOFFEE:
             print('camera in lanes')
             myLog.mylogger.debug('camera in lanes')
             return True
@@ -184,18 +212,42 @@ def is_valid_period():
     myLog.mylogger.debug('camera not in valid_period')
     return False
 
+def is_in_lanes_new(infos):
+    road_id = infos['ROAD_ID']
+    if road_id != '':
+        road_status = infos['ROAD STATUS']
+        if road_status == 0:
+            return True
+    
+    return False
+
+def is_valid_period_new(infos):
+    road_id = infos['ROAD_ID']
+    if road_id != '':
+        road_status = infos['ROAD STATUS']
+        if road_status == 0:
+            road_time_type = infos['ROAD TIME_TYPE']
+            if road_time_type == ROAD_TIME_TYPE_Tidal:
+                print(road_time_type)
+            if road_time_type == ROAD_TIME_TYPE_Daytime:
+                print(road_time_type)
+    return False
+
 def encode_return_data(infos, changed_args=dict()):
     r_data = bytearray()
     modify_items = {}
     
     # judge wether in the lanes
-    location = (infos['X'], infos['Y'])
-    if is_in_lanes(location):
+    #location = (infos['X'], infos['Y'])
+    #if is_in_lanes(location):
+    #    modify_items['IS IN LANES']=b'1'
+    
+    if is_in_lanes_new(infos):
         modify_items['IS IN LANES']=b'1'
     
     # judeg wether in valid period
-    if is_valid_period():
-        modify_items['IS IN VALID PERIOD']=b'1'
+    #if is_valid_period():
+    #    modify_items['IS IN VALID PERIOD']=b'1'
     
     # CMD
     if len(changed_args) != 0:

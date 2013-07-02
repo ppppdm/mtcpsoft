@@ -101,7 +101,7 @@ def db_connect_server():
         # release lock
         DB_CONNECT_LOCK.release()
         
-        print('total connect :', total_conn)
+        print('total db connect :', total_conn)
         if total_conn < (MAX_DB_CONNECT >> 1):
             init_db_connect_list(MAX_DB_CONNECT - total_conn)
     
