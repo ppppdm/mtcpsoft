@@ -35,7 +35,7 @@ import readRoadGPS
 
 
 def readConfig():
-    global SERVER_PORT, DB_HOST, USER, PWD, DATABASE, ROAD_GPS_FILE, TIME_UPPER_LIMIT, TIME_LOWER_LIMIT, COFFEE
+    global SERVER_PORT, DB_HOST, USER, PWD, DATABASE, ROAD_GPS_FILE, ROAD_ARC_FILE
     
     cf = configparser.ConfigParser()
     cf.read('config.ini')
@@ -47,6 +47,7 @@ def readConfig():
     PWD              = cf.get('db', 'PWD')
     DATABASE         = cf.get('db', 'DATABASE')
     ROAD_GPS_FILE    = cf.get('gpsdata', 'ROAD_GPS_FILE')
+    ROAD_ARC_FILE    = cf.get('gpsdata', 'ROAD_ARC_FILE')
     
     processData.TIME_UPPER_LIMIT    = cf.getint('parameter', 'TIME_UPPER_LIMIT')
     processData.TIME_LOWER_LIMIT    = cf.getint('parameter', 'TIME_LOWER_LIMIT')
@@ -54,7 +55,7 @@ def readConfig():
     processData.IS_USE_LANES        = cf.getboolean('gpsdata', 'IS_USE_LANES')
     processData.IS_USE_VALID_PERIOD = cf.getboolean('parameter', 'IS_USE_VALID_PERIOD')
     processData.DO_UPDATE           = cf.getboolean('parameter', 'DO_UPDATE')
-    readRoadGPS.DATA_FROM_DB        = cf.getboolean('parameter', 'DATA_FROM_DB')
+    readRoadGPS.DATA_FROM_DB        = cf.getboolean('gpsdata', 'DATA_FROM_DB')
     
     print(SERVER_PORT, DB_HOST, USER, PWD, DATABASE, ROAD_GPS_FILE)
 

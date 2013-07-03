@@ -10,12 +10,12 @@ ROAD_GPS_POINT_LIST = list()
 ROAD_ARC_INFO_LIST = list()
 
 def set_list(data_str):
-    global ROAD_GPS_POINT_LIST
+    l = list()
     coor_arr = data_str.split('\n')
     for i in coor_arr:
         point = i.split(',')
-        ROAD_GPS_POINT_LIST.append(point)
-    return
+        l.append(point)
+    return l
 
 def initRoadGPS(filename):
     global ROAD_GPS_POINT_LIST
