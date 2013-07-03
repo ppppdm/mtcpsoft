@@ -5,6 +5,7 @@ import os
 import sys
 import configparser
 import threading
+import socket
 
 import fileWatcher
 import InfoProcess
@@ -82,7 +83,23 @@ def read_camera_equipment():
         f.close()
     #print(InfoProcess.CAMERAID_EQUIPMENTID)
 
+def program_is_running():
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.bind(('localhost', 4045))
+    except Exception as e:
+        print('program bind port 4045 error')
+        print(e)
+        return True
+    
+    return False
+
 def main_server():
+    
+    # should make sure that just one imgServer run on one machine
+    if program_is_running():
+        print('Program is running')
+        return
     
     # init global variables from file config.ini 
     readConfig()
