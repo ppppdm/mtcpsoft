@@ -25,7 +25,7 @@ DATABASE = 'CDMTCP'
 
 # gpsdata
 ROAD_GPS_FILE = 'roadgps.txt'
-
+ROAD_ARC_FILE = 'arcinfo.txt'
 
 #
 import processData

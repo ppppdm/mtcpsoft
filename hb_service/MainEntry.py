@@ -21,7 +21,8 @@ if __name__=='__main__':
     dbManager.init_db()
     
     # init road data
-    readRoadGPS.initRoadGPS(globalConfig.ROAD_GPS_FILE)
+    #readRoadGPS.initRoadGPS(globalConfig.ROAD_GPS_FILE)
+    readRoadGPS.initRoadInfo()
     
     t = threading.Thread(target=heartBeatServer.Server)
     t.start()
