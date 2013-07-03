@@ -4,6 +4,7 @@
 import os
 import sys
 import configparser
+import threading
 
 import fileWatcher
 import InfoProcess
@@ -55,6 +56,7 @@ def readConfig():
     InfoProcess.COFFEE             = cf.getfloat('parameter', 'COFFEE')
     readRoadGPS.ROAD_GPS_FILE      = cf.get('parameter', 'ROAD_GPS_FILE')
     readRoadGPS.ROAD_ARC_FILE      = cf.get('parameter', 'ROAD_ARC_FILE')
+    readRoadGPS.DATA_FROM_DB       = cf.getboolean('parameter', 'DATA_FROM_DB')
     
     # Standardization the user input
     DIRECTORY_PATH = os.path.abspath(DIRECTORY_PATH)
@@ -86,10 +88,11 @@ def main_server():
     readConfig()
     
     # init roadgps
-    readRoadGPS.initRoadGPS(readRoadGPS.ROAD_GPS_FILE)
+    readRoadGPS.initRoadInfo()
     
-    # init road arcinfo
-    readRoadGPS.initRoadArc(readRoadGPS.ROAD_ARC_FILE)
+    # start road info demon
+    t = threading.Thread(target=readRoadGPS.roadInfoDaemon)
+    t.start()
     
     # init camera_equipment_table
     read_camera_equipment()
