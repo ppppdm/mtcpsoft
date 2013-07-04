@@ -246,8 +246,8 @@ def store_pic_infos(infos):
                                                 gps_x + '=?,' + \
                                                 gps_y + '=?,' + \
                                                 car_distance + '=?,' + \
-                                                speed + '=?,' + \
-                                                "create_time = ? WHERE (camera_id = ?) and (backup1 = ?) and (captrue_serial_num = ?) and ( ? - create_time < ?)"
+                                                speed + '=? ' + \
+                                                "WHERE (camera_id = ?) and (backup1 = ?) and (captrue_serial_num = ?) and ( ? - collect_date1 < ?)"
                     logger.debug(sql)
                     
                     cur.execute(sql, 
@@ -260,11 +260,10 @@ def store_pic_infos(infos):
                             gps_yN,
                             car_distanceN,
                             speedN,
-                            create_time, 
                             camera_id, 
                             backup1, 
                             captrue_serial_num, 
-                            create_time, 
+                            collect_dateN, 
                             str(TIME_DELTA)
                             ))
             except:
