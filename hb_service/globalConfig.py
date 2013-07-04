@@ -57,7 +57,11 @@ def readConfig():
     processData.DO_UPDATE           = cf.getboolean('parameter', 'DO_UPDATE')
     readRoadGPS.DATA_FROM_DB        = cf.getboolean('gpsdata', 'DATA_FROM_DB')
     
-    print(SERVER_PORT, DB_HOST, USER, PWD, DATABASE, ROAD_GPS_FILE)
+    print('SERVER_PORT:', SERVER_PORT)
+    print('DB:', DB_HOST, USER, PWD, DATABASE)
+    print('ROAD_GPS_FILE:', ROAD_GPS_FILE)
+    print('ROAD_ARC_FILE:', ROAD_ARC_FILE)
+    print('Read Config Done')
 
 if __name__=='__main__':
     readConfig()

@@ -27,7 +27,7 @@ def initRoadGPS(filename):
         ROAD_GPS_POINT_LIST = set_list(data)
         
         f.close()
-        print('read road gps done')
+        print('Read road gps from file done')
     except Exception as e:
         print(e)
 
@@ -41,7 +41,7 @@ def initRoadArc(filename):
         ROAD_ARC_INFO_LIST = set_list(data)
         
         f.close()
-        print('read road arc info done')
+        print('Read road arc info from file done')
     except Exception as e:
         print(e)
 
@@ -52,34 +52,40 @@ def read_data_from_file():
 def initRoadGPS_db(cur):
     global ROAD_GPS_POINT_LIST
     # read arcpoints
-    cur.execute("select LATITUDE, LONGITUDE, ARC_ID from t_arcpoints")
-    ROAD_GPS_POINT_LIST = cur.fetchall()
+    try:
+        cur.execute("select LATITUDE, LONGITUDE, ARC_ID from t_arcpoints")
+        ROAD_GPS_POINT_LIST = cur.fetchall()
+        return True
+    except:
+        return False
 
 def initRoadArc_db(cur):
     global ROAD_ARC_INFO_LIST
-   # read arcinfo
-    cur.execute("select ID,status,Road_Name,backup1,backup2,Limit_stime,Limit_etime from t_arcinfo")
-    ROAD_ARC_INFO_LIST = cur.fetchall()
+    # read arcinfo
+    try:
+        cur.execute("select ID,status,Road_Name,backup1,backup2,Limit_stime,Limit_etime from t_arcinfo")
+        ROAD_ARC_INFO_LIST = cur.fetchall()
+        return True
+    except:
+        return False
 
 def read_data_from_db():
-    global ROAD_GPS_POINT_LIST
-    global ROAD_ARC_INFO_LIST
     ret = False
-    conn = dbManager.get_one_db_connect()
+    conn = dbManager.get_db_connect()
     if conn:
         cur = conn.cursor()
-        # read arcpoints
-        initRoadGPS_db(cur)
-        # read arcinfo
-        initRoadArc_db(cur)
-        
-        print('read gps info from db done!')
-        ret = True
+        # read arcpoints & # read arcinfo
+        if initRoadGPS_db(cur) and initRoadArc_db(cur):
+            print('Read gps info from db done!')
+            ret = True
+        else:
+            ret = False
     
-    dbManager.close_one_db_connect(conn)
+    dbManager.close_db_connect(conn)
     return ret
 
 def initRoadInfo():
+    print('DATA_FROM_DB', DATA_FROM_DB)
     if DATA_FROM_DB:
         if read_data_from_db() != True:
             read_data_from_file()

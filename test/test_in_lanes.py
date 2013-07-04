@@ -2,7 +2,7 @@
 
 ROAD_GPS_POINT_LIST = list()
 IS_USE_LANES = True
-COFFEE = 0.0001
+COFFEE = 0.00015
 
 
 def is_in_lanes(location):
@@ -75,7 +75,7 @@ if __name__=='__main__':
     print('GPS FILE :', gps_file)
     initRoadGPS(gps_file)
     
-    locations = ('3151.8230', '11717.9183'), ('3151.8234', '11717.9199'), ('3151.8235', '11717.9211')
+    locations = ('3151.8230', '11717.9183'), ('3151.8234', '11717.9199'), ('3151.8235', '11717.9211'), ('3151.8597','11717.4541')
     for i in locations:
         print(is_in_lanes(i))
     print('done')

@@ -86,7 +86,18 @@ def close_one_db_connect(conn):
             myLog.mylogger.error(e)
     return
 
+def get_db_connect():
+    db_conn = None
+    try:
+        db_conn = pyodbc.connect('DRIVER={SQL Server}', host = DB_HOST, user = USER, password = PWD, database = DATABASE)
+    except: # not print db execption yet
+        myLog.mylogger.debug('init db got an error!')
+        print('init db got an error!')
+    return db_conn
 
+def close_db_connect(db_conn):
+    if db_conn:
+        db_conn.close()
 
 DB_REPAIR_TIME = 3600 # sec
 
