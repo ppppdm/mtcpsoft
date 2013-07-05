@@ -7,7 +7,7 @@ import threading
 # import self module
 import heartBeatServer
 import remoteControlServer
-import dbManager
+#import dbManager
 import readRoadGPS
 import globalConfig
 
@@ -18,7 +18,7 @@ if __name__=='__main__':
     globalConfig.readConfig()
     
     # init database
-    dbManager.init_db()
+    #dbManager.init_db()
     
     # init road data
     #readRoadGPS.initRoadGPS(globalConfig.ROAD_GPS_FILE)

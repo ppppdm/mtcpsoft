@@ -5,6 +5,8 @@
 
 import configparser
 
+import dbManager
+
 network_ops = ['SERVER_PORT']
 db_ops = ['DB_HOST', 'USER', 'PWD', 'DATABASE']
 gpsdata_ops = ['ROAD_GPS_FILE']
@@ -18,10 +20,10 @@ sections = {'network':network_ops, 'db':db_ops, 'gpsdata':gpsdata_ops, 'paramete
 SERVER_PORT = 44444
 
 # db
-DB_HOST = '10.20.1.200' # '210.73.152.201'
-USER = 'sa'
-PWD = 'sa'
-DATABASE = 'CDMTCP'
+#DB_HOST = '10.20.1.200' # '210.73.152.201'
+#USER = 'sa'
+#PWD = 'sa'
+#DATABASE = 'CDMTCP'
 
 # gpsdata
 ROAD_GPS_FILE = 'roadgps.txt'
@@ -35,17 +37,17 @@ import readRoadGPS
 
 
 def readConfig():
-    global SERVER_PORT, DB_HOST, USER, PWD, DATABASE, ROAD_GPS_FILE, ROAD_ARC_FILE
+    global SERVER_PORT, ROAD_GPS_FILE, ROAD_ARC_FILE
     
     cf = configparser.ConfigParser()
     cf.read('config.ini')
     cf.sections()
     
     SERVER_PORT      = cf.getint('network', 'SERVER_PORT')
-    DB_HOST          = cf.get('db', 'DB_HOST')
-    USER             = cf.get('db', 'USER')
-    PWD              = cf.get('db', 'PWD')
-    DATABASE         = cf.get('db', 'DATABASE')
+    dbManager.DB_HOST          = cf.get('db', 'DB_HOST')
+    dbManager.USER             = cf.get('db', 'USER')
+    dbManager.PWD              = cf.get('db', 'PWD')
+    dbManager.DATABASE         = cf.get('db', 'DATABASE')
     ROAD_GPS_FILE    = cf.get('gpsdata', 'ROAD_GPS_FILE')
     ROAD_ARC_FILE    = cf.get('gpsdata', 'ROAD_ARC_FILE')
     
@@ -58,7 +60,7 @@ def readConfig():
     readRoadGPS.DATA_FROM_DB        = cf.getboolean('gpsdata', 'DATA_FROM_DB')
     
     print('SERVER_PORT:', SERVER_PORT)
-    print('DB:', DB_HOST, USER, PWD, DATABASE)
+    print('DB:', dbManager.DB_HOST, dbManager.USER, dbManager.PWD, dbManager.DATABASE)
     print('ROAD_GPS_FILE:', ROAD_GPS_FILE)
     print('ROAD_ARC_FILE:', ROAD_ARC_FILE)
     print('Read Config Done')

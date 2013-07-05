@@ -6,6 +6,7 @@ import socket
 import threading
 import traceback
 import sys
+import multiprocessing 
 
 # self module
 import processData
@@ -18,8 +19,11 @@ INADDR_ANY = '0.0.0.0' # OR INADDR_ANY = ''
 HOST = INADDR_ANY # socket.gethostbyname(socket.gethostname()) #socket.INADDR_ANY
 #SERVER_PORT = 44444
 
-client_list = list()
-list_lock = threading.Lock()
+#client_list = list()
+#list_lock = threading.Lock()
+
+client_list = multiprocessing.Manager().list()
+list_lock = multiprocessing.Lock()
 
 def insert_list(id):
     list_lock.acquire()
@@ -43,7 +47,7 @@ def do_init():
     dbconn = None
     cur = None
     
-    dbconn = dbManager.get_one_db_connect()
+    dbconn = dbManager.get_db_connect()
 
     if dbconn:
         cur = dbconn.cursor()
@@ -57,7 +61,7 @@ def do_finish(dbconn, cur, sock):
     if dbconn:
         cur.close()
     
-    dbManager.close_one_db_connect(dbconn)
+    dbManager.close_db_connect(dbconn)
     
     remove_list(threading.get_ident())
     
@@ -110,8 +114,10 @@ def Server():
             conn, addr = sock.accept()
             print('connected by ', addr)
             try:
-                t = threading.Thread(target=handleConnect, args=(conn, addr))
-                t.start()
+                #t = threading.Thread(target=handleConnect, args=(conn, addr))
+                #t.start()
+                p = multiprocessing.Process(target=handleConnect, args=(conn, addr))
+                p.start()
             except RuntimeError as e:
                 print(e)
                 myLog.mylogger.error(e)
