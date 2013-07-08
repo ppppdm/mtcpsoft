@@ -4,6 +4,7 @@ import os
 
 IN_FILE = '../res/合肥专用道6月20日_Point.txt.csv'
 OUT_FILE = '../res/roadgps.txt'
+Delimiter = ','
 
 if len(sys.argv) > 1:
     IN_FILE = sys.argv[1]
@@ -12,6 +13,7 @@ if len(sys.argv) > 2:
 
 print('Input file: ', IN_FILE)
 print('Output file: ', OUT_FILE)
+print('Delimiter ', Delimiter)
 
 
 
@@ -31,7 +33,7 @@ while True:
     ss = ss.strip('\n')
     if ss == '':
         break
-    arr = ss.split(',')
+    arr = ss.split(Delimiter)
     hb_list.append(arr)
 in_f.close()
 
