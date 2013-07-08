@@ -10,7 +10,7 @@ TEMP_FLODER = 'tmp' + os.path.sep
 RELEASE_FLODER = 'release' + os.path.sep
 
 # global values
-CONFIG_NAME = ['hefei', 'chengdu']
+CONFIG_NAME = ['hefei', 'chengdu', 'nanjing']
 WORK_PROJECT = ['hb_service', 'imgInfoGeter']
 
 
