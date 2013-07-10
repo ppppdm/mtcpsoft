@@ -6,7 +6,7 @@ import socket
 import threading
 import traceback
 import sys
-import multiprocessing 
+#import multiprocessing
 
 # self module
 import processData

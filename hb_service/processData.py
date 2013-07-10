@@ -125,7 +125,7 @@ def decode_data(b_data):
             #s += item + '\t'
             infos[i] = item
         except:
-            print(traceback.format_exc())
+            #print(traceback.format_exc())
             myLog.mylogger.error(traceback.format_exc())
         t+=item_len
     
@@ -213,6 +213,10 @@ def is_valid_period():
     return False
 
 def is_in_lanes_new(infos):
+    if IS_USE_LANES == False:
+        # if not use lanes, always return true
+        return True
+    
     road_id = infos['ROAD_ID']
     if road_id != '':
         road_status = infos['ROAD STATUS']
@@ -221,16 +225,46 @@ def is_in_lanes_new(infos):
     
     return False
 
+def get_time_last(time_str):
+    time_arr = time_str.split('жа')
+    low = time_arr[0].split(':')
+    up = time_arr[1].split(':')
+    try:
+        l_time = datetime.time(int(low[0]),int(low[1]))
+        u_time = datetime.time(int(up[0]),int(up[1]))
+        return l_time,u_time
+    except:
+        l_time = datetime.time(0)
+        u_time = datetime.time(0)
+        return l_time,u_time
+
 def is_valid_period_new(infos):
+    if IS_USE_VALID_PERIOD == False:
+        # if not use valid preiod, always reutrn true
+        return True
+    
     road_id = infos['ROAD_ID']
     if road_id != '':
         road_status = infos['ROAD STATUS']
         if road_status == 0:
             road_time_type = infos['ROAD TIME_TYPE']
             if road_time_type == ROAD_TIME_TYPE_Tidal:
+                tn = datetime.datetime.now().time()
                 print(road_time_type)
+                limit_stime = infos['ROAD sTIME']
+                limit_etime = infos['ROAD eTIME']
+                lsl,lsu = get_time_last(limit_stime)
+                lel,leu = get_time_last(limit_etime)
+                if ( lsl < tn and tn < lsu) or (lel < tn and leu):
+                    return True
             if road_time_type == ROAD_TIME_TYPE_Daytime:
+                tn = datetime.datetime.now().time()
                 print(road_time_type)
+                road_time = infos['ROAD TIME']
+                rtl, rtu = get_time_last(road_time)
+                if rtl < tn and tn < rtu:
+                    return True
+                
     return False
 
 def encode_return_data(infos, changed_args=dict()):
@@ -255,9 +289,9 @@ def encode_return_data(infos, changed_args=dict()):
     
     # Server IP
     if 'SERVER IP' in changed_args:
-        modify_items['SERVER IP'] = changed_args['SERVER IP']
+        modify_items['SERVER IP'] = changed_args['SERVER IP'] # should have 15 chars
     else:
-        modify_items['SERVER IP'] = bytes(infos['SERVER IP'], 'gbk')
+        modify_items['SERVER IP'] = bytes(infos.get('SERVER IP','000.000.000.000'), 'gbk')
     
     # HB INTERVAL
     if 'HB INTERVAL' in changed_args:
