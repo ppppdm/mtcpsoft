@@ -198,7 +198,8 @@ def store_pic_infos(infos):
                 if isTheFirstOfGroup(camera_id, backup1, captrue_serial_num, collect_dateN):
                     print(picture_name, 'is the first of group')
                     # change 2013.6.1 
-                    recieve_time = 'recieve_time'
+                    if No == '1':
+                        recieve_time = 'recieve_time'
                     gps_x = 'gps_x'
                     gps_y = 'gps_y'
                     recieve_picture_nums = 1
