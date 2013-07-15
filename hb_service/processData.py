@@ -141,7 +141,7 @@ def decode_data(b_data):
         infos['ROAD STATUS'] = arcinfo[1]
         infos['ROAD'] = arcinfo[2]
         infos['ROAD TIME_TYPE'] = arcinfo[3]
-        infos['ROAD TIME '] = arcinfo[4]
+        infos['ROAD TIME'] = arcinfo[4]
         infos['ROAD sTIME'] = arcinfo[5]
         infos['ROAD eTIME'] = arcinfo[6]
     
