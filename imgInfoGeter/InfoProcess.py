@@ -34,16 +34,19 @@ COFFEE = 0.0001
 
 INFO_ITMES = ['MAC', 'RTC', 'X', 'Y', 'SPEED', 
               'DIRECT', 'CAR LICENSE', 'LICENSE COLOR', 'CAR DISTENCE', 'SERIAL NUMBER', 
-              'NO.', 'CAPTURE FALG'
+              'NO.', 'CAPTURE FALG', 'CAR LICENSE LEFT POS', 'CAR LICENSE TOP POS'
               ]
 
 INFO_ITEM_LEN = [12, 17, 10, 11, 5, 
                  2, 16, 8, 2, 4, 
-                 1, 1
+                 1, 1, 4, 4
                  ]
 
 MAX_WAIT_OPEN_TIME = 600 # second
 EACH_WAIT_OPEN_TIME = 20
+
+ROAD_TIME_TYPE_Tidal = '8a9481d03f79b7d6013f7a0948310002'
+ROAD_TIME_TYPE_Daytime = '8a9481d03f79b7d6013f7a0948310003'
 
 # read file and get info in the image
 # before the info we want there is 6 bytes file head
@@ -186,6 +189,16 @@ def get_road_arcinfo_by_id(road_id):
             arc_info = i
     return arc_info
 
+def get_forbidding_time(infos):
+    road_time_type = infos['ROAD TIME_TYPE']
+    if road_time_type == ROAD_TIME_TYPE_Tidal:
+        limit_stime = infos['ROAD sTIME']
+        limit_etime = infos['ROAD eTIME']
+        return limit_stime + ' ' + limit_etime
+    if road_time_type == ROAD_TIME_TYPE_Daytime:
+        return infos['ROAD TIME']
+    return
+
 def do_get_file_infos(fn):
     
     # open the file
@@ -247,7 +260,14 @@ def do_get_file_infos(fn):
     # get road arcinfo by road ID
     arcinfo = get_road_arcinfo_by_id(road_id)
     if arcinfo:
+        infos['ROAD STATUS'] = arcinfo[1]
         infos['ROAD'] = arcinfo[2]
+        infos['ROAD TIME_TYPE'] = arcinfo[3]
+        infos['ROAD TIME'] = arcinfo[4]
+        infos['ROAD sTIME'] = arcinfo[5]
+        infos['ROAD eTIME'] = arcinfo[6]
+        infos['FORBIDDING TIME'] = get_forbidding_time(infos)
+        
     
     return infos
 

@@ -11,12 +11,14 @@ import fileWatcher
 import InfoProcess
 import dbManager
 import readRoadGPS
+import mergeManager
 
 DIRECTORY_PATH = ''
 
 def do_process_file(fn):
     infos = do_get_file_infos(fn)
     do_store_db(infos)
+    do_merge_file(infos)
     return
 
 def do_get_file_infos(fn):
@@ -25,6 +27,10 @@ def do_get_file_infos(fn):
 
 def do_store_db(infos):
     dbManager.store_pic_infos(infos)
+    return
+
+def do_merge_file(infos):
+    mergeManager.merge_manager(infos)
     return
 
 
