@@ -1,5 +1,6 @@
 #import PIL
 #help(PIL)
+# -*- coding: gbk
 
 from PIL import Image
 from PIL import ImageDraw, ImageFont
@@ -60,10 +61,12 @@ new_img.paste(img, (a, b+delta_y, c, d+delta_y))
 new_img.paste(img, (a+c, b+delta_y, c+c, d+delta_y))
 new_img.paste(img, (a+c+c, b+delta_y, c+c+c, d+delta_y))
 
-
 draw = ImageDraw.Draw(new_img)
-font = ImageFont.truetype("arial.ttf", 200)
-draw.text((0, 0), "hello " + t + "违章地点：梅山路-安农大", font=font)
+font = ImageFont.truetype("simsun.ttc", 200)
+draw.text((0, 0), u'2013041710510982-d137-0001-3 违章地点： 方向： ', font=font)
+
+close_up_img = img.transform(img.size, Image.EXTENT, (0, 0, 1000, 1000))
+new_img.paste(close_up_img, (a+c+c+c, b+delta_y, c+c+c+c, d+delta_y))
 
 new_img.show(img)
 
