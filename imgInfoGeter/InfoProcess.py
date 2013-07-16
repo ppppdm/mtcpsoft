@@ -21,6 +21,7 @@ RENAME_BY_EQUIP = False
 CAMERAID_EQUIPMENTID = dict()
 CAMERA_EQUIP_FILE = ''
 MOVE_FLODER = os.path.abspath('../PICS/')+os.path.sep
+RENAME_BY_DATE = None
 
 USING_IMG_COMPLETE = False
 MODIFY_LAST_BYTE_RTC = False
@@ -124,6 +125,14 @@ def isImageComplete(f):
     f.seek(0)
     return ret
 
+def get_sub_path_by_date(flag):
+    if flag.upper() == 'D':
+        return datetime.date.today().isoformat()
+    elif flag.upper() == 'M':
+        return datetime.date.today().strftime('%Y-%m')
+    else:
+        return ''
+
 def rename_file(fn, infos):
     print('Is move file', MOVE_FILE)
     if MOVE_FILE:
@@ -137,6 +146,12 @@ def rename_file(fn, infos):
             date = infos['DATE'].strftime('%y%m%d%H%M%S')
             number = infos['NO.']
             new_fn = MOVE_FLODER + equipment_id + '-' + date + '-0-000000000000-00000-000-3-' + number + '.jpg'
+        elif RENAME_BY_DATE:
+            sub_path = get_sub_path_by_date(RENAME_BY_DATE)
+            rename_floder = os.path.join(MOVE_FLODER, sub_path)
+            if os.path.exists(rename_floder) == False:
+                os.mkdir(rename_floder)
+            new_fn = os.path.join(rename_floder, os.path.basename(fn))
         else:
             new_fn = MOVE_FLODER + os.path.basename(fn)
         

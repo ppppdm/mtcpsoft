@@ -58,6 +58,7 @@ def readConfig():
     InfoProcess.RENAME_BY_EQUIP    = cf.getboolean('rename', 'RENAME_BY_EQUIP')
     InfoProcess.MOVE_FLODER        = cf.get('rename', 'MOVE_FLODER')
     InfoProcess.CAMERA_EQUIP_FILE  = cf.get('rename', 'CAMERA_EQUIP_FILE')
+    InfoProcess.RENAME_BY_DATE     = cf.get('rename', 'RENAME_BY_DATE')
     InfoProcess.USING_IMG_COMPLETE = cf.getboolean('parameter', 'USING_IMG_COMPLETE')
     InfoProcess.TIME_WAIT_FOR_FTP  = cf.getint('parameter', 'TIME_WAIT_FOR_FTP')
     InfoProcess.COFFEE             = cf.getfloat('parameter', 'COFFEE')
