@@ -5,6 +5,7 @@
 # In : 3 pics of one group , info str for whole merge imgs , watermark for each imgs, close_up_para
 # Out: merged pic
 import os
+import datetime
 from PIL import Image, ImageDraw, ImageFont
 
 info_box_scale = 0.08
@@ -20,7 +21,7 @@ watermask_font = "simsun.ttc"
 def merge_pic(imgfiles, infos_str, marks, close_up_para):
     
     imgs = list()
-    
+    #print(len(imgfiles), len(marks))
     if len(imgfiles) == 0 or len(imgfiles) != len(marks):
         print('parameter error')
         return
@@ -92,6 +93,10 @@ info_items = [('设备编号：', 'MAC'),
 def calculate_delta_x_scale(distance):
     return 0.9 - distance * 0.06
 
+def formate_direction(dir):
+    return dir.replace('e', '东').replace('w', '西').replace('s', '南').replace('n', '北')
+    
+
 def merge_group_imgs(infos_list, save_path):
     if len(infos_list) != 3:
         print('infos not enough or too much for merge!')
@@ -105,14 +110,17 @@ def merge_group_imgs(infos_list, save_path):
     # get the pics file path
     for i in infos_list:
         try:
-            imgfiles.append(os.path.jion(i['FILE PATH'], i['FILE']))
+            print(i['FILE PATH'], i['FILE'])
+            f = os.path.join(i['FILE PATH'], i['FILE'])
+            imgfiles.append(f)
         except:
             print('merge not found file infos')
     
     # get the watermask info
-    for i in infos_list:
+    for infos in infos_list:
         try:
-            imgfiles.append(i['RTC'])
+            watermark = datetime.datetime.strptime(infos['RTC'], '%Y%m%d%H%M%S%f').strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
+            marks.append(watermark)
         except:
             print('merge not found RTC infos')
     
@@ -123,6 +131,10 @@ def merge_group_imgs(infos_list, save_path):
         if s == '':
             print('get '+ i[0] +' item from pic None!')
             return
+        elif i[1] == 'RTC':
+            s = datetime.datetime.strptime(infos['RTC'], '%Y%m%d%H%M%S%f').strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
+        elif i[1] == 'DIRECT':
+            s = formate_direction(s)
         infostr += i[0]+s+' '
     
     # close-up pic parameter
@@ -130,17 +142,24 @@ def merge_group_imgs(infos_list, save_path):
     license_pos = (650, 600)
     delta_x_scale = calculate_delta_x_scale(int(infos['CAR DISTENCE'])) 
     try:
-        license_pos = (infos['CAR LICENSE LEFT POS'], infos[ 'CAR LICENSE TOP POS'])
+        license_pos = (int(infos['CAR LICENSE LEFT POS']), int(infos[ 'CAR LICENSE TOP POS']))
     except:
         print('merge not found license_pos')
         # return
     
     close_up_para = [pic_num, license_pos, delta_x_scale]
     
+    #print(imgfiles)
+    #print(marks)
     new_img = merge_pic(imgfiles, infostr, marks, close_up_para)
     
     # save new_img
-    new_img.save(save_path+infos['RTC']+'-'+infos['MAC']+'-'+infos['NO.']+'.jpg')
+    if new_img:
+        if os.path.exists(save_path) == False:
+            os.mkdir(save_path)
+        new_img.save(os.path.join(save_path, infos['RTC']+'-'+infos['MAC']+'-'+infos['NO.']+'.jpg'))
+    else:
+        print('Error! No merge picture!')
 
     return
 

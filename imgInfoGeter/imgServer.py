@@ -78,6 +78,8 @@ def readConfig():
     print('is rename    :', InfoProcess.MOVE_FILE)
     print('rename floder:', InfoProcess.MOVE_FLODER)
     print('time wait for ftp:', InfoProcess.TIME_WAIT_FOR_FTP)
+    print('do merge pic :', mergeManager.DO_MERGE)
+    print('merge pic path:', mergeManager.MERGE_PICS_PATH)
 
 def read_camera_equipment():
     if InfoProcess.RENAME_BY_EQUIP and InfoProcess.CAMERA_EQUIP_FILE != '':

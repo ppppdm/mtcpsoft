@@ -45,8 +45,8 @@ INFO_ITEM_LEN = [12, 17, 10, 11, 5,
 MAX_WAIT_OPEN_TIME = 600 # second
 EACH_WAIT_OPEN_TIME = 20
 
-ROAD_TIME_TYPE_Tidal = '8a9481d03f79b7d6013f7a0948310002'
-ROAD_TIME_TYPE_Daytime = '8a9481d03f79b7d6013f7a0948310003'
+ROAD_TIME_TYPE_Tidal = '8a9481d03f79b7d6013f7a0948310003'
+ROAD_TIME_TYPE_Daytime = '8a9481d03f79b7d6013f7a0948310002'
 
 # read file and get info in the image
 # before the info we want there is 6 bytes file head
