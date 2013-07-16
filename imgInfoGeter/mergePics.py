@@ -4,7 +4,7 @@
 
 # In : 3 pics of one group , info str for whole merge imgs , watermark for each imgs, close_up_para
 # Out: merged pic
-
+import os
 from PIL import Image, ImageDraw, ImageFont
 
 info_box_scale = 0.08
@@ -105,7 +105,7 @@ def merge_group_imgs(infos_list, save_path):
     # get the pics file path
     for i in infos_list:
         try:
-            imgfiles.append(i['FILE'])
+            imgfiles.append(os.path.jion(i['FILE PATH'], i['FILE']))
         except:
             print('merge not found file infos')
     

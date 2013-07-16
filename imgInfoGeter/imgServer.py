@@ -64,6 +64,9 @@ def readConfig():
     readRoadGPS.ROAD_GPS_FILE      = cf.get('parameter', 'ROAD_GPS_FILE')
     readRoadGPS.ROAD_ARC_FILE      = cf.get('parameter', 'ROAD_ARC_FILE')
     readRoadGPS.DATA_FROM_DB       = cf.getboolean('parameter', 'DATA_FROM_DB')
+    mergeManager.DO_MERGE          = cf.getboolean('merge', 'DO_MERGE')
+    mergeManager.GROUP_PIC_NUM     = cf.getint('merge', 'GROUP_PIC_NUM')
+    mergeManager.MERGE_PICS_PATH   = cf.get('merge', 'MERGE_PICS_PATH')
     
     # Standardization the user input
     DIRECTORY_PATH = os.path.abspath(DIRECTORY_PATH)
