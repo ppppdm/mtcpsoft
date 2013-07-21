@@ -6,7 +6,11 @@
 # Out: merged pic
 import os
 import datetime
-from PIL import Image, ImageDraw, ImageFont
+try:
+    from PIL import Image, ImageDraw, ImageFont
+except:
+    print('Warning: need module PIL, should init first')
+    PIL = None
 
 info_box_scale = 0.08
 info_text_scale = 0.8
@@ -19,6 +23,10 @@ info_text_font = "simsun.ttc"
 watermask_font = "simsun.ttc"
 
 def merge_pic(imgfiles, infos_str, marks, close_up_para):
+    
+    if PIL == None:
+        print('No module PIL')
+        return
     
     imgs = list()
     #print(len(imgfiles), len(marks))
