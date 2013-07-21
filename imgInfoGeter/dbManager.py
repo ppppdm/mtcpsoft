@@ -214,7 +214,7 @@ def store_pic_infos(infos):
                                                 gps_y + ',' + \
                                                 car_distance + ',' + \
                                                 speed + ',' + \
-                                                "create_time, backup1) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+                                                "create_time, backup1) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
                     logger.debug(sql)
                     
                 
