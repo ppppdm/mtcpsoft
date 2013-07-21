@@ -157,7 +157,13 @@ def rename_file(fn, infos):
         
         old_fn = os.path.abspath(fn)
         # new file should in another directory, else will find the new file created
-        os.rename(old_fn, new_fn)
+        while True:
+            try:
+                os.rename(old_fn, new_fn)
+                break
+            except:
+                # wait for the file
+                time.sleep(10)
     
         return new_fn
     else:
