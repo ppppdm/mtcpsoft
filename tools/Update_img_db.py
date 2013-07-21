@@ -5,6 +5,7 @@
 # 与图片文件按照日期进行归类存放在子文件下 协同进行
 # 对数据库表Ls_pictures 的字段 picture_name 更新
 
+import os
 
 # ------------------------------------------- DB API ----------------------------------------------
 import pyodbc
@@ -46,6 +47,8 @@ def execute_sql(sql):
 
 SQL1 = "SELECT id, picture_name FROM LS_pictures WHERE (recieve_picture_nums IS NOT NULL);"
 SQL2 = "SELECT id, picture_name FROM LS_pictures WHERE (recieve_picture_nums IS NOT NULL) AND ( id = '597029');"
+SQL3 = "SELECT id, picture_name FROM LS_pictures WHERE (recieve_picture_nums IS NOT NULL) AND (data_direction is NULL);"
+SQL4 = "SELECT id, picture_name FROM LS_pictures WHERE (recieve_picture_nums IS NOT NULL) AND (data_direction is NULL) AND ( id = '597029');"
 
 # 日期格式化
 def formate_date(date_str):
@@ -53,13 +56,15 @@ def formate_date(date_str):
 
 # 通过旧名字获取新名字
 def get_new_name(old_name):
-    new_name = old_name
+    new_name = ''
     old_names = old_name.split(',')
     for name in old_names:
         if '/' not in name and '\\\\' not in name:
             date = name[:8]
             sec_dir = formate_date(date)
             new_name += sec_dir + '/' + name + ','
+        else:
+            return old_name
     new_name = new_name.strip(',')
     return new_name
 
@@ -76,12 +81,40 @@ def update_picture_name_db(conn, old_list):
                 print('DB execute Error!')
     return
 
+def reget_name_and_directory(old_name):
+    new_name = ''
+    dir = ''
+    old_names = old_name.split(',')
+    for name in old_names:
+        if '/' in name or '\\\\' in name:
+            new_name += os.path.basename(name) + ','
+            dir += os.path.dirname(name) + ','
+        else:
+            return old_name, '.'
+    new_name = new_name.strip(',')
+    dir = dir.strip(',')
+    return new_name, dir
+
+def reset_picture_name_and_data_direction(conn, old_list):
+    if conn:
+        cur = conn.cursor()
+        for id, pic_name in old_list:
+            new_pic_name, data_direction = reget_name_and_directory(pic_name)
+            print('new_pic_name', new_pic_name)
+            print('data_direction', data_direction)
+            try:
+                cur.execute("UPDATE LS_pictures SET picture_name = ?, data_direction = ? WHERE (id = ?);", (new_pic_name, data_direction, id))
+                cur.commit()
+            except:
+                print('DB execute Error!')
+    return
+
 if __name__=="__main__":
-    old_list = execute_sql(SQL2)
-    
+    old_list = execute_sql(SQL4)
     conn = get_db_connect()
     if conn is None:
         print('get db conn error')
         exit()
-    update_picture_name_db(conn, old_list)
+    #update_picture_name_db(conn, old_list)
+    reset_picture_name_and_data_direction(conn, old_list)
     close_db_connect(conn)
