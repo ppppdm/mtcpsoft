@@ -152,6 +152,7 @@ def store_pic_infos(infos):
         speedN               = infos.get('SPEED', '')
         backup1              = infos.get('DATE', '')
         picture_name         = infos.get('FILE', '')
+        data_direction        = infos.get('FILE SUB PATH', '')
         road                 = infos.get('ROAD', '')
         road_id              = infos.get('ROAD_ID', '')
         No                   = infos.get('NO.', '0')
@@ -205,7 +206,7 @@ def store_pic_infos(infos):
                     recieve_picture_nums = 1
                     
                     
-                    sql = "INSERT INTO LS_pictures(camera_id, picture_name, direction, road, road_id, car_id, license_color, captrue_serial_num, recieve_picture_nums, " + \
+                    sql = "INSERT INTO LS_pictures(camera_id, data_direction, picture_name, direction, road, road_id, car_id, license_color, captrue_serial_num, recieve_picture_nums, " + \
                                                 collect_date + ',' + \
                                                 recieve_begin_time + ',' + \
                                                 recieve_time + ',' + \
@@ -220,6 +221,7 @@ def store_pic_infos(infos):
                     cur.execute(sql, 
                             (
                             camera_id, 
+                            data_direction, 
                             picture_name,
                             direction,
                             road, 
@@ -240,7 +242,7 @@ def store_pic_infos(infos):
                             ))
                 else:
                     print(picture_name, 'is not the first of group')
-                    sql = "UPDATE LS_pictures SET picture_name = picture_name + ',' + ?,recieve_picture_nums = recieve_picture_nums + 1," + \
+                    sql = "UPDATE LS_pictures SET data_direction = data_direction + ',' + ?, picture_name = picture_name + ',' + ?,recieve_picture_nums = recieve_picture_nums + 1," + \
                                                 collect_date + '=?,' + \
                                                 recieve_begin_time + '=?,' + \
                                                 recieve_time+ '=?,' + \
@@ -253,6 +255,7 @@ def store_pic_infos(infos):
                     
                     cur.execute(sql, 
                             (
+                            data_direction, 
                             picture_name, 
                             collect_dateN, 
                             recieve_begin_timeN, 

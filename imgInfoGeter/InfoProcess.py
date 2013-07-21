@@ -267,6 +267,7 @@ def do_get_file_infos(fn):
     new_fn = rename_file(fn, infos)
     infos['FILE'] = os.path.basename(new_fn)
     infos['FILE PATH'] = os.path.dirname(new_fn)
+    infos['FILE SUB PATH'] = os.path.relpath(infos['FILE PATH'], MOVE_FLODER)
     
     # get the road ID info if is in lanes
     location = (infos['X'], infos['Y'])
