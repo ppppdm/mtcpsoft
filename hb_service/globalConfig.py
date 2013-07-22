@@ -32,6 +32,7 @@ ROAD_ARC_FILE = 'arcinfo.txt'
 #
 import processData
 import readRoadGPS
+import processDB
 
 
 
@@ -56,7 +57,7 @@ def readConfig():
     processData.COFFEE              = cf.getfloat('parameter', 'COFFEE')
     processData.IS_USE_LANES        = cf.getboolean('gpsdata', 'IS_USE_LANES')
     processData.IS_USE_VALID_PERIOD = cf.getboolean('parameter', 'IS_USE_VALID_PERIOD')
-    processData.DO_UPDATE           = cf.getboolean('parameter', 'DO_UPDATE')
+    processDB.DO_UPDATE           = cf.getboolean('parameter', 'DO_UPDATE')
     readRoadGPS.DATA_FROM_DB        = cf.getboolean('gpsdata', 'DATA_FROM_DB')
     
     print('SERVER_PORT:', SERVER_PORT)

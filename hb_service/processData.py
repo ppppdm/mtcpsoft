@@ -131,7 +131,10 @@ def decode_data(b_data):
         t+=item_len
     
     # get the road ID info if is in lanes
-    location = (infos['X'], infos['Y'])
+    try:
+        location = (infos['X'], infos['Y'])
+    except:
+        location = (0.0, 0.0)
     road_id = get_road_id_from_location(location)
     infos['ROAD_ID'] = road_id
     
@@ -485,22 +488,22 @@ def put_to_dbUpdater_quuee(infos):
     return
 
 # @ primary
-def process_data(b_data, dbconn, cur):
+def process_data(b_data):
     
     # decode 
     infos = decode_data(b_data)
     
     
     # store to db
-    store_to_db(infos, dbconn, cur)
+    #store_to_db(infos, dbconn, cur)
     
     # update data to heartbeatinfo_new
-    if DO_UPDATE:
+    #if DO_UPDATE:
         #update_to_heartbeatinfo_new(infos, dbconn, cur)
-        put_to_dbUpdater_quuee(infos)
+    #    put_to_dbUpdater_quuee(infos)
     
     # encode 
     r_data = encode_return_data(infos)
     
-    return r_data
+    return r_data, infos
 # 

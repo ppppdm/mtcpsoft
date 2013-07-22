@@ -13,6 +13,7 @@ import processData
 import dbManager
 import myLog
 import globalConfig
+import processDB
 
 # Global Variables
 INADDR_ANY = '0.0.0.0' # OR INADDR_ANY = ''
@@ -88,9 +89,13 @@ def handleConnect(sock, addr):
             myLog.mylogger.debug('recv %s %s %s',addr[0], addr[1], str(b_data))
             
             #¡¡process data
-            r_data  = processData.process_data(b_data, dbconn, cur)
+            r_data, infos  = processData.process_data(b_data)
             
             sock.send(r_data)
+            
+            # proecss db
+            processDB.process_db(infos, dbconn, cur)
+            
         except:
             # should not get error while print exception
             print(traceback.format_exc())
