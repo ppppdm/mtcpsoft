@@ -8,6 +8,7 @@ import datetime
 # self module
 import myLog
 import readRoadGPS
+import dbUpdater
 
 
 TIME_UPPER_LIMIT = 18
@@ -459,6 +460,27 @@ def update_to_heartbeatinfo_new(infos, conn, cur):
             print('commit erorr!')
     return
 
+def put_to_dbUpdater_quuee(infos):
+    #sql = "update tbl_heartbeatinfo_new set gpx = ?, gpy = ?, gpstime = ?, roadname = ?, mph = ?, createtime = ? where (camera_id = ?)"
+    
+    try:
+        gpstime = datetime.datetime.strptime(infos['GPS DATE']+infos['GPS TIME'], '%Y%m%d%H%M%S')
+    except:
+        gpstime = datetime.datetime.now()
+        
+    try:
+        mph = float(infos.get('GPS SPEED', '0'))
+    except:
+        mph = 0
+    
+    camera_id    = infos.get('MAC', '')
+    gpx          = infos.get('X', '')
+    gpy          = infos.get('Y', '')
+    roadname     = infos.get('ROAD', '')
+    createtime   = datetime.datetime.now()
+    
+    dbUpdater.q.put((gpx, gpy, gpstime, roadname, mph, createtime, camera_id))
+    return
 
 # @ primary
 def process_data(b_data, dbconn, cur):
@@ -472,7 +494,8 @@ def process_data(b_data, dbconn, cur):
     
     # update data to heartbeatinfo_new
     if DO_UPDATE:
-        update_to_heartbeatinfo_new(infos, dbconn, cur)
+        #update_to_heartbeatinfo_new(infos, dbconn, cur)
+        put_to_dbUpdater_quuee(infos)
     
     # encode 
     r_data = encode_return_data(infos)

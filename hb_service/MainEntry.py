@@ -10,6 +10,7 @@ import remoteControlServer
 #import dbManager
 import readRoadGPS
 import globalConfig
+import dbUpdater
 
 
 if __name__=='__main__':
@@ -28,5 +29,8 @@ if __name__=='__main__':
     t.start()
     
     t = threading.Thread(target=remoteControlServer.Server)
+    t.start()
+    
+    t = threading.Thread(target=dbUpdater.update_db_server)
     t.start()
     
