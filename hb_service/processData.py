@@ -461,7 +461,7 @@ def update_to_heartbeatinfo_new(infos, conn, cur):
     return
 
 def put_to_dbUpdater_quuee(infos):
-    sql = "update tbl_heartbeatinfo_new set gpx = ?, gpy = ?, gpstime = ?, roadname = ?, mph = ?, createtime = ? where (camera_id = ?)"
+    #sql = "update tbl_heartbeatinfo_new set gpx = ?, gpy = ?, gpstime = ?, roadname = ?, mph = ?, createtime = ? where (camera_id = ?)"
     
     try:
         gpstime = datetime.datetime.strptime(infos['GPS DATE']+infos['GPS TIME'], '%Y%m%d%H%M%S')
@@ -479,7 +479,7 @@ def put_to_dbUpdater_quuee(infos):
     roadname     = infos.get('ROAD', '')
     createtime   = datetime.datetime.now()
     
-    dbUpdater.q.put((sql, gpx, gpy, gpstime, roadname, mph, createtime, camera_id))
+    dbUpdater.q.put((gpx, gpy, gpstime, roadname, mph, createtime, camera_id))
     return
 
 # @ primary
