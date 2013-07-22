@@ -283,6 +283,8 @@ def encode_return_data(infos, changed_args=dict()):
     # judeg wether in valid period
     #if is_valid_period():
     #    modify_items['IS IN VALID PERIOD']=b'1'
+    if is_valid_period_new(infos):
+        modify_items['IS IN VALID PERIOD']=b'1'
     
     # CMD
     if len(changed_args) != 0:
