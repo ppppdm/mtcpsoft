@@ -13,7 +13,10 @@ import time
 q = queue.Queue()
 
 def update_db_server():
-    sql = "update tbl_heartbeatinfo_new set gpx = ?, gpy = ?, gpstime = ?, roadname = ?, mph = ?, createtime = ? where (camera_id = ?)"
+    if_sql = "if not exists( select * from tbl_heartbeatinfo_new where camera_id = ?)"
+    insert_sql = "insert into tbl_heartbeatinfo_new (id, camera_id, gpx, gpy, gpstime, roadname, mph, createtime) values ( newid(),?,?,?,?,?,?,?)"
+    else_sql = "else update tbl_heartbeatinfo_new set gpx = ?, gpy = ?, gpstime = ?, roadname = ?, mph = ?, createtime = ? where (camera_id = ?)"
+    sql = if_sql+insert_sql+else_sql
     conn = dbManager.get_db_connect()
     cur = conn.cursor()
     arg_list = list()
@@ -24,8 +27,12 @@ def update_db_server():
         #print('in while update db')
         for i in range(get_num):
             try:
-                arg_list.append(q.get(False))
+                gpx, gpy, gpstime, roadname, mph, createtime, camera_id = q.get(False)
                 q.task_done()
+                
+                sql_param = (camera_id, camera_id, gpx, gpy, gpstime, roadname, mph, createtime, gpx, gpy, gpstime, roadname, mph, createtime, camera_id)
+                arg_list.append(sql_param)
+                
             except queue.Empty:
                 print('empty')#
                 time_wait = (time_wait + 1) * 2
