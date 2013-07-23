@@ -51,8 +51,8 @@ COFFEE = 0.0001
 IS_USE_LANES = False
 IS_USE_VALID_PERIOD = False
 DO_UPDATE = False
-ROAD_TIME_TYPE_Tidal = '8a9481d03f79b7d6013f7a0948310002'
-ROAD_TIME_TYPE_Daytime = '8a9481d03f79b7d6013f7a0948310003'
+ROAD_TIME_TYPE_Daytime = '8a9481d03f79b7d6013f7a0948310002'
+ROAD_TIME_TYPE_Tidal= '8a9481d03f79b7d6013f7a0948310003'
 
 ###################################################################################3
 def get_next_item(b_data, i, t):
