@@ -22,7 +22,7 @@ def update_db_server():
     arg_list = list()
     print('update_db_server running')
     time_wait = 1
-    get_num =10
+    get_num =100
     while True:
         #print('in while update db')
         for i in range(get_num):
@@ -35,14 +35,12 @@ def update_db_server():
                 
             except queue.Empty:
                 print('empty')#
-                time_wait = (time_wait + 1) * 2
-                get_num = 10
+                get_num = max(5, len(arg_list))
                 break
-            
-            if time_wait > 0:
-                time_wait -= 1
-                get_num += 10
-            
+        
+        if get_num == len(arg_list):
+            get_num += 10
+        
         #print(gpx, gpy, gpstime, roadname, mph, createtime, camera_id)
         #print(arg_list)
         if len(arg_list) != 0:
