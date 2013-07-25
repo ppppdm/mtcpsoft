@@ -46,9 +46,11 @@ def update_db_server():
         if len(arg_list) != 0:
             #print(arg_list)
             try:
+                start = time.time()
                 cur.executemany(sql, arg_list)
                 conn.commit()
-                print('execute success')
+                end = time.time()
+                print('execute success, time :', end - start)
             except:
                 print('update db excute error!\n')
             arg_list.clear()
