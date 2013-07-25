@@ -20,8 +20,9 @@ USER = 'sa'
 PWD = 'skcl@2013'
 DATABASE = 'CDMTCP'
 
-TIME_DELTA = datetime.timedelta(0, 0, 0, 0, 1)
 
+
+# ---------------------------------------------- DB API --------------------------------------------------
 
 def get_db_connect():
     db_conn = None
@@ -36,7 +37,9 @@ def close_db_connect(db_conn):
     if db_conn:
         db_conn.close()
 
+# -----------------------------------------------------------------------------------------------------
 
+TIME_DELTA = datetime.timedelta(0, 0, 0, 0, 1)
 groupCount = dict()
 
 def isTheFirstOfGroup(camera_id, backup1, captrue_serial_num, collect_date):
