@@ -8,6 +8,7 @@ import datetime
 # self module
 import myLog
 import readRoadGPS
+import dbUpdater
 
 
 TIME_UPPER_LIMIT = 18
@@ -50,8 +51,8 @@ COFFEE = 0.0001
 IS_USE_LANES = False
 IS_USE_VALID_PERIOD = False
 DO_UPDATE = False
-ROAD_TIME_TYPE_Tidal = '8a9481d03f79b7d6013f7a0948310002'
-ROAD_TIME_TYPE_Daytime = '8a9481d03f79b7d6013f7a0948310003'
+ROAD_TIME_TYPE_Daytime = '8a9481d03f79b7d6013f7a0948310002'
+ROAD_TIME_TYPE_Tidal= '8a9481d03f79b7d6013f7a0948310003'
 
 ###################################################################################3
 def get_next_item(b_data, i, t):
@@ -130,7 +131,10 @@ def decode_data(b_data):
         t+=item_len
     
     # get the road ID info if is in lanes
-    location = (infos['X'], infos['Y'])
+    try:
+        location = (infos['X'], infos['Y'])
+    except:
+        location = (0.0, 0.0)
     road_id = get_road_id_from_location(location)
     infos['ROAD_ID'] = road_id
     
@@ -282,6 +286,8 @@ def encode_return_data(infos, changed_args=dict()):
     # judeg wether in valid period
     #if is_valid_period():
     #    modify_items['IS IN VALID PERIOD']=b'1'
+    if is_valid_period_new(infos):
+        modify_items['IS IN VALID PERIOD']=b'1'
     
     # CMD
     if len(changed_args) != 0:
@@ -459,23 +465,45 @@ def update_to_heartbeatinfo_new(infos, conn, cur):
             print('commit erorr!')
     return
 
+def put_to_dbUpdater_quuee(infos):
+    #sql = "update tbl_heartbeatinfo_new set gpx = ?, gpy = ?, gpstime = ?, roadname = ?, mph = ?, createtime = ? where (camera_id = ?)"
+    
+    try:
+        gpstime = datetime.datetime.strptime(infos['GPS DATE']+infos['GPS TIME'], '%Y%m%d%H%M%S')
+    except:
+        gpstime = datetime.datetime.now()
+        
+    try:
+        mph = float(infos.get('GPS SPEED', '0'))
+    except:
+        mph = 0
+    
+    camera_id    = infos.get('MAC', '')
+    gpx          = infos.get('X', '')
+    gpy          = infos.get('Y', '')
+    roadname     = infos.get('ROAD', '')
+    createtime   = datetime.datetime.now()
+    
+    dbUpdater.q.put((gpx, gpy, gpstime, roadname, mph, createtime, camera_id))
+    return
 
 # @ primary
-def process_data(b_data, dbconn, cur):
+def process_data(b_data):
     
     # decode 
     infos = decode_data(b_data)
     
     
     # store to db
-    store_to_db(infos, dbconn, cur)
+    #store_to_db(infos, dbconn, cur)
     
     # update data to heartbeatinfo_new
-    if DO_UPDATE:
-        update_to_heartbeatinfo_new(infos, dbconn, cur)
+    #if DO_UPDATE:
+        #update_to_heartbeatinfo_new(infos, dbconn, cur)
+    #    put_to_dbUpdater_quuee(infos)
     
     # encode 
     r_data = encode_return_data(infos)
     
-    return r_data
+    return r_data, infos
 # 

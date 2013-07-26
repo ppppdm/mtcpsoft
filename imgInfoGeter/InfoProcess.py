@@ -276,7 +276,10 @@ def do_get_file_infos(fn):
     infos['FILE SUB PATH'] = os.path.relpath(infos['FILE PATH'], MOVE_FLODER)
     
     # get the road ID info if is in lanes
-    location = (infos['X'], infos['Y'])
+    try:
+        location = (infos['X'], infos['Y'])
+    except:
+        location = (0.0, 0.0)
     road_id = get_road_id_from_location(location)
     infos['ROAD_ID'] = road_id
     
