@@ -130,7 +130,7 @@ def update_to_heartbeatinfo_new(infos, conn, cur):
             myLog.mylogger.error('commit error! %s\n', infos)
             print('commit erorr!')
     return
-
+'''
 def put_to_dbUpdater_quuee(infos):
     #sql = "update tbl_heartbeatinfo_new set gpx = ?, gpy = ?, gpstime = ?, roadname = ?, mph = ?, createtime = ? where (camera_id = ?)"
     
@@ -152,7 +152,7 @@ def put_to_dbUpdater_quuee(infos):
     
     dbUpdater.q.put((gpx, gpy, gpstime, roadname, mph, createtime, camera_id))
     return
-
+'''
 
 
 # @ primary
@@ -163,7 +163,7 @@ def process_db(infos, dbconn, cur):
     
     # update data to heartbeatinfo_new
     if DO_UPDATE:
-        #update_to_heartbeatinfo_new(infos, dbconn, cur)
-        put_to_dbUpdater_quuee(infos)
+        update_to_heartbeatinfo_new(infos, dbconn, cur)
+        #put_to_dbUpdater_quuee(infos)
     
     return

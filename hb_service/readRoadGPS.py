@@ -9,6 +9,7 @@ DATA_FROM_DB = False
 ROAD_GPS_POINT_LIST = list()
 ROAD_ARC_INFO_LIST = list()
 
+# ------------------------------- read data from file --------------------------
 def set_list(data_str):
     l = list()
     coor_arr = data_str.split('\n')
@@ -49,6 +50,8 @@ def read_data_from_file():
     initRoadGPS(globalConfig.ROAD_GPS_FILE)
     initRoadArc(globalConfig.ROAD_ARC_FILE)
 
+
+# ------------------------------- read data from db ----------------------------
 def initRoadGPS_db(cur):
     global ROAD_GPS_POINT_LIST
     # read arcpoints
@@ -84,6 +87,7 @@ def read_data_from_db():
     dbManager.close_db_connect(conn)
     return ret
 
+# -----------------------------------------------------------------------
 def initRoadInfo():
     print('DATA_FROM_DB', DATA_FROM_DB)
     if DATA_FROM_DB:
@@ -92,7 +96,7 @@ def initRoadInfo():
     else:
         read_data_from_file()
 
-if __name__=='__main__':
-    
-    #initRoadGPS('roadgps_hefei.txt')
-    print(ROAD_GPS_POINT_LIST)
+
+
+
+

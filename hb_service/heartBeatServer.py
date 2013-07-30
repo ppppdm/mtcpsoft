@@ -51,6 +51,7 @@ def do_init():
     dbconn = dbManager.get_db_connect()
 
     if dbconn:
+        dbconn.timeout = 2 # set sql query time out 2 secs
         cur = dbconn.cursor()
     
     insert_list(threading.get_ident())

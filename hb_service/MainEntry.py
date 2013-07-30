@@ -22,15 +22,14 @@ if __name__=='__main__':
     #dbManager.init_db()
     
     # init road data
-    #readRoadGPS.initRoadGPS(globalConfig.ROAD_GPS_FILE)
     readRoadGPS.initRoadInfo()
     
     t = threading.Thread(target=heartBeatServer.Server)
     t.start()
     
-    t = threading.Thread(target=remoteControlServer.Server)
-    t.start()
+    #t = threading.Thread(target=remoteControlServer.Server)
+    #t.start()
     
-    t = threading.Thread(target=dbUpdater.update_db_server)
-    t.start()
+    #t = threading.Thread(target=dbUpdater.update_db_server)
+    #t.start()
     

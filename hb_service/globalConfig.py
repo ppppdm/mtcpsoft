@@ -4,37 +4,15 @@
 
 
 import configparser
-
 import dbManager
-
-network_ops = ['SERVER_PORT']
-db_ops = ['DB_HOST', 'USER', 'PWD', 'DATABASE']
-gpsdata_ops = ['ROAD_GPS_FILE']
-parameter_ops = ['TIME_UPPER_LIMIT', 'TIME_LOWER_LIMIT', 'COFFEE']
-
-sections = {'network':network_ops, 'db':db_ops, 'gpsdata':gpsdata_ops, 'parameter':parameter_ops}
-
-# Global Values (default value)
-
-# network
-SERVER_PORT = 44444
-
-# db
-#DB_HOST = '10.20.1.200' # '210.73.152.201'
-#USER = 'sa'
-#PWD = 'sa'
-#DATABASE = 'CDMTCP'
-
-# gpsdata
-ROAD_GPS_FILE = 'roadgps.txt'
-ROAD_ARC_FILE = 'arcinfo.txt'
-
-#
 import processData
 import readRoadGPS
 import processDB
 
-
+# network
+SERVER_PORT = 44444
+ROAD_GPS_FILE = 'roadgps.txt'
+ROAD_ARC_FILE = 'arcinfo.txt'
 
 
 def readConfig():
