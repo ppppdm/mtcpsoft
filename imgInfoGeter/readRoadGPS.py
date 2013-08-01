@@ -97,6 +97,9 @@ def initRoadInfo():
     else:
         read_data_from_file()
 
+#---------------------------------- road info demon ----------------------------
+# This function use SQL server system table
+# if use other DB may get error here
 def get_last_update_db():
     luu = datetime.datetime(1, 1, 1)
     conn = dbManager.get_db_connect()

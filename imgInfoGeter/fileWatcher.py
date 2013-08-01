@@ -6,6 +6,10 @@ import threading
 import os
 import time
 
+
+DIRECTORY_PATH = ''
+
+
 # using Polling , can work across platform
 def watchFileChange_cross(path_to_watch, func_handle_change = None):
     before = dict ([(f, None) for f in os.listdir (path_to_watch)])
