@@ -37,7 +37,7 @@ def do_merge_file(infos):
 def handle_change(changes):
     for action, file in changes:
         parent_path = os.path.dirname(os.path.abspath(file))
-        if action == 1 and 'jpg' in file and parent_path == DIRECTORY_PATH:
+        if action == 1 and 'jpg' in file and parent_path == fileWatcher.DIRECTORY_PATH:
             print(file)
             do_process_file(file)
 
