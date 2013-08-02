@@ -7,6 +7,7 @@
 import os
 import datetime
 try:
+    import PIL
     from PIL import Image, ImageDraw, ImageFont
 except:
     print('Warning: need module PIL, should init first')

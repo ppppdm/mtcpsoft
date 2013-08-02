@@ -45,3 +45,6 @@ Debug
 
 # tmp file
 *tmp*
+
+# .idea
+.idea
