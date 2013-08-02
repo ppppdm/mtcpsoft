@@ -49,13 +49,14 @@ def store_to_db(infos, conn, cur):
         direction    = infos.get('GPS DIRCT', 'ss')
         car_distance = infos.get('CAR DEFAULT RANGE', '')
         createtime   = datetime.datetime.now()
+        road_id      = infos.get('ROAD ID','')
         
         print(gpstime, camera_id, x, y, road, mph)
         myLog.mylogger.debug('%s %s %s %s %s %s', gpstime, camera_id, x, y, road, mph)
         
         try:
-            cur.execute("INSERT INTO tbl_heartbeatinfo( ID, camera_id, gpx, gpy, gpstime, roadname, mph, createtime, direction, hb_interval, upload_num, track_num, car_distance, compression_factor) VALUES (newid(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
-                (camera_id, x, y, gpstime, road, mph, createtime, direction, hb_interval, upload_num, track_num, car_distance, compression_factor))
+            cur.execute("INSERT INTO tbl_heartbeatinfo( ID, camera_id, gpx, gpy, gpstime, roadname, mph, createtime, direction, hb_interval, upload_num, track_num, car_distance, compression_factor,road_id) VALUES (newid(),?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                (camera_id, x, y, gpstime, road, mph, createtime, direction, hb_interval, upload_num, track_num, car_distance, compression_factor,road_id))
             
         except:
             myLog.mylogger.error('db excute error! %s\n', infos)
@@ -111,13 +112,14 @@ def update_to_heartbeatinfo_new(infos, conn, cur):
         #direction    = infos.get('GPS DIRCT', '')
         #car_distance = infos.get('CAR DEFAULT RANGE', '')
         createtime   = datetime.datetime.now()
-        
+        road_id      = infos.get('ROAD ID','')
+
         #print(gpstime, camera_id, gpx, gpy, road, mph)
         #myLog.mylogger.debug('%s %s %s %s %s %s', gpstime, camera_id, x, y, road, mph)
         
         try:
-            sql = "update tbl_heartbeatinfo_new set gpx = ?, gpy = ?, gpstime = ?, roadname = ?, mph = ?, createtime = ? where (camera_id = ?)"
-            cur.execute(sql, gpx, gpy, gpstime, roadname, mph, createtime, camera_id)
+            sql = "update tbl_heartbeatinfo_new set gpx = ?, gpy = ?, gpstime = ?, roadname = ?, mph = ?, createtime = ?, road_id = ? where (camera_id = ?)"
+            cur.execute(sql, gpx, gpy, gpstime, roadname, mph, createtime, road_id, camera_id)
             
         except:
             myLog.mylogger.error('db excute error! %s\n', infos)
